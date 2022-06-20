@@ -1,18 +1,16 @@
-import React, { useContext } from 'react';
-import MyContext from './context/MyContext';
-import logo from './logo.svg';
+import React from 'react';
+import { BrowserRouter, Routes ,Route } from 'react-router-dom';
+import Register from './pages/register';
 import './App.css';
 
 function App() {
-  const { hello } = useContext(MyContext);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          { hello }
-        </p>
-      </header>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/register" element={<Register />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
