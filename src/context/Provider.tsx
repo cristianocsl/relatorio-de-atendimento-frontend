@@ -4,7 +4,7 @@ import MyContext from "./MyContext";
 type Props = { children: ReactElement | ReactElement[] };
 
 const Provider = ({ children }: Props) => {
-  const hello: string = 'Hello Word!';
+  const hello = 'Hello Word!';
 
   const context = {
     hello,
