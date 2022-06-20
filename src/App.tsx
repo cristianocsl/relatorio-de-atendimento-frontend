@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import MyContext from './context/MyContext';
-
 import logo from './logo.svg';
 import './App.css';
 
