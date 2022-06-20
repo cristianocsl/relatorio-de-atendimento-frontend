@@ -1,9 +1,9 @@
-import React, { ReactElement, FC } from "react";
+import React, { ReactElement } from "react";
 import MyContext from "./MyContext";
 
 type Props = { children: ReactElement | ReactElement[] };
 
-const Provider: FC<Props> = ({ children }) => {
+const Provider = ({ children }: Props) => {
   const hello: string = 'Hello Word!';
 
   const context = {
