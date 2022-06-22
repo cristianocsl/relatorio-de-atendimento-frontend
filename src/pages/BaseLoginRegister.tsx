@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FormEvent, useState } from "react";
 
 import {
   Box,
@@ -15,13 +15,52 @@ import {
   FormControl,
 } from '@chakra-ui/react';
 
-type MyProps = {
+type thisProps = {
   title: string,
   textButtom: string
   hidden: boolean,
 }
 
-export default function BaseComponent(props: MyProps) {
+type thisLogin = {
+  email: string,
+  password: string,
+}
+
+type thisName = {
+  name: string,
+}
+
+const BODY_REGISTER = {
+  name: '',
+  email: '',
+  password: '',
+}
+
+const BODY_LOGIN = {
+  email: '',
+  password: '',
+}
+
+export default function BaseComponent(props: thisProps) {
+  const [bodyRegister, setBodyRegister] = useState<thisLogin | thisName>(BODY_REGISTER);
+  const [bodyLogin, setBodyLogin] = useState<thisLogin>(BODY_LOGIN);
+
+  const handleChange = (event: FormEvent<HTMLInputElement>): void => {
+    const { name, value } = (event.target as HTMLInputElement);
+    if (props.title === 'Cadastro') {
+      setBodyRegister({
+        ...bodyRegister,
+        [name]: value,
+      });
+    }
+    if (props.title === 'Login') {
+      setBodyLogin({
+        ...bodyLogin,
+        [name]: value,
+      });
+    }
+  };
+
   return (
     <Box position={'relative'}>
       <Container
@@ -60,6 +99,7 @@ export default function BaseComponent(props: MyProps) {
             <Stack spacing={4}>
               <FormControl id="name">
                 <Input
+                  name="name"
                   hidden={props.hidden}
                   placeholder="Seu nome"
                   bg={'gray.100'}
@@ -68,10 +108,12 @@ export default function BaseComponent(props: MyProps) {
                   _placeholder={{
                     color: 'gray.500',
                   }}
-                />
+                  onChange={ handleChange }
+                  />
               </FormControl>
               <FormControl id="email">
                 <Input
+                  name="email"
                   placeholder="seu_email_aqui@email.com"
                   bg={'gray.100'}
                   border={0}
@@ -79,10 +121,12 @@ export default function BaseComponent(props: MyProps) {
                   _placeholder={{
                     color: 'gray.500',
                   }}
-                />
+                  onChange={ handleChange }
+                  />
               </FormControl>
               <FormControl id="password">
                 <Input
+                  name="password"
                   placeholder="digite sua senha com 6 dígitos"
                   bg={'gray.100'}
                   border={0}
@@ -90,6 +134,7 @@ export default function BaseComponent(props: MyProps) {
                   _placeholder={{
                     color: 'gray.500',
                   }}
+                  onChange={ handleChange }
                 />
               </FormControl>
             </Stack>
