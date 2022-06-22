@@ -9,8 +9,8 @@ function App() {
       <BrowserRouter>
         <Routes>
         <Route path="/" element={ <Navigate replace to="/login" /> } />
-          <Route path="/register" element={<BasePage title="Cadastro" hidden={false}/>} />
-          <Route path="/login" element={<BasePage title="Login" hidden={true}/>} />
+          <Route path="/register" element={<BasePage title="Cadastro" textButtom="Enviar" hidden={false}/>} />
+          <Route path="/login" element={<BasePage title="Login" textButtom="Entrar" hidden={true}/>} />
         </Routes>
       </BrowserRouter>
     </div>

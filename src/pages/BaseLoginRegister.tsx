@@ -17,6 +17,7 @@ import {
 
 type MyProps = {
   title: string,
+  textButtom: string
   hidden: boolean,
 }
 
@@ -102,7 +103,7 @@ export default function BaseComponent(props: MyProps) {
                 bgGradient: 'linear(to-r, red.400,pink.400)',
                 boxShadow: 'xl',
               }}>
-              { props.title }
+              { props.textButtom }
             </Button>
           </Box>
           form
