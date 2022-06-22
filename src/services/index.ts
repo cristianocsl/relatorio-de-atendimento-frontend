@@ -7,4 +7,23 @@ const axiosInstance = axios.create({
   },
 });
 
-export default axiosInstance;
+interface login {
+  email: string,
+  password: string,
+}
+
+const login = async (userData: login) => {
+  try {
+    const { data } = await axiosInstance.post('/register', userData);
+    return data;
+  } catch (err: unknown) {
+    return err;
+  }
+};
+
+const axiosServices = {
+  axiosInstance,
+  login,
+};
+
+export default axiosServices;
