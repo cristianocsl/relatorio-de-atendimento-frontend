@@ -1,4 +1,5 @@
 import React, { FormEvent, useState } from "react";
+import { thisLogin, thisName, thisProps } from '../services/types';
 
 import {
   Box,
@@ -14,21 +15,6 @@ import {
   Icon,
   FormControl,
 } from '@chakra-ui/react';
-
-type thisProps = {
-  title: string,
-  textButtom: string
-  hidden: boolean,
-}
-
-type thisLogin = {
-  email: string,
-  password: string,
-}
-
-type thisName = {
-  name: string,
-}
 
 const BODY_REGISTER = {
   name: '',
