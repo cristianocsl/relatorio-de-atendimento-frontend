@@ -1,5 +1,6 @@
 import React, { FormEvent, useEffect, useState } from 'react';
 import { thisLogin, thisName, thisProps, thisResponseLogin, thisRespRegister } from '../services/types';
+import { useNavigate } from 'react-router-dom';
 import axiosService from '../services';
 
 import {
@@ -36,6 +37,8 @@ export default function BaseComponent(props: thisProps) {
   const [responseMessage, setResponseMessage] = useState<string>('');
   const [hideAlert, setHideAlert] = useState<boolean>(true);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     const wakeUpHeroku = async () => axiosService.wakeUp();
     wakeUpHeroku();
@@ -70,13 +73,12 @@ export default function BaseComponent(props: thisProps) {
     event.preventDefault();
     if (props.title === 'Login') {
       const response = await axiosService.login(bodyLogin);
-      console.log(response);
       workingWhitError(response);
+      hideAlert && navigate('/patients');
     }
     
     if (props.title === 'Cadastro') {
       const response = await axiosService.register(bodyRegister);
-      console.log(response);
       workingWhitError(response);
     }
   };
