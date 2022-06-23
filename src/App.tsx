@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
 import BasePage from './pages/BaseLoginRegister';
+import Patients from './pages/patient';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Route path="/" element={ <Navigate replace to="/login" /> } />
           <Route path="/register" element={<BasePage title="Cadastro" textButtom="Enviar" hidden={false}/>} />
           <Route path="/login" element={<BasePage title="Login" textButtom="Entrar" hidden={true}/>} />
+          <Route path="/patients" element={ <Patients /> } />
         </Routes>
       </BrowserRouter>
     </div>
