@@ -26,9 +26,15 @@ const register = async (userData: thisLogin | thisName) => {
   }
 };
 
+const setInLocalStorage = (token: string, name: string): void => {
+  localStorage.setItem('token', JSON.stringify(token));
+  localStorage.setItem('userName', JSON.stringify(name));
+}
+
 const login = async (userData: thisLogin) => {
   try {
     const { data } = await axiosInstance.post('/login', userData);
+    setInLocalStorage(data.token, data.name);
     return data;
   } catch (err: any) {
     return err.response.data.message;
