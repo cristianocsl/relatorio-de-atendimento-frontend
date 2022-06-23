@@ -1,5 +1,6 @@
-import React, { FormEvent, useState } from "react";
-import { thisLogin, thisName, thisProps } from '../services/types';
+import React, { FormEvent, useEffect, useState } from 'react';
+import { thisLogin, thisName, thisProps, thisResponseLogin, thisRespRegister } from '../services/types';
+import axiosService from '../services';
 
 import {
   Box,
@@ -14,6 +15,8 @@ import {
   IconProps,
   Icon,
   FormControl,
+  Alert,
+  AlertIcon,
 } from '@chakra-ui/react';
 
 const BODY_REGISTER = {
@@ -30,6 +33,13 @@ const BODY_LOGIN = {
 export default function BaseComponent(props: thisProps) {
   const [bodyRegister, setBodyRegister] = useState<thisLogin | thisName>(BODY_REGISTER);
   const [bodyLogin, setBodyLogin] = useState<thisLogin>(BODY_LOGIN);
+  const [responseMessage, setResponseMessage] = useState<string>('');
+  const [hideAlert, setHideAlert] = useState<boolean>(true);
+
+  useEffect(() => {
+    const wakeUpHeroku = async () => axiosService.wakeUp();
+    wakeUpHeroku();
+  }, []);
 
   const handleChange = (event: FormEvent<HTMLInputElement>): void => {
     const { name, value } = (event.target as HTMLInputElement);
@@ -39,11 +49,35 @@ export default function BaseComponent(props: thisProps) {
         [name]: value,
       });
     }
+
     if (props.title === 'Login') {
       setBodyLogin({
         ...bodyLogin,
         [name]: value,
       });
+    }
+  };
+
+  const workingWhitError = (response: thisRespRegister & thisResponseLogin & string): void => {
+    !response.name ?
+      (
+        setResponseMessage(response as string),
+        setHideAlert(false)
+      ) : setHideAlert(true);
+  }
+
+  const handleSubmit = async(event: any) => {
+    event.preventDefault();
+    if (props.title === 'Login') {
+      const response = await axiosService.login(bodyLogin);
+      console.log(response);
+      workingWhitError(response);
+    }
+    
+    if (props.title === 'Cadastro') {
+      const response = await axiosService.register(bodyRegister);
+      console.log(response);
+      workingWhitError(response);
     }
   };
 
@@ -81,7 +115,7 @@ export default function BaseComponent(props: thisProps) {
               { props.title }
             </Heading>
           </Stack>
-          <Box as={'form'} mt={10}>
+          <Box as={'form'} mt={10} onSubmit={ handleSubmit }>
             <Stack spacing={4}>
               <FormControl id="name">
                 <Input
@@ -130,6 +164,7 @@ export default function BaseComponent(props: thisProps) {
               w={'full'}
               bgGradient="linear(to-r, red.400,pink.400)"
               color={'white'}
+              onClick={ handleSubmit }
               _hover={{
                 bgGradient: 'linear(to-r, red.400,pink.400)',
                 boxShadow: 'xl',
@@ -138,6 +173,10 @@ export default function BaseComponent(props: thisProps) {
             </Button>
           </Box>
           form
+          <Alert status="error" hidden={hideAlert}>
+            <AlertIcon />
+            { responseMessage }
+          </Alert>
         </Stack>
       </Container>
       <Blur
