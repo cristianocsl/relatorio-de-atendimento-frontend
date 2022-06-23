@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { thisLogin, thisName } from './types';
+import { thisLogin, thisName, thisPatient } from './types';
 
 const axiosInstance = axios.create({
   baseURL: 'https://minhaagendahomecare.herokuapp.com',
@@ -41,11 +41,25 @@ const login = async (userData: thisLogin) => {
   }
 };
 
+const TOKEN = JSON.parse(localStorage.getItem('token') || '');
+
+axiosInstance.defaults.headers.common.Authorization = TOKEN;
+
+const create = async (dataPatient: thisPatient) => {
+  try {
+    const { data } = await axiosInstance.post('/registerPatient', dataPatient)
+    return data;
+  } catch (err: any) {
+    return err.response.data.message;
+  }
+};
+
 const axiosServices = {
   axiosInstance,
   wakeUp,
   register,
   login,
+  create,
 };
 
 export default axiosServices;
