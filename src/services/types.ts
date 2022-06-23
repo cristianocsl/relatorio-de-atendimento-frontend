@@ -12,3 +12,15 @@ export type thisLogin = {
 export type thisName = {
   name: string,
 }
+
+export type thisResponseLogin = {
+  name: string,
+  token: string,
+}
+
+export type thisRespRegister = {
+  name: string,
+  email: string,
+  userId: string,
+  message: string,
+}
