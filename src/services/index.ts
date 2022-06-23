@@ -1,4 +1,4 @@
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import { thisLogin, thisName } from './types';
 
 const axiosInstance = axios.create({
