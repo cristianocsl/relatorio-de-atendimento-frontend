@@ -7,7 +7,7 @@ import {
   TabPanel,
   TabPanels,
 } from '@chakra-ui/react'
-import Patients from './PatientsList';
+import PatientsList from './PatientsList';
 import MyContext from '../context/MyContext';
 
 const weekDays = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
@@ -41,13 +41,13 @@ const NavBar = () => {
       </TabList>
       <TabPanels>
         <TabPanel>
-          <Patients patientsByDay={ patientsByDay } day={today}/>
+          <PatientsList patientsByDay={ patientsByDay } day={today}/>
         </TabPanel>
         {
           weekDays.map((_day, index: number) => {
             return (
               <TabPanel key={index}>
-                <Patients patientsByDay={ patientsByDay } day={index + 1}/>
+                <PatientsList patientsByDay={ patientsByDay } day={index + 1}/>
               </TabPanel>
             )
           })
