@@ -36,7 +36,11 @@ const PatientsList = () => {
                         boxShadow='base'
                         color='white'
                         bgGradient="linear(to-r, red.400,pink.400)">
-                        <Checkbox marginRight={5}>
+                        <Checkbox
+                          marginRight={5}
+                          colorScheme='red'
+                          borderColor={'red.600'}
+                          >
                           { info.patient }
                         </Checkbox>
                       </Box>
