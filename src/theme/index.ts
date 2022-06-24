@@ -29,6 +29,15 @@ const theme = extendTheme({
       body: 'Roboto',
     },
   },
+  components: {
+    Checkbox: { // can be Radio
+      baseStyle: {
+        container: {
+          touchAction: 'none',
+        },
+      },
+    },
+  },
 });
 
 export default theme;
