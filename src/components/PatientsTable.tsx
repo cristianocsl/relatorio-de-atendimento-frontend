@@ -8,19 +8,19 @@ import {
   TabPanels,
 } from '@chakra-ui/react'
 import Patients from './PatientsList';
+
+const weekDays = ['Hoje', 'Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
 const NavBar = () => {
   return (
-    <Tabs variant='soft-rounded' colorScheme='green'>
+    <Tabs
+      variant='soft-rounded'
+      colorScheme='red'
+      ml={-7}
+      mr={-7}
+      p={1}>
       <TabList>
         <Wrap justify={'center'}>
-          <Tab>Hoje</Tab>
-          <Tab>Dom</Tab>
-          <Tab>Seg</Tab>
-          <Tab>Ter</Tab>
-          <Tab>Qua</Tab>
-          <Tab>Qui</Tab>
-          <Tab>Sex</Tab>
-          <Tab>Sáb</Tab>
+          { weekDays.map((day: string) => <Tab key={ day } bgGradient="linear(to-r, red.300,purple.100)">{ day }</Tab>) }
         </Wrap>
       </TabList>
       <TabPanels>
