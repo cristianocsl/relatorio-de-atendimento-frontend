@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react'
 import Patients from './PatientsList';
 
-const weekDays = ['Hoje', 'Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+const weekDays = ['H', 'D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
 const NavBar = () => {
   return (
     <Tabs
@@ -18,9 +18,17 @@ const NavBar = () => {
       ml={-7}
       mr={-7}
       p={1}>
-      <TabList>
+      <TabList justifyContent={'center'}>
         <Wrap justify={'center'}>
-          { weekDays.map((day: string) => <Tab key={ day } bgGradient="linear(to-r, red.300,purple.100)">{ day }</Tab>) }
+          {
+            weekDays.map(
+              (day: string) => <Tab
+                key={ day }
+                bgGradient="linear(to-r, red.300,purple.100)">
+                  { day }
+                </Tab>
+            )
+          }
         </Wrap>
       </TabList>
       <TabPanels>
