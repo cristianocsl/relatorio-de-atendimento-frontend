@@ -48,3 +48,5 @@ export type thisPatient = {
   totalPrice: number,
   evolution: string,
 };
+
+export type idPatient = { _id: string };
