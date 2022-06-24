@@ -1,5 +1,6 @@
 import React, { ReactElement, useEffect, useState } from "react";
 import axiosServices from "../services";
+import { idPatient, thisPatient } from "../services/types";
 import MyContext from "./MyContext";
 
 
@@ -11,16 +12,16 @@ const Provider = ({ children }: Props) => {
     const getPatients = async () => {
       const patients = await axiosServices.get();
       setPatients(patients);
-      console.log(patients);
     };
 
     getPatients();
   }, []);
-  const hello = 'Hello Word!';
+
+  const patientsByDay = (day: number) => patients.filter((patient: thisPatient & idPatient) => patient.days.includes(day));
 
   const context = {
-    hello,
     patients,
+    patientsByDay,
   };
 
   return (
