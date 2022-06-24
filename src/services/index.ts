@@ -47,7 +47,16 @@ axiosInstance.defaults.headers.common.Authorization = TOKEN;
 
 const create = async (dataPatient: thisPatient) => {
   try {
-    const { data } = await axiosInstance.post('/registerPatient', dataPatient)
+    const { data } = await axiosInstance.post('/registerPatient', dataPatient);
+    return data;
+  } catch (err: any) {
+    return err.response.data.message;
+  }
+};
+
+const get = async () => {
+  try {
+    const { data } = await axiosInstance.get('/patients');
     return data;
   } catch (err: any) {
     return err.response.data.message;
@@ -60,6 +69,7 @@ const axiosServices = {
   register,
   login,
   create,
+  get,
 };
 
 export default axiosServices;
