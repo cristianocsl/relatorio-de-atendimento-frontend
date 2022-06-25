@@ -23,14 +23,17 @@ const NavBar = () => {
       ml={-7}
       mr={-7}
       p={1}>
-      <TabList justifyContent={'center'}>
+      <TabList justifyContent={'center'} ml={6} mr={6}>
         <Wrap justify={'center'}>
-        <Tab bgGradient="linear(to-r, red.300,purple.100)">
+        <Tab
+          bgGradient="linear(to-r, red.300,purple.100)"
+          width={'5%'}>
           H
         </Tab>
           {
             weekDays.map(
               (day: string, index: number) => <Tab
+                width={'5%'}
                 key={ index }
                 bgGradient="linear(to-r, red.300,purple.100)">
                   { day }
