@@ -41,7 +41,7 @@ const login = async (userData: thisLogin) => {
   }
 };
 
-const TOKEN = JSON.parse(localStorage.getItem('token') || '');
+const TOKEN = localStorage.getItem('token') || '';
 
 axiosInstance.defaults.headers.common.Authorization = TOKEN;
 
