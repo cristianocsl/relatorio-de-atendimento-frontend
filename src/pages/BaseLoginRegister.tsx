@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect, useState } from 'react';
+import React, { FormEvent, useContext, useEffect, useState } from 'react';
 import { thisLogin, thisName, thisProps, thisResponseLogin, thisRespRegister } from '../services/types';
 import { useNavigate } from 'react-router-dom';
 import axiosService from '../services';
@@ -19,6 +19,7 @@ import {
   Alert,
   AlertIcon,
 } from '@chakra-ui/react';
+import MyContext from '../context/MyContext';
 
 const BODY_REGISTER = {
   name: '',
@@ -38,6 +39,7 @@ export default function BaseComponent(props: thisProps) {
   const [hideAlert, setHideAlert] = useState<boolean>(true);
 
   const navigate = useNavigate();
+  const { setIsLoggedIn } = useContext(MyContext);
 
   useEffect(() => {
     const wakeUpHeroku = async () => axiosService.wakeUp();
@@ -66,7 +68,7 @@ export default function BaseComponent(props: thisProps) {
       (
         setResponseMessage(response as string),
         setHideAlert(false)
-      ) : setHideAlert(true);
+      ) : setIsLoggedIn(true), setHideAlert(true);
   }
 
   const handleSubmit = async(event: any) => {
