@@ -6,11 +6,11 @@ import {
   TabList,
   TabPanel,
   TabPanels,
-  CircularProgress,
 } from '@chakra-ui/react'
 import PatientsList from './PatientsList';
 import MyContext from '../context/MyContext';
 import { useNavigate } from 'react-router-dom';
+import IsLoading from './IsLoading';
 
 const weekDays = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
 const PatientsTable = () => {
@@ -19,7 +19,7 @@ const PatientsTable = () => {
   const navigate = useNavigate();
 
   const TOKEN = localStorage.getItem('token');
-  
+
   useEffect(() => {
     if (!TOKEN) {
       navigate('/login');
@@ -29,7 +29,7 @@ const PatientsTable = () => {
 
   const today = new Date().getDay() + 1;
 
-  if (isLoading) return <CircularProgress isIndeterminate color='green.300' width={'100%'} />;
+  if (isLoading) return <IsLoading />;
   return (
     <Tabs
       variant='soft-rounded'
