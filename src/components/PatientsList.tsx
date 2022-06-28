@@ -12,16 +12,16 @@ import { Props } from 'framer-motion/types/types';
 import { thisPatient, idPatient } from '../services/types';
 
 const PatientsList = (props: Props) => {
-  const { patientsByDay, day } = props;
+  const { filterPatientsByDay, day } = props;
 
-  const patients = patientsByDay(day);
-  
+  const patientsByDay = filterPatientsByDay(day);
+
   return (
     <TableContainer>
       <Table>
         <Tbody>
           {
-            patients.map((info: thisPatient & idPatient) => {
+            patientsByDay.map((info: thisPatient & idPatient) => {
               return (
                 <Tr key={info._id}>
                   <Td>
