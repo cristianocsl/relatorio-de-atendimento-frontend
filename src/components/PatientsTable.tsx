@@ -18,13 +18,14 @@ const PatientsTable = () => {
 
   const navigate = useNavigate();
 
+  const TOKEN = localStorage.getItem('token');
+  
   useEffect(() => {
     if (!TOKEN) {
       navigate('/login');
     }
   }, []);
 
-  const TOKEN = localStorage.getItem('token');
 
   const today = new Date().getDay() + 1;
 
