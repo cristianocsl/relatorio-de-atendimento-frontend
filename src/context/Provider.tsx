@@ -3,29 +3,45 @@ import axiosServices from "../services";
 import { idPatient, thisPatient } from "../services/types";
 import MyContext from "./MyContext";
 
-
 type Props = { children: ReactElement | ReactElement[] };
 
 const Provider = ({ children }: Props) => {
   const [patients, setPatients] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  
   useEffect(() => {
+    axiosServices.setTokenInAxiosInstance();
+    setIsLoading(false);
+  }, []);
+  
+  
+  useEffect(() => {
+    const TOKEN = localStorage.getItem('token');
+
     const getPatients = async () => {
-      if (isLoggedIn) {
+      if (isLoggedIn || TOKEN) {
         const patients = await axiosServices.get();
         setPatients(patients);
+        setIsLoading(false);
       }
     };
 
     getPatients();
   }, [isLoggedIn]);
 
-  const patientsByDay = (day: number) => patients.filter((patient: thisPatient & idPatient) => patient.days.includes(day));
+  const filterPatientsByDay = (day: number) => {
+    return patients.filter((patient: thisPatient & idPatient) => patient.days.includes(day));
+  }
 
   const context = {
     patients,
-    patientsByDay,
+    filterPatientsByDay,
     setIsLoggedIn,
+    isLoggedIn,
+    setIsLoading,
+    isLoading,
   };
 
   return (
