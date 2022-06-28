@@ -68,7 +68,7 @@ export default function BaseComponent(props: thisProps) {
       (
         setResponseMessage(response as string),
         setHideAlert(false)
-      ) : setIsLoggedIn(true), setHideAlert(true);
+      ) : setHideAlert(true), setIsLoggedIn(true);
   }
 
   const handleSubmit = async(event: any) => {
