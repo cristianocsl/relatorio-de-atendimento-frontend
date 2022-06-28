@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import {
   Wrap,
   Tabs,
@@ -6,16 +6,29 @@ import {
   TabList,
   TabPanel,
   TabPanels,
+  CircularProgress,
 } from '@chakra-ui/react'
 import PatientsList from './PatientsList';
 import MyContext from '../context/MyContext';
+import { useNavigate } from 'react-router-dom';
 
 const weekDays = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
-const NavBar = () => {
-  const { patientsByDay } = useContext(MyContext);
+const PatientsTable = () => {
+  const { filterPatientsByDay, isLoading } = useContext(MyContext);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!TOKEN) {
+      navigate('/login');
+    }
+  }, []);
+
+  const TOKEN = localStorage.getItem('token');
 
   const today = new Date().getDay() + 1;
-  
+
+  if (isLoading) return <CircularProgress isIndeterminate color='green.300' width={'100%'} />;
   return (
     <Tabs
       variant='soft-rounded'
@@ -44,13 +57,13 @@ const NavBar = () => {
       </TabList>
       <TabPanels>
         <TabPanel>
-          <PatientsList patientsByDay={ patientsByDay } day={today}/>
+          <PatientsList filterPatientsByDay={ filterPatientsByDay } day={today}/>
         </TabPanel>
         {
           weekDays.map((_day, index: number) => {
             return (
               <TabPanel key={index}>
-                <PatientsList patientsByDay={ patientsByDay } day={index + 1}/>
+                <PatientsList filterPatientsByDay={ filterPatientsByDay } day={index + 1}/>
               </TabPanel>
             )
           })
@@ -60,4 +73,4 @@ const NavBar = () => {
   );
 }
 
-export default NavBar;
+export default PatientsTable;
