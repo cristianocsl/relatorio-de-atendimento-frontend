@@ -31,19 +31,23 @@ const setInLocalStorage = (token: string, name: string): void => {
   localStorage.setItem('userName', JSON.stringify(name));
 }
 
+const setTokenInAxiosInstance = () => {
+  if (localStorage.getItem('token')) {
+    const TOKEN = JSON.parse(localStorage.getItem('token') || '');
+    axiosInstance.defaults.headers.common.Authorization = TOKEN;
+  }
+}
+
 const login = async (userData: thisLogin) => {
   try {
     const { data } = await axiosInstance.post('/login', userData);
     setInLocalStorage(data.token, data.name);
+    setTokenInAxiosInstance();
     return data;
   } catch (err: any) {
     return err.response.data.message;
   }
 };
-
-const TOKEN = JSON.parse(localStorage.getItem('token') || '');
-
-axiosInstance.defaults.headers.common.Authorization = TOKEN;
 
 const create = async (dataPatient: thisPatient) => {
   try {
@@ -63,6 +67,20 @@ const get = async () => {
   }
 };
 
+axiosInstance.interceptors.response.use((config) => {
+    try {
+      const TOKEN = localStorage.getItem('token');
+      if (TOKEN) {
+        axiosInstance.defaults.headers.common.Authorization = JSON.parse(TOKEN);
+      }
+      
+      return config;
+    } catch (err) {
+      console.log(err);
+    }
+  },
+);
+
 const axiosServices = {
   axiosInstance,
   wakeUp,
@@ -70,6 +88,8 @@ const axiosServices = {
   login,
   create,
   get,
+  // runInterceptor,
+  setTokenInAxiosInstance,
 };
 
 export default axiosServices;
