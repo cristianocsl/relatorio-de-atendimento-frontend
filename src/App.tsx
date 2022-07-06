@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
+import AddPatient from './components/AddPatient';
 import PatientsTable from './components/PatientsTable';
 import BasePage from './pages/BaseLoginRegister';
 
@@ -14,6 +15,7 @@ function App() {
           <Route path="/register" element={<BasePage title="Cadastro" textButtom="Enviar" hidden={false}/>} />
           <Route path="/login" element={<BasePage title="Login" textButtom="Entrar" hidden={true}/>} />
           <Route path="/patients" element={ <PatientsTable /> } />
+          <Route path="/addPatient" element={ <AddPatient /> } />
         </Routes>
       </BrowserRouter>
     </div>

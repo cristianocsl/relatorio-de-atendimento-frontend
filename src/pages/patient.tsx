@@ -1,12 +1,13 @@
 import axiosService from '../services';
 import React from 'react';
+import PatientsTable from '../components/PatientsTable';
 
 const payload = {
-  patient: 'Maria 2',
+  patient: 'sábado',
   neighborhood: 'Farol',
   status: 'Ativo',
   priority: 'Urgente',
-  days: [1, 4],
+  days: [7],
   serviceGoal: {
     weekly: 3,
     monthly: 12,
@@ -30,10 +31,11 @@ const Patients = () => {
   }
   return (
     <div>
+      <PatientsTable />
       PÁGINA DE PACIENTES CADASTRADOS
       <button
         type='button'
-        onClick={ send }
+        onClick={ () => send() }
       >CRIAR</button>
     </div>
   )

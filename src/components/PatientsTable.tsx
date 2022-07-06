@@ -81,7 +81,7 @@ const PatientsTable = () => {
         justifyContent={'center'}
         width={'100%'}
       >
-        <AddCircleRoundedIcon sx={{ fontSize: 50}} />
+        <AddCircleRoundedIcon sx={{ fontSize: 50}} onClick={ () => navigate('/addPatient') } />
       </Flex>
     </Box>
   );
