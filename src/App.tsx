@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import './App.css';
 import AddPatient from './components/AddPatient';
 import PatientsTable from './components/PatientsTable';
 import BasePage from './pages/BaseLoginRegister';
@@ -8,7 +7,7 @@ import BasePage from './pages/BaseLoginRegister';
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <BrowserRouter>
         <Routes>
         <Route path="/" element={ <Navigate replace to="/login" /> } />
