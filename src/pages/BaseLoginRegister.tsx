@@ -39,6 +39,8 @@ export default function BaseComponent(props: thisProps) {
   const [responseMessage, setResponseMessage] = useState<string>('');
   const [hideAlert, setHideAlert] = useState<boolean>(true);
 
+  console.log(responseMessage);
+
   const navigate = useNavigate();
   const { setIsLoggedIn } = useContext(MyContext);
 
@@ -77,7 +79,7 @@ export default function BaseComponent(props: thisProps) {
     if (props.title === 'Login') {
       const response = await axiosService.login(bodyLogin);
       workingWhitError(response);
-      hideAlert && navigate('/patients');
+      response.name && navigate('/patients');
     }
     
     if (props.title === 'Cadastro') {
