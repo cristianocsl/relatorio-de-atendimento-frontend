@@ -99,7 +99,7 @@ export default function BaseComponent(props: thisProps) {
         <Stack spacing={{ base: 10, md: 20 }}>
           <Heading
             bgClip={'text'}
-            bgGradient="linear-gradient(90deg, #032F3F 11.62%, rgba(61, 130, 153, 0.8) 113.13%)"
+            bgGradient="linear-gradient(90deg, wine.8 11.62%, wine.4 113.13%)"
             marginTop={{ base: 20, md: 0 }}
             lineHeight={1.1}
             fontSize={{ base: '3xl', sm: '4xl', md: '5xl', lg: '6xl' }}
@@ -132,7 +132,7 @@ export default function BaseComponent(props: thisProps) {
                   name="name"
                   hidden={props.hidden}
                   placeholder="Seu nome"
-                  bg={'green.5'}
+                  bg={'green.1'}
                   border={0}
                   color={'green.5'}
                   _placeholder={{
@@ -190,39 +190,14 @@ export default function BaseComponent(props: thisProps) {
           </Alert>
         </Stack>
       </Container>
-      <Blur
-        position={'absolute'}
-        top={-10}
-        left={-10}
-        style={{ filter: 'blur(70px)' }}
-      />
-
-      {/* <Image
+      
+      <Image
         src={'background2.png'}
         alt="background"
-        // position={'absolute'}
-      /> */}
+        position={'absolute'}
+        zIndex={-1}
+        bottom={'-200px'}
+      />
     </Box>
   );
 }
-
-export const Blur = (props: IconProps) => {
-  return (
-    <Icon
-      width={useBreakpointValue({ base: '100%', md: '40vw', lg: '30vw' })}
-      zIndex={useBreakpointValue({ base: -1, md: -1, lg: 0 })}
-      height="560px"
-      viewBox="0 0 528 560"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      {...props}>
-      <circle cx="71" cy="61" r="111" fill="#F56565" />
-      <circle cx="244" cy="106" r="139" fill="#ED64A6" />
-      <circle cy="291" r="139" fill="#ED64A6" />
-      <circle cx="80.5" cy="189.5" r="101.5" fill="#ED8936" />
-      <circle cx="196.5" cy="317.5" r="101.5" fill="#ECC94B" />
-      <circle cx="70.5" cy="458.5" r="101.5" fill="#48BB78" />
-      <circle cx="426.5" cy="-0.5" r="101.5" fill="#4299E1" />
-    </Icon>
-  );
-};
