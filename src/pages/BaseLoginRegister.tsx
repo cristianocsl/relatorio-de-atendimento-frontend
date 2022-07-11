@@ -87,7 +87,7 @@ export default function BaseComponent(props: thisProps) {
   };
 
   return (
-    <Box position={'relative'}>
+    <Box position={'relative'} height={'100vh'}>
       <Container
         as={SimpleGrid}
         maxW={'7xl'}
@@ -192,11 +192,14 @@ export default function BaseComponent(props: thisProps) {
       </Container>
       
       <Image
+        display={{ base: 'block', ssm: 'block', smm: 'none' }}
         src={'background2.png'}
         alt="background"
         position={'absolute'}
         zIndex={-1}
-        bottom={'-200px'}
+        bottom={'0%'}
+        left={'50%'}
+        transform={'translate(-50%, 0%)'}
       />
     </Box>
   );
