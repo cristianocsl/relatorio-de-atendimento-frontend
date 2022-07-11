@@ -18,6 +18,7 @@ import {
   FormControl,
   Alert,
   AlertIcon,
+  Image,
 } from '@chakra-ui/react';
 import MyContext from '../context/MyContext';
 
@@ -92,13 +93,17 @@ export default function BaseComponent(props: thisProps) {
         maxW={'7xl'}
         columns={{ base: 1, md: 2 }}
         spacing={{ base: 10, lg: 32 }}
-        py={{ base: 10, sm: 20, lg: 32 }}>
+        py={{ base: 10, sm: 20, lg: 32 }}
+      >
 
         <Stack spacing={{ base: 10, md: 20 }}>
           <Heading
+            bgClip={'text'}
+            bgGradient="linear-gradient(90deg, #032F3F 11.62%, rgba(61, 130, 153, 0.8) 113.13%)"
             marginTop={{ base: 20, md: 0 }}
             lineHeight={1.1}
-            fontSize={{ base: '3xl', sm: '4xl', md: '5xl', lg: '6xl' }}>
+            fontSize={{ base: '3xl', sm: '4xl', md: '5xl', lg: '6xl' }}
+          >
             Minha Agenda
             <Text fontWeight={'bold'}>
               Home Care
@@ -110,10 +115,11 @@ export default function BaseComponent(props: thisProps) {
           rounded={'xl'}
           p={{ base: 4, sm: 6, md: 8 }}
           spacing={{ base: 8 }}
+          bgGradient="linear-gradient(180deg, green.3 0%, green.7 100%)"
           maxW={{ lg: 'lg' }}>
           <Stack spacing={4}>
             <Heading
-              color={'gray.800'}
+              color={'green.9'}
               lineHeight={1.1}
               fontSize={{ base: '2xl', sm: '3xl', md: '4xl' }}>
               { props.title }
@@ -126,11 +132,11 @@ export default function BaseComponent(props: thisProps) {
                   name="name"
                   hidden={props.hidden}
                   placeholder="Seu nome"
-                  bg={'gray.100'}
+                  bg={'green.5'}
                   border={0}
-                  color={'gray.500'}
+                  color={'green.5'}
                   _placeholder={{
-                    color: 'gray.500',
+                    color: 'green.5',
                   }}
                   onChange={ handleChange }
                   />
@@ -139,11 +145,11 @@ export default function BaseComponent(props: thisProps) {
                 <Input
                   name="email"
                   placeholder="seu_email_aqui@email.com"
-                  bg={'gray.100'}
+                  bg={'green.1'}
                   border={0}
-                  color={'gray.500'}
+                  color={'green.5'}
                   _placeholder={{
-                    color: 'gray.500',
+                    color: 'green.5',
                   }}
                   onChange={ handleChange }
                   />
@@ -152,11 +158,11 @@ export default function BaseComponent(props: thisProps) {
                 <Input
                   name="password"
                   placeholder="digite sua senha com 6 dígitos"
-                  bg={'gray.100'}
+                  bg={'green.1'}
                   border={0}
-                  color={'gray.500'}
+                  color={'green.5'}
                   _placeholder={{
-                    color: 'gray.500',
+                    color: 'green.5',
                   }}
                   onChange={ handleChange }
                 />
@@ -166,11 +172,12 @@ export default function BaseComponent(props: thisProps) {
               fontFamily={'heading'}
               mt={8}
               w={'full'}
-              bgGradient="linear(to-r, red.400,pink.400)"
-              color={'white'}
+              bg="wine.8"
+              color={'wine.1'}
               onClick={ handleSubmit }
               _hover={{
-                bgGradient: 'linear(to-r, red.400,pink.400)',
+                bg: 'green.3',
+                color: 'wine.8',
                 boxShadow: 'xl',
               }}>
               { props.textButtom }
@@ -189,6 +196,12 @@ export default function BaseComponent(props: thisProps) {
         left={-10}
         style={{ filter: 'blur(70px)' }}
       />
+
+      {/* <Image
+        src={'background2.png'}
+        alt="background"
+        // position={'absolute'}
+      /> */}
     </Box>
   );
 }
