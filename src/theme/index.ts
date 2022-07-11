@@ -29,7 +29,8 @@ const theme = extendTheme({
       3: '#E9C2AE',
       4: '#D4A790',
       5: '#B9876E'
-    }
+    },
+    warning: '#9D0400',
   },
   breakpoints: {
     sm: '391px',
