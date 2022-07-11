@@ -44,11 +44,15 @@ const theme = extendTheme({
   styles: {
     global: {
       body: {
-        bg: 'linear-gradient(180deg, #A9DBEC 49.48%, #114B5F 100%)',
+        height: '100vh',
+        margin: '0px',
+        bg: 'linear-gradient(180deg, #A9DBEC 49.48%, #114B5F 100%) fixed',
         color: 'black',
         textAlign: 'center',
-        height: '100vh',
       },
+      html: {
+        height: '100vh',
+      }
     },
     fonts: {
       heading: 'Roboto',
