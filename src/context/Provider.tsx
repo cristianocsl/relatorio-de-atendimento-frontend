@@ -7,6 +7,7 @@ type Props = { children: ReactElement | ReactElement[] };
 
 const Provider = ({ children }: Props) => {
   const [patients, setPatients] = useState([]);
+  const [finances, setFinances] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -19,11 +20,12 @@ const Provider = ({ children }: Props) => {
   
   useEffect(() => {
     const TOKEN = localStorage.getItem('token');
-
+    
     const getPatients = async () => {
       if (isLoggedIn || TOKEN) {
-        const patients = await axiosServices.get();
+        const { patients, finances} = await axiosServices.get();
         setPatients(patients);
+        setFinances(finances);
         setIsLoading(false);
       }
     };
