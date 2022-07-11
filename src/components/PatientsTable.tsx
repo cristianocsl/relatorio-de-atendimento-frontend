@@ -34,7 +34,7 @@ const PatientsTable = () => {
 
   if (isLoading) return <IsLoading />;
   return (
-    <Box>
+    <Box position={'relative'}>
       <Tabs
         variant='soft-rounded'
         colorScheme='red'
