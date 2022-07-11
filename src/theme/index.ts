@@ -31,6 +31,15 @@ const theme = extendTheme({
       5: '#B9876E'
     }
   },
+  breakpoints: {
+    sm: '391px',
+    ssm: '412px',
+    smm: '540px',
+    md: '768px',
+    lg: '913px',
+    xl: '1200px',
+    '2xl': '1536px',
+  },
   styles: {
     global: {
       body: {
