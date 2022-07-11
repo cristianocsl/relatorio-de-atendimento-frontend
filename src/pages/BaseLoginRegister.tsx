@@ -186,8 +186,13 @@ export default function BaseComponent(props: thisProps) {
             </Button>
           </Box>
           form
-          <Alert status="error" hidden={hideAlert}>
-            <AlertIcon />
+          <Alert
+            status="error"
+            hidden={hideAlert}
+            bg={'wine.2'}
+            color={'wine.8'}
+            borderRadius={'6px'}>
+            <AlertIcon color={'warning'} />
             { responseMessage }
           </Alert>
         </Stack>
