@@ -85,6 +85,8 @@ export default function BaseComponent(props: thisProps) {
     if (props.title === 'Cadastro') {
       const response = await axiosService.register(bodyRegister);
       workingWhitError(response);
+      const { email, password } = bodyRegister as thisLogin;
+      response.name && (await axiosService.login({ email, password }), navigate('/patients'));
     }
   };
 
