@@ -18,7 +18,7 @@ const extractData = (data: any): extractDataType => {
   return { weekDay: weekDays[wd] , month: months[m], day };
 };
 
-const calendary = (): Array<extractDataType> => {
+const calendar = (): Array<extractDataType> => {
   const today = new Date();
   const threeDaysBefore = subDays(3, today)
   const twoDaysBefore = subDays(2, today)
@@ -40,5 +40,5 @@ const calendary = (): Array<extractDataType> => {
   return dayWeekDaysMonthArray;
 }
 
-export default calendary;
+export default calendar;
 
