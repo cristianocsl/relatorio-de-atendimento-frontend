@@ -7,6 +7,7 @@ import {
   TabPanel,
   TabPanels,
   Flex,
+  Text,
   Box,
 } from '@chakra-ui/react'
 import PatientsList from './PatientsList';
@@ -14,10 +15,11 @@ import MyContext from '../context/MyContext';
 import { useNavigate } from 'react-router-dom';
 import IsLoading from './IsLoading';
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
+import { extractDataType } from '../services/types';
 
 const weekDays = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
 const PatientsTable = () => {
-  const { filterPatientsByDay, isLoading } = useContext(MyContext);
+  const { filterPatientsByDay, isLoading, dataCalendar } = useContext(MyContext);
 
   const navigate = useNavigate();
 
@@ -29,7 +31,6 @@ const PatientsTable = () => {
     }
   }, []);
 
-
   const today = new Date().getDay() + 1;
 
   if (isLoading) return <IsLoading />;
@@ -37,24 +38,29 @@ const PatientsTable = () => {
     <Box position={'relative'}>
       <Tabs
         variant='soft-rounded'
-        colorScheme='red'
-        ml={-7}
-        mr={-7}
-        p={1}>
-        <TabList justifyContent={'center'} ml={6} mr={6}>
+        margin={'0 auto'}
+        >
+        <TabList justifyContent={'center'} height={'180px'} width={'100%'} overflow={'hidden'}>
           <Wrap justify={'center'}>
-          <Tab
-            bgGradient="linear(to-r, red.300,purple.100)"
-            width={'5%'}>
-            H
-          </Tab>
             {
-              weekDays.map(
-                (day: string, index: number) => <Tab
-                  width={'5%'}
+              dataCalendar.map(
+                (item: extractDataType, index: number) => <Tab
+                  width={'60px'}
+                  height={'70px'}
                   key={ index }
-                  bgGradient="linear(to-r, red.300,purple.100)">
-                    { day }
+                  borderRadius={'4px'}
+                  bg="green.7"
+                  _selected={{ bg: 'wine.7', color: 'wine.1' }}
+                  flexDirection={'column'}
+                  color="green.1"
+                  boxShadow="4px 15px 20px #216177"
+                  >
+                    <Text fontSize={'12px'} fontWeight={'regular'}>
+                      { item.day }
+                    </Text>
+                    <Text fontSize={'16px'} fontWeight={'bold'}>
+                      { item.weekDay }
+                    </Text>
                   </Tab>
               )
             }
