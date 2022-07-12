@@ -1,16 +1,33 @@
 import React, { ReactElement, useEffect, useState } from "react";
 import axiosServices from "../services";
-import { idPatient, thisPatient } from "../services/types";
+import { idPatient, thisFinances, thisPatient, extractDataType } from "../services/types";
 import MyContext from "./MyContext";
+import calendar from "../services/calendar";
 
 type Props = { children: ReactElement | ReactElement[] };
 
+const TODAY = new Date().getDay();
+const TIME = 3600000;
+
 const Provider = ({ children }: Props) => {
-  const [patients, setPatients] = useState([]);
-  const [finances, setFinances] = useState([]);
+  const [patients, setPatients] = useState<Array<thisPatient & idPatient>>([]);
+  const [finances, setFinances] = useState<Array<thisFinances>>([]);
+  const [dataCalendar, setDataCalendar] = useState<Array<extractDataType>>([]);
+  const [currentDay, setCurrentDay] = useState<number>(TODAY);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
+  setInterval(() =>{
+    const today = new Date().getDay();
+    if (today > currentDay) {
+      setCurrentDay(today);
+    }
+  }, TIME);
+
+  useEffect(() => {
+    const data = calendar();
+    setDataCalendar(data);
+  }, [currentDay]);
   
   useEffect(() => {
     axiosServices.setTokenInAxiosInstance();
@@ -33,17 +50,18 @@ const Provider = ({ children }: Props) => {
     getPatients();
   }, [isLoggedIn]);
 
-  const filterPatientsByDay = (day: number) => {
+  const filterPatientsByDay = (day: number): Array<thisPatient & idPatient> => {
     return patients.filter((patient: thisPatient & idPatient) => patient.days.includes(day));
   }
 
   const context = {
+    isLoading,
+    isLoggedIn,
     patients,
+    finances,
     filterPatientsByDay,
     setIsLoggedIn,
-    isLoggedIn,
     setIsLoading,
-    isLoading,
   };
 
   return (
