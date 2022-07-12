@@ -36,8 +36,6 @@ export default function BaseComponent(props: thisProps) {
   const [responseMessage, setResponseMessage] = useState<string>('');
   const [hideAlert, setHideAlert] = useState<boolean>(true);
 
-  console.log(responseMessage);
-
   const navigate = useNavigate();
   const { setIsLoggedIn } = useContext(MyContext);
 
