@@ -59,6 +59,7 @@ const Provider = ({ children }: Props) => {
     isLoggedIn,
     patients,
     finances,
+    dataCalendar,
     filterPatientsByDay,
     setIsLoggedIn,
     setIsLoading,
