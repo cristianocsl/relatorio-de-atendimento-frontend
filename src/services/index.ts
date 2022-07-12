@@ -88,7 +88,6 @@ const axiosServices = {
   login,
   create,
   get,
-  // runInterceptor,
   setTokenInAxiosInstance,
 };
 
