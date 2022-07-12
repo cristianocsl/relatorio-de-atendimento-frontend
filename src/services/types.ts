@@ -50,3 +50,13 @@ export type thisPatient = {
 };
 
 export type idPatient = { _id: string };
+
+export type genericKeys = {
+  [key: string]: string
+}
+
+export type extractDataType = {
+  weekDay: string,
+  month: string,
+  day: string
+}
