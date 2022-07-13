@@ -3,6 +3,7 @@ import axiosServices from "../services";
 import { idPatient, thisFinances, thisPatient, extractDataType } from "../services/types";
 import MyContext from "./MyContext";
 import calendar from "../services/calendar";
+import counter from "../services/counter";
 
 type Props = { children: ReactElement | ReactElement[] };
 
@@ -16,7 +17,7 @@ const Provider = ({ children }: Props) => {
   const [currentDay, setCurrentDay] = useState<number>(TODAY);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-
+  
   setInterval(() =>{
     const today = new Date().getDay();
     if (today > currentDay) {
@@ -53,13 +54,18 @@ const Provider = ({ children }: Props) => {
   const filterPatientsByDay = (day: number): Array<thisPatient & idPatient> => {
     return patients.filter((patient: thisPatient & idPatient) => patient.days.includes(day));
   }
-
+  
+  const patientsToday = counter.patientsToday(patients);
+  const patientsPending = counter.patientsPending(patients);
+  
   const context = {
     isLoading,
     isLoggedIn,
     patients,
     finances,
     dataCalendar,
+    patientsToday,
+    patientsPending,
     filterPatientsByDay,
     setIsLoggedIn,
     setIsLoading,

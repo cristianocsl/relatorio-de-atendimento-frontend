@@ -11,6 +11,8 @@ const inicialValue = {
   isLoading: true,
   isLoggedIn: false,
   dataCalendar: [] as extractDataType[],
+  patientsToday: 0 as number,
+  patientsPending: 0 as number,
   setIsLoggedIn: (bool: boolean) => {},
   setIsLoading: (bool: boolean) => {},
   filterPatientsByDay: (day: number) => [] as patientArray[],
