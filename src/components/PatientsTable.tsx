@@ -122,7 +122,8 @@ const PatientsTable = () => {
             boxSize={'45px'}
             borderRadius={'4px'}
             zIndex={-1}
-            transform={'translate(-230%, 33%)'}/>
+            transform={'translate(-230%, 33%)'}
+            boxShadow="4px 15px 20px #032029"/>
           <Box
             position={'absolute'}
             transform={'translate(-270%, 60%)'}
@@ -137,6 +138,7 @@ const PatientsTable = () => {
             boxSize={'45px'}
             zIndex={-1}
             transform={'translate(-51%, 33%)'}
+            boxShadow="4px 15px 20px #032029"
           />
           <AddBoxRounded
             color="primary"
@@ -155,6 +157,7 @@ const PatientsTable = () => {
             zIndex={-1}
             transform={'translate(128%, 33%)'}
             fontSize={'30px'}
+            boxShadow="4px 15px 20px #032029"
           >
             $
           </Box>
