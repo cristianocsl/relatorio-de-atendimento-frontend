@@ -47,8 +47,7 @@ const PatientsTable = () => {
         Bom dia, { JSON.parse(localStorage.getItem('userName') || '') || 'Usuário(a)' }
       </Text>
 
-      <Text
-        align={'start'}
+      <Box
         color={'green.8'}
         fontWeight={'bold'}
         fontSize={'11px'}
@@ -56,10 +55,9 @@ const PatientsTable = () => {
         display={'flex'}
       >
         Você tem <Text color={'wine.8'} ml={'5px'} mr={'5px'}>{ patientsToday } pacientes</Text> para hoje!
-      </Text>
+      </Box>
 
-      <Text
-        align={'start'}
+      <Box
         color={'green.8'}
         fontWeight={'bold'}
         fontSize={'11px'}
@@ -68,7 +66,7 @@ const PatientsTable = () => {
         display={'flex'}        
       >
         Você tem <Text color={'#9D0400'} ml={'5px'} mr={'5px'}>{ patientsPending } pacientes</Text> não atendidos!
-      </Text>
+      </Box>
 
       <Tabs
         variant='soft-rounded'
