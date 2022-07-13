@@ -49,6 +49,7 @@ const theme = extendTheme({
         bg: 'linear-gradient(180deg, #A9DBEC 49.48%, #114B5F 100%) fixed',
         color: 'black',
         textAlign: 'center',
+        padding: '0px',
       },
       html: {
         height: '100vh',
