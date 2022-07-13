@@ -49,7 +49,18 @@ export type thisPatient = {
   evolution: string,
 };
 
+export type patientArray = (thisPatient & idPatient)[];
+
 export type idPatient = { _id: string };
+
+export type thisFinances = {
+  patientId: string,
+  userId: string,
+  prevTotalPrice: number,
+  doneTotalPrice: number,
+  healthInsurance: string,
+  createdAt: string,
+}
 
 export type genericKeys = {
   [key: string]: string
