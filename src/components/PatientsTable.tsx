@@ -14,7 +14,8 @@ import PatientsList from './PatientsList';
 import MyContext from '../context/MyContext';
 import { useNavigate } from 'react-router-dom';
 import IsLoading from './IsLoading';
-import AddBoxIcon from '@mui/icons-material/AddBox';
+import { AddBoxRounded, EditRounded } from '@mui/icons-material';
+
 import { extractDataType } from '../services/types';
 
 const weekDays = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
@@ -116,15 +117,28 @@ const PatientsTable = () => {
         position={'fixed'}
         justifyContent={'center'}
         width={'100%'}
+        bottom={'3%'}
       >
-        <AddBoxIcon
-          color="primary"
-          sx={{ fontSize: '60px' }}
-          onClick={ () => navigate('/addPatient') }
-        />
+        <Box>
+          <Box
+            position={'absolute'}
+            left={'50%'}
+            bg={'green.3'}
+            boxSize={'45px'}
+            zIndex={-1}
+            transform={'translate(-50%, 33%)'}
+            />
+          <AddBoxRounded
+            color="primary"
+            sx={{ fontSize: '75px' }}
+            onClick={ () => navigate('/addPatient') }
+          />
+        </Box>
       </Flex>
     </Box>
   );
 }
 
 export default PatientsTable;
+Box
+Box
