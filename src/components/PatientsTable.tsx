@@ -14,7 +14,7 @@ import PatientsList from './PatientsList';
 import MyContext from '../context/MyContext';
 import { useNavigate } from 'react-router-dom';
 import IsLoading from './IsLoading';
-import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
+import AddBoxIcon from '@mui/icons-material/AddBox';
 import { extractDataType } from '../services/types';
 
 const weekDays = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
@@ -117,7 +117,11 @@ const PatientsTable = () => {
         justifyContent={'center'}
         width={'100%'}
       >
-        <AddCircleRoundedIcon sx={{ fontSize: 50}} onClick={ () => navigate('/addPatient') } />
+        <AddBoxIcon
+          color="primary"
+          sx={{ fontSize: '60px' }}
+          onClick={ () => navigate('/addPatient') }
+        />
       </Flex>
     </Box>
   );
