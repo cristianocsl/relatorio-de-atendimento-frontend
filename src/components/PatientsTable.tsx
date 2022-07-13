@@ -47,12 +47,35 @@ const PatientsTable = () => {
         Bom dia, { JSON.parse(localStorage.getItem('userName') || '') || 'Usuário(a)' }
       </Text>
 
+      <Text
+        align={'start'}
+        color={'green.8'}
+        fontWeight={'bold'}
+        fontSize={'11px'}
+        ml={'20px'}
+        display={'flex'}
+      >
+        Você tem <Text color={'wine.8'} ml={'5px'} mr={'5px'}>5 pacientes</Text> para hoje!
+      </Text>
+
+      <Text
+        align={'start'}
+        color={'green.8'}
+        fontWeight={'bold'}
+        fontSize={'11px'}
+        ml={'20px'}
+        mb={'14px'}
+        display={'flex'}        
+      >
+        Você tem <Text color={'#9D0400'} ml={'5px'} mr={'5px'}>2 pacientes</Text> não atendidos!
+      </Text>
+
       <Tabs
         variant='soft-rounded'
         margin={'0 auto'}
         >
-        <TabList justifyContent={'center'} height={'180px'} width={'100%'} overflow={'hidden'}>
-          <Wrap justify={'center'}>
+        <TabList justifyContent={'center'} height={'200px'} width={'100%'} overflow={'hidden'}>
+          <Wrap justify={'center'} spacing={'20px'}>
             {
               dataCalendar.map(
                 (item: extractDataType, index: number) => <Tab
