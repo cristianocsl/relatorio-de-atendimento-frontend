@@ -36,6 +36,17 @@ const PatientsTable = () => {
   if (isLoading) return <IsLoading />;
   return (
     <Box position={'relative'}>
+      <Text
+        align={'start'}
+        color={'green.8'}
+        fontWeight={'bold'}
+        fontSize={'20px'}
+        ml={'20px'}
+        mt={'40px'}
+      >
+        Bom dia, { JSON.parse(localStorage.getItem('userName') || '') || 'Usuário(a)' }
+      </Text>
+
       <Tabs
         variant='soft-rounded'
         margin={'0 auto'}
