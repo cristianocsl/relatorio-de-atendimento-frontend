@@ -119,21 +119,19 @@ const PatientsTable = () => {
         width={'100%'}
         bottom={'3%'}
       >
-        <Box>
-          <Box
-            position={'absolute'}
-            left={'50%'}
-            bg={'green.3'}
-            boxSize={'45px'}
-            zIndex={-1}
-            transform={'translate(-50%, 33%)'}
-            />
-          <AddBoxRounded
-            color="primary"
-            sx={{ fontSize: '75px' }}
-            onClick={ () => navigate('/addPatient') }
+        <Box
+          position={'absolute'}
+          left={'50%'}
+          bg={'green.3'}
+          boxSize={'45px'}
+          zIndex={-1}
+          transform={'translate(-50%, 33%)'}
           />
-        </Box>
+        <AddBoxRounded
+          color="primary"
+          sx={{ fontSize: '75px' }}
+          onClick={ () => navigate('/addPatient') }
+        />
       </Flex>
     </Box>
   );
