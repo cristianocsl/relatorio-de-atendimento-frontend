@@ -73,7 +73,8 @@ const PatientsTable = () => {
       <Tabs
         variant='soft-rounded'
         margin={'0 auto'}
-        >
+        defaultIndex={3}
+      >
         <TabList justifyContent={'center'} height={'200px'} width={'100%'} overflow={'hidden'}>
           <Wrap justify={'center'} spacing={'20px'}>
             {
