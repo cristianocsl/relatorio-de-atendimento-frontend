@@ -20,7 +20,9 @@ import { extractDataType } from '../services/types';
 
 const weekDays = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
 const PatientsTable = () => {
-  const { filterPatientsByDay, isLoading, dataCalendar, patientsToday, patientsPending } = useContext(MyContext);
+  const {
+    filterPatientsByDay, isLoading, dataCalendar,
+    patientsToday, patientsPending, greetingMessage } = useContext(MyContext);
 
   const navigate = useNavigate();
 
@@ -45,7 +47,7 @@ const PatientsTable = () => {
         ml={'20px'}
         mt={'40px'}
       >
-        Bom dia, { JSON.parse(localStorage.getItem('userName') || '') || 'Usuário(a)' }
+        { greetingMessage }
       </Text>
 
       <Box
