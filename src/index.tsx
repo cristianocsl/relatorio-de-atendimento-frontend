@@ -4,18 +4,22 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Provider from './context/Provider';
 import { ChakraProvider } from '@chakra-ui/react';
+import { ThemeProvider } from '@mui/material';
 import theme from './theme';
+import themeMaterial from './theme/themeMUI';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
+    <ThemeProvider theme={themeMaterial}>
     <ChakraProvider theme={theme}>
       <Provider>
         <App />
       </Provider>
     </ChakraProvider>
+    </ThemeProvider>
   </React.StrictMode>
 );
 
