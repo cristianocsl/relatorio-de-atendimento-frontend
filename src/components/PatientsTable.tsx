@@ -19,7 +19,7 @@ import { extractDataType } from '../services/types';
 
 const weekDays = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
 const PatientsTable = () => {
-  const { filterPatientsByDay, isLoading, dataCalendar } = useContext(MyContext);
+  const { filterPatientsByDay, isLoading, dataCalendar, patientsToday, patientsPending } = useContext(MyContext);
 
   const navigate = useNavigate();
 
@@ -55,7 +55,7 @@ const PatientsTable = () => {
         ml={'20px'}
         display={'flex'}
       >
-        Você tem <Text color={'wine.8'} ml={'5px'} mr={'5px'}>5 pacientes</Text> para hoje!
+        Você tem <Text color={'wine.8'} ml={'5px'} mr={'5px'}>{ patientsToday } pacientes</Text> para hoje!
       </Text>
 
       <Text
@@ -67,7 +67,7 @@ const PatientsTable = () => {
         mb={'14px'}
         display={'flex'}        
       >
-        Você tem <Text color={'#9D0400'} ml={'5px'} mr={'5px'}>2 pacientes</Text> não atendidos!
+        Você tem <Text color={'#9D0400'} ml={'5px'} mr={'5px'}>{ patientsPending } pacientes</Text> não atendidos!
       </Text>
 
       <Tabs
@@ -101,9 +101,6 @@ const PatientsTable = () => {
           </Wrap>
         </TabList>
         <TabPanels>
-          <TabPanel>
-            <PatientsList filterPatientsByDay={ filterPatientsByDay } day={today}/>
-          </TabPanel>
           {
             weekDays.map((_day, index: number) => {
               return (
