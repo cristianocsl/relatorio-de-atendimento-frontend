@@ -69,13 +69,9 @@ const PatientsTable = () => {
         Você tem <Text color={'#9D0400'} ml={'5px'} mr={'5px'}>{ patientsPending } pacientes</Text> não atendidos!
       </Box>
 
-      <Tabs
-        variant='soft-rounded'
-        margin={'0 auto'}
-        defaultIndex={3}
-      >
+      <Tabs variant='soft-rounded' margin={'0 auto'} defaultIndex={3}>
         <TabList justifyContent={'center'} height={'200px'} width={'100%'} overflow={'hidden'}>
-          <Wrap justify={'center'} spacing={'20px'}>
+          <Wrap justify={'center'} spacing={'20px'} width={'100%'}>
             {
               dataCalendar.map(
                 (item: extractDataType, index: number) => <Tab
