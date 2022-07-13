@@ -4,11 +4,13 @@ import { idPatient, thisFinances, thisPatient, extractDataType } from "../servic
 import MyContext from "./MyContext";
 import calendar from "../services/calendar";
 import counter from "../services/counter";
+import sendGreetingsMessage from "../services/greetingsMessage";
 
 type Props = { children: ReactElement | ReactElement[] };
 
 const TODAY = new Date().getDay();
 const TIME = 3600000;
+const TIME2 = 1800000;
 
 const Provider = ({ children }: Props) => {
   const [patients, setPatients] = useState<Array<thisPatient & idPatient>>([]);
@@ -17,6 +19,8 @@ const Provider = ({ children }: Props) => {
   const [currentDay, setCurrentDay] = useState<number>(TODAY);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [greetingMessage, setGreetingMessage] = useState('');
+  const [observerMessage, setObserverMessage] = useState(true);
   
   setInterval(() =>{
     const today = new Date().getDay();
@@ -24,6 +28,15 @@ const Provider = ({ children }: Props) => {
       setCurrentDay(today);
     }
   }, TIME);
+
+  setInterval(() =>{
+    setObserverMessage((prevState) => !prevState);
+  }, TIME2);
+  
+  useEffect(() => {
+    const message = sendGreetingsMessage();
+    setGreetingMessage(message);
+  }, [observerMessage]);
 
   useEffect(() => {
     const data = calendar();
@@ -66,6 +79,7 @@ const Provider = ({ children }: Props) => {
     dataCalendar,
     patientsToday,
     patientsPending,
+    greetingMessage,
     filterPatientsByDay,
     setIsLoggedIn,
     setIsLoading,
