@@ -113,25 +113,56 @@ const PatientsTable = () => {
         </TabPanels>
       </Tabs>
 
-      <Flex
-        position={'fixed'}
-        justifyContent={'center'}
-        width={'100%'}
-        bottom={'3%'}
-      >
-        <Box
-          position={'absolute'}
-          left={'50%'}
-          bg={'green.3'}
-          boxSize={'45px'}
-          zIndex={-1}
-          transform={'translate(-50%, 33%)'}
+      <Flex>
+        <Flex
+          position={'fixed'}
+          justifyContent={'center'}
+          width={'100%'}
+          bottom={'3%'}>
+          <Box
+            position={'absolute'}
+            left={'50%'}
+            bg={'wine.8'}
+            boxSize={'45px'}
+            borderRadius={'4px'}
+            zIndex={-1}
+            transform={'translate(-230%, 33%)'}/>
+          <Box
+            position={'absolute'}
+            transform={'translate(-270%, 60%)'}
+          >
+            <EditRounded color="primary" sx={{ fontSize: '30px', color: '#85BFD3' }}/>
+          </Box>
+
+          <Box
+            position={'absolute'}
+            left={'50%'}
+            bg={'green.3'}
+            boxSize={'45px'}
+            zIndex={-1}
+            transform={'translate(-51%, 33%)'}
           />
-        <AddBoxRounded
-          color="primary"
-          sx={{ fontSize: '75px' }}
-          onClick={ () => navigate('/addPatient') }
-        />
+          <AddBoxRounded
+            color="primary"
+            sx={{ fontSize: '75px' }}
+            onClick={ () => navigate('/addPatient') }
+          />
+
+          <Box
+            position={'absolute'}
+            left={'50%'}
+            bg={'wine.8'}
+            boxSize={'45px'}
+            fontWeight={'bold'}
+            color={'green.3'}
+            borderRadius={'4px'}
+            zIndex={-1}
+            transform={'translate(128%, 33%)'}
+            fontSize={'30px'}
+          >
+            $
+          </Box>
+        </Flex>
       </Flex>
     </Box>
   );
