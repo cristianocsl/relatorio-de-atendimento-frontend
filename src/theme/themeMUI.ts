@@ -2,10 +2,10 @@ import { createTheme } from '@mui/material';
 
 declare module '@mui/material/' {
   interface Palette {
-    custom1: Palette['primary'];
+    wine: Palette['primary'];
   }
   interface PaletteOptions {
-    custom1: PaletteOptions['primary'];
+    wine: PaletteOptions['primary'];
   }
   interface Theme {
     custom2: {
@@ -22,9 +22,9 @@ declare module '@mui/material/' {
 const theme = createTheme({
   palette: {
     primary: { main: '#38001C' }, 
-    custom1: { main: '#FFE3F1' },
+    wine: { main: '#FFE3F1' },
   },
-  custom2: { main2: '#114B5F' },
+  custom2: { main2: '#FF0000' },
 })
 
 export default theme;
