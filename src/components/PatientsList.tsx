@@ -6,6 +6,8 @@ import {
   Tbody,
   Tr,
   Td,
+  Th,
+  Thead,
   Box,
 } from '@chakra-ui/react';
 import { Props } from 'framer-motion/types/types';
@@ -18,35 +20,35 @@ const PatientsList = (props: Props) => {
 
   return (
     <TableContainer>
-      <Table width={'100%'}>
+      <Table>
+        <Thead>
+          <Tr>
+            <Th color="wine.7">Paciente</Th>
+            <Th color="wine.7">Meta Sem.</Th>
+            <Th color="wine.7">Meta Mens.</Th>
+            <Th color="wine.7">Plano</Th>
+            <Th color="wine.7">Status</Th>
+          </Tr>
+        </Thead>
         <Tbody>
           {
             patientsByDay.map((info: thisPatient & idPatient) => {
               return (
-                <Tr key={info._id}>
-                  <Td pl={'0px'} pr={'0px'} pb={'20px'} pt={'20px'} m={'0'}>
-                    <Box
-                      borderRadius={7}
-                      mb={-3}
-                      mt={-3}
-                      ml={0}
-                      mr={0}
-                      p={2}
-                      height={'40px'}
-                      boxShadow='base'
-                      color='wine.6'
-                      bg="green.1"
-                      width={'100%'}>
-                      <Checkbox
-                        marginRight={5}
-                        iconColor={'wine.6'}
-                        colorScheme={'white'}
-                        borderColor={'wine.6'}
-                        >
-                        { info.patient }
-                      </Checkbox>
-                    </Box>
+                <Tr key={info._id} color={'wine.7'} fontWeight={'bold'} bg={'green.2'}>
+                  <Td p={'0 20px'} m={'0'}>
+                    <Checkbox
+                      marginRight={5}
+                      iconColor={'wine.7'}
+                      colorScheme={'white'}
+                      borderColor={'wine.7'}
+                    >
+                      { info.patient }
+                    </Checkbox>
                   </Td>
+                  <Td><Box>{ info.servicePerformed.weekly + '/' + info.serviceGoal.weekly }</Box></Td>
+                  <Td><Box>{ info.servicePerformed.monthly + '/' + info.serviceGoal.monthly }</Box></Td>
+                  <Td><Box>{ info.healthInsurance }</Box></Td>
+                  <Td><Box>{ info.status }</Box></Td>
                 </Tr>
               )
             })
