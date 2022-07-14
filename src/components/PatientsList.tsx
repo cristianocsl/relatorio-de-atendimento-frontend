@@ -18,28 +18,30 @@ const PatientsList = (props: Props) => {
 
   return (
     <TableContainer>
-      <Table>
+      <Table width={'100%'}>
         <Tbody>
           {
             patientsByDay.map((info: thisPatient & idPatient) => {
               return (
                 <Tr key={info._id}>
-                  <Td>
+                  <Td pl={'0px'} pr={'0px'} pb={'20px'} pt={'20px'} m={'0'}>
                     <Box
-                      bg={'white'}
                       borderRadius={7}
                       mb={-3}
                       mt={-3}
                       ml={0}
                       mr={0}
                       p={2}
+                      height={'40px'}
                       boxShadow='base'
-                      color='white'
-                      bgGradient="linear(to-r, red.400,pink.400)">
+                      color='wine.6'
+                      bg="green.1"
+                      width={'100%'}>
                       <Checkbox
                         marginRight={5}
-                        colorScheme='red'
-                        borderColor={'red.600'}
+                        iconColor={'wine.6'}
+                        colorScheme={'white'}
+                        borderColor={'wine.6'}
                         >
                         { info.patient }
                       </Checkbox>

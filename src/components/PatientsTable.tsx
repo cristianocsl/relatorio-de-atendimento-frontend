@@ -102,7 +102,7 @@ const PatientsTable = () => {
           {
             weekDays.map((_day, index: number) => {
               return (
-                <TabPanel key={index}>
+                <TabPanel key={index} width={'100%'} p={'0 15px'}>
                   <PatientsList filterPatientsByDay={ filterPatientsByDay } day={index + 1}/>
                 </TabPanel>
               )
@@ -111,11 +111,11 @@ const PatientsTable = () => {
         </TabPanels>
       </Tabs>
 
-      <Flex>
+      <Flex justifyContent={'center'}>
         <Flex
           position={'fixed'}
           justifyContent={'center'}
-          width={'100%'}
+          width={'50%'}
           bottom={'3%'}>
           <Box
             position={'absolute'}
