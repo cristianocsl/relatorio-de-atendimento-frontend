@@ -103,7 +103,7 @@ const PatientsTable = () => {
             weekDays.map((_day, index: number) => {
               return (
                 <TabPanel key={index} width={'100%'} p={'0 15px'}>
-                  <PatientsList filterPatientsByDay={ filterPatientsByDay } day={index + 1}/>
+                  <PatientsList filterPatientsByDay={ filterPatientsByDay } day={index + 2}/>
                 </TabPanel>
               )
             })
