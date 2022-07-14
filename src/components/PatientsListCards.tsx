@@ -4,7 +4,6 @@ import {
   Box,
   Text,
   Flex,
-  Container,
 } from '@chakra-ui/react';
 import { Props } from 'framer-motion/types/types';
 import { thisPatient, idPatient } from '../services/types';
@@ -13,7 +12,7 @@ const PatientsList = (props: Props) => {
   const { filterPatientsByDay, day } = props;
 
   const patientsByDay = filterPatientsByDay(day);
-Container
+
   return (
     <Box>
       <Flex
