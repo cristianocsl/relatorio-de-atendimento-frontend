@@ -10,7 +10,7 @@ import {
   Text,
   Box,
 } from '@chakra-ui/react'
-import PatientsList from './PatientsList';
+import PatientsListCards from './PatientsListCards';
 import MyContext from '../context/MyContext';
 import { useNavigate } from 'react-router-dom';
 import IsLoading from './IsLoading';
@@ -33,8 +33,6 @@ const PatientsTable = () => {
       navigate('/login');
     }
   }, []);
-
-  const today = new Date().getDay() + 1;
 
   if (isLoading) return <IsLoading />;
   return (
@@ -103,7 +101,7 @@ const PatientsTable = () => {
             weekDays.map((_day, index: number) => {
               return (
                 <TabPanel key={index} width={'100%'} p={'0 15px'}>
-                  <PatientsList filterPatientsByDay={ filterPatientsByDay } day={index + 2}/>
+                  <PatientsListCards filterPatientsByDay={ filterPatientsByDay } day={index + 2}/>
                 </TabPanel>
               )
             })
