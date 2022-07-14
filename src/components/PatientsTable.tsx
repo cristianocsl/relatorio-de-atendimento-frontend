@@ -18,7 +18,6 @@ import { AddBoxRounded, EditRounded } from '@mui/icons-material';
 
 import { extractDataType } from '../services/types';
 
-const weekDays = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
 const PatientsTable = () => {
   const {
     filterPatientsByDay, isLoading, dataCalendar,
@@ -98,7 +97,7 @@ const PatientsTable = () => {
         </TabList>
         <TabPanels>
           {
-            weekDays.map((_day, index: number) => {
+            dataCalendar.map((_info, index: number) => {
               return (
                 <TabPanel key={index} width={'100%'} p={'0 15px'}>
                   <PatientsListCards filterPatientsByDay={ filterPatientsByDay } day={index + 2}/>
@@ -168,5 +167,3 @@ const PatientsTable = () => {
 }
 
 export default PatientsTable;
-Box
-Box
