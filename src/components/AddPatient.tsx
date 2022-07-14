@@ -12,9 +12,9 @@ export default function AddPatient () {
         onClick={ () => navigate('/patients') }
         bg={'wine.8'}
         _hover={{ bg: 'wine.6' }}
-        color={'red'}
+        color={'wine.2'}
       >
-        <UndoRoundedIcon sx={{ color: 'wine.main' }} />
+        <UndoRoundedIcon/>
       </Button>
     </Box>
   );
