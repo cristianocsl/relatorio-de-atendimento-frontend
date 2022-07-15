@@ -22,7 +22,11 @@ export default function AddPatient () {
         Adicione um novo paciente
       </Text>
 
+
       <Button
+        position={'fixed'}
+        bottom={'60px'}
+        left={'40px'}
         onClick={ () => navigate('/patients') }
         bg={'wine.8'}
         _hover={{ bg: 'wine.6' }}
@@ -30,7 +34,7 @@ export default function AddPatient () {
         alignSelf={'start'}
       >
         <UndoRoundedIcon/>
-      </Button>    
+      </Button>
     </Box>
   );
 }
