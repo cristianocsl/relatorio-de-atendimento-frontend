@@ -1,19 +1,53 @@
-import React, { BaseSyntheticEvent, useState } from "react";
+import React, { BaseSyntheticEvent, useEffect, useState } from "react";
 import UndoRoundedIcon from '@mui/icons-material/UndoRounded';
 import { useNavigate } from "react-router-dom";
 import {
   FormControl,
   FormLabel,
-  Box, Button, Text, Input, Flex, Grid, GridItem, Checkbox, Radio, Wrap,
+  Button, Text, Input, Flex, Grid, GridItem,
 } from '@chakra-ui/react'
 
 const DAYS = ['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SÁB'];
 
+type genericKeys = {
+  [key: number]: { value: number, focus: boolean }
+}
+
+const BUTTONGROUP: genericKeys = {
+  1: { value: 0, focus: false },
+  2: { value: 0, focus: false },
+  3: { value: 0, focus: false },
+  4: { value: 0, focus: false },
+  5: { value: 0, focus: false },
+  6: { value: 0, focus: false },
+  7: { value: 0, focus: false },
+}
+
 export default function AddPatient () {
   const navigate = useNavigate();
-  const [input, setInput] = useState('')
+  const [input, setInput] = useState('');
+  const [buttons, setButtons] = useState<genericKeys>(BUTTONGROUP);
 
-  const handleInputChange = (e: any) => setInput(e.target.value)
+  const handleInputChange = (e: any) => setInput(e.target.value);
+
+  const handleDayClick = (e: BaseSyntheticEvent, index: number) => {
+    if (!buttons[index].focus) {
+      setButtons((prevFocus) => ({
+        ...buttons,
+          [index]: {
+            value: +e.target.value as number,
+            focus: !prevFocus[index].focus as boolean },
+          }))
+    } else {
+      setButtons((prevFocus) => ({
+        ...buttons,
+          [index]: {
+            value: 0 as number,
+            focus: !prevFocus[index].focus as boolean },
+          }))
+    }
+  }
+
 
   return (
     <Flex flexDirection={'column'}>
@@ -85,34 +119,32 @@ export default function AddPatient () {
         </Grid>
 
         <FormLabel
-          htmlFor='patient-name'
+          htmlFor='day'
           fontWeight={'bold'}
           fontSize={'14px'}
           m={'10px 0 0 0'}
         >
           Dias de atendimento:
         </FormLabel>
-        <Flex flexWrap={'wrap'} justifyContent={'center'}>
+        <Flex flexWrap={'wrap'} justifyContent={'space-between'} id='day'>
           {
             DAYS.map((day: string, index: number) => {
+              
               return (
-                <Checkbox
+                <Button
                   key={index}
                   value={index + 1}
-                  id={'patient-name' + index}
-                  m={'0 auto 5px auto'}
-                  iconColor={'wine.7'}
-                  colorScheme={'white'}
-                  borderColor={'wine.7'}
-                  justifyContent={'flex-end'}
-                  bg={'green.1'}
+                  id={'day' + index}
+                  onClick={ (e: BaseSyntheticEvent) => handleDayClick(e, index + 1) }
                   borderRadius={'4px'}
-                  p={'6px'}
+                  fontSize={'11px'} fontWeight={'bold'}
+                  width={'35px'}
+                  height={'30px'}
+                  bg={ buttons[index + 1].focus ? 'wine.7' : 'green.1' }
+                  color={ buttons[index + 1].focus ? 'green.1' : 'wine.7' }
                 >
-                  <Text fontSize={'11px'} fontWeight={'bold'}>
-                    { day }
-                  </Text>
-                </Checkbox>
+                  { day }
+                </Button>
                 )
               }
             )
