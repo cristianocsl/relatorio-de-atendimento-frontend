@@ -1,18 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import UndoRoundedIcon from '@mui/icons-material/UndoRounded';
 import { useNavigate } from "react-router-dom";
 import {
   FormControl,
   FormLabel,
-  FormErrorMessage,
-  FormHelperText,
-  Box, Button, Text,
+  Box, Button, Text, Input, Flex, Grid, GridItem,
 } from '@chakra-ui/react'
 
 export default function AddPatient () {
   const navigate = useNavigate();
+  const [input, setInput] = useState('')
+
+  const handleInputChange = (e: any) => setInput(e.target.value)
+
   return (
-    <Box>
+    <Flex flexDirection={'column'}>
       <Text
         fontWeight={'bold'}
         fontSize={'20px'}
@@ -21,6 +23,65 @@ export default function AddPatient () {
       >
         Adicione um novo paciente
       </Text>
+
+      <FormControl color={'wine.7'} borderWidth={0} p={'0 20px 0 20px'}>
+        <FormLabel
+          htmlFor='patient-name'
+          fontWeight={'bold'}
+          fontSize={'14px'}
+          m={'10px 0 0 0'}
+        >
+          Paciente:
+        </FormLabel>
+        <Input
+          id='patient-name'
+          type='text'
+          value={input}
+          bg={'green.1'}
+          onChange={handleInputChange}
+          p={'0'}
+          />
+
+        <Grid templateColumns='repeat(2, 1fr)' gap={4}>
+          <GridItem>
+            <FormLabel
+              htmlFor='bairro'
+              fontWeight={'bold'}
+              fontSize={'14px'}
+              m={'10px 0 0 0'}
+            >
+              Bairro:
+            </FormLabel>
+            <Input
+              id='bairro'
+              type='text'
+              value={input}
+              bg={'green.1'}
+              onChange={handleInputChange}
+              width={'100%'}
+            />
+          </GridItem>
+
+          <GridItem>
+            <FormLabel
+              htmlFor='bairro'
+              fontWeight={'bold'}
+              fontSize={'14px'}
+              m={'10px 0 0 0'}
+            >
+              Empresa:
+            </FormLabel>
+            <Input
+              id='bairro'
+              type='text'
+              value={input}
+              bg={'green.1'}
+              onChange={handleInputChange}
+              width={'100%'}
+            />
+          </GridItem>
+        </Grid>
+      </FormControl>
 
 
       <Button
@@ -35,6 +96,6 @@ export default function AddPatient () {
       >
         <UndoRoundedIcon/>
       </Button>
-    </Box>
+    </Flex>
   );
 }
