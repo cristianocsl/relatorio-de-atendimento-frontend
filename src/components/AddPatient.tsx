@@ -1,21 +1,36 @@
 import React from "react";
-import { Box, Button } from "@chakra-ui/react";
 import UndoRoundedIcon from '@mui/icons-material/UndoRounded';
 import { useNavigate } from "react-router-dom";
+import {
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  FormHelperText,
+  Box, Button, Text,
+} from '@chakra-ui/react'
 
 export default function AddPatient () {
   const navigate = useNavigate();
   return (
     <Box>
-      <h1>Adicionar Paciente</h1>
+      <Text
+        fontWeight={'bold'}
+        fontSize={'20px'}
+        color={'green.7'}
+        mt={'40px'}
+      >
+        Adicione um novo paciente
+      </Text>
+
       <Button
         onClick={ () => navigate('/patients') }
         bg={'wine.8'}
         _hover={{ bg: 'wine.6' }}
         color={'wine.2'}
+        alignSelf={'start'}
       >
         <UndoRoundedIcon/>
-      </Button>
+      </Button>    
     </Box>
   );
 }
