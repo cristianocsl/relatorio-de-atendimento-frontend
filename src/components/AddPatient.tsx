@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { BaseSyntheticEvent, useState } from "react";
 import UndoRoundedIcon from '@mui/icons-material/UndoRounded';
 import { useNavigate } from "react-router-dom";
 import {
   FormControl,
   FormLabel,
-  Box, Button, Text, Input, Flex, Grid, GridItem,
+  Box, Button, Text, Input, Flex, Grid, GridItem, Checkbox, Radio, Wrap,
 } from '@chakra-ui/react'
+
+const DAYS = ['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SÁB'];
 
 export default function AddPatient () {
   const navigate = useNavigate();
@@ -64,7 +66,7 @@ export default function AddPatient () {
 
           <GridItem>
             <FormLabel
-              htmlFor='bairro'
+              htmlFor='empresa'
               fontWeight={'bold'}
               fontSize={'14px'}
               m={'10px 0 0 0'}
@@ -72,7 +74,7 @@ export default function AddPatient () {
               Empresa:
             </FormLabel>
             <Input
-              id='bairro'
+              id='empresa'
               type='text'
               value={input}
               bg={'green.1'}
@@ -81,6 +83,41 @@ export default function AddPatient () {
             />
           </GridItem>
         </Grid>
+
+        <FormLabel
+          htmlFor='patient-name'
+          fontWeight={'bold'}
+          fontSize={'14px'}
+          m={'10px 0 0 0'}
+        >
+          Dias de atendimento:
+        </FormLabel>
+        <Flex flexWrap={'wrap'} justifyContent={'center'}>
+          {
+            DAYS.map((day: string, index: number) => {
+              return (
+                <Checkbox
+                  key={index}
+                  value={index + 1}
+                  id={'patient-name' + index}
+                  m={'0 auto 5px auto'}
+                  iconColor={'wine.7'}
+                  colorScheme={'white'}
+                  borderColor={'wine.7'}
+                  justifyContent={'flex-end'}
+                  bg={'green.1'}
+                  borderRadius={'4px'}
+                  p={'6px'}
+                >
+                  <Text fontSize={'11px'} fontWeight={'bold'}>
+                    { day }
+                  </Text>
+                </Checkbox>
+                )
+              }
+            )
+          }
+        </Flex>
       </FormControl>
 
 
