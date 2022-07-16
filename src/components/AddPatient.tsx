@@ -41,10 +41,15 @@ export default function AddPatient () {
   const navigate = useNavigate();
   const [buttonsFocus, setButtonsFocus] = useState<buttonFocusKeys>(BUTTONFOCUS);
   const [dataForm, setDataForm] = useState<bodyDataPatient>(DATA_PATIENT);
+  const [fixedQuantity, setFixedQuantity] = useState<boolean>(false);
 
   const handleInputChange = (e: BaseSyntheticEvent) => {
     const { name, value } = e.target as HTMLInputElement;
     setDataForm({ ...dataForm, [name]: value });
+
+    if (name === 'fixedQuantity') {
+      value === 'false' ? setFixedQuantity(true) : setFixedQuantity(false);
+    }
   };
 
   const handleDayClick = (e: BaseSyntheticEvent, index: number) => {
@@ -177,6 +182,9 @@ export default function AddPatient () {
             colorScheme={'white'}
             borderColor={'wine.7'}
             justifyContent={'start'}
+            name='fixedQuantity'
+            value={fixedQuantity.toString()}
+            onChange={handleInputChange}
           >
             <Text fontSize={'12px'} fontWeight={'bold'}>
               Marque, se a quantidade de atendimentos mensais é fixa.
