@@ -6,19 +6,9 @@ import {
   FormLabel,
   Button, Text, Input, Flex, Grid, GridItem,
 } from '@chakra-ui/react'
-import { buttonValuesKeys, buttonFocusKeys,  } from '../services/types';
+import { buttonFocusKeys,  } from '../services/types';
 
 const DAYS = ['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SÁB'];
-
-const BUTTONVALUE: buttonValuesKeys = {
-  1: { value: 0 },
-  2: { value: 0 },
-  3: { value: 0 },
-  4: { value: 0 },
-  5: { value: 0 },
-  6: { value: 0 },
-  7: { value: 0 },
-}
 
 const BUTTONFOCUS: buttonFocusKeys = {
   1: { focus: false },
@@ -33,18 +23,20 @@ const BUTTONFOCUS: buttonFocusKeys = {
 export default function AddPatient () {
   const navigate = useNavigate();
   const [input, setInput] = useState('');
-  const [buttonsValue, setButtonsValue] = useState<buttonValuesKeys>(BUTTONVALUE);
   const [buttonsFocus, setButtonsFocus] = useState<buttonFocusKeys>(BUTTONFOCUS);
+  const [days, setDays] = useState<number[]>([]);
 
   const handleInputChange = (e: BaseSyntheticEvent) => setInput(e.target.value);
 
   const handleDayClick = (e: BaseSyntheticEvent, index: number) => {
     if (!buttonsFocus[index].focus) {
       setButtonsFocus({ ...buttonsFocus, [index]: { focus: true } });
-      setButtonsValue({ ...buttonsValue, [index]: { value: +e.target.value as number } });
+      days.push(index);
     } else {
       setButtonsFocus({ ...buttonsFocus, [index]: { focus: false } });
-      setButtonsValue({ ...buttonsValue, [index]: { value: 0 } });
+      const copyDays = [...days];
+      copyDays.splice(days.indexOf(index), 1);
+      setDays(copyDays);
     }
   }
 
@@ -128,7 +120,6 @@ export default function AddPatient () {
         <Flex flexWrap={'wrap'} justifyContent={'space-between'} id='day'>
           {
             DAYS.map((day: string, index: number) => {
-              
               return (
                 <Button
                   key={index}
