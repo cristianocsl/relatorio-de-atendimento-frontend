@@ -71,3 +71,11 @@ export type extractDataType = {
   month: string,
   day: string
 }
+
+export type buttonValuesKeys = {
+  [key: number]: { value: number }
+}
+
+export type buttonFocusKeys = {
+  [key: number]: { focus: boolean }
+}
