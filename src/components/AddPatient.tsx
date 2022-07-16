@@ -6,7 +6,7 @@ import {
   FormLabel,
   Button, Text, Input, Flex, Grid, GridItem,
 } from '@chakra-ui/react'
-import { buttonFocusKeys,  } from '../services/types';
+import { buttonFocusKeys, bodyDataPatient } from '../services/types';
 
 const DAYS = ['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SÁB'];
 
@@ -20,23 +20,40 @@ const BUTTONFOCUS: buttonFocusKeys = {
   7: { focus: false },
 }
 
+const DATA_PATIENT: bodyDataPatient = {
+  patient: '',
+  neighborhood: '',
+  healthInsurance: '',
+  days: [],
+  serviceGoal: {
+    weekly: 0,
+    monthly: 0,
+  },
+  servicePerformed: {
+    weekly: 0,
+    monthly: 0,
+  },
+  unitPrice: 0,
+  evolution: '',
+}
+
 export default function AddPatient () {
   const navigate = useNavigate();
   const [input, setInput] = useState('');
   const [buttonsFocus, setButtonsFocus] = useState<buttonFocusKeys>(BUTTONFOCUS);
-  const [days, setDays] = useState<number[]>([]);
+  const [dataForm, setDataForm] = useState<bodyDataPatient>(DATA_PATIENT);
 
   const handleInputChange = (e: BaseSyntheticEvent) => setInput(e.target.value);
 
   const handleDayClick = (e: BaseSyntheticEvent, index: number) => {
     if (!buttonsFocus[index].focus) {
       setButtonsFocus({ ...buttonsFocus, [index]: { focus: true } });
-      days.push(index);
+      dataForm.days.push(index);
     } else {
       setButtonsFocus({ ...buttonsFocus, [index]: { focus: false } });
-      const copyDays = [...days];
-      copyDays.splice(days.indexOf(index), 1);
-      setDays(copyDays);
+      const copyDays = [...dataForm.days];
+      copyDays.splice(dataForm.days.indexOf(index), 1);
+      setDataForm({ ...dataForm, days: copyDays });
     }
   }
 
