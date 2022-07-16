@@ -1,4 +1,4 @@
-import React, { BaseSyntheticEvent, useEffect, useState } from "react";
+import React, { BaseSyntheticEvent, useState } from "react";
 import UndoRoundedIcon from '@mui/icons-material/UndoRounded';
 import { useNavigate } from "react-router-dom";
 import {
@@ -6,48 +6,47 @@ import {
   FormLabel,
   Button, Text, Input, Flex, Grid, GridItem,
 } from '@chakra-ui/react'
+import { buttonValuesKeys, buttonFocusKeys,  } from '../services/types';
 
 const DAYS = ['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SÁB'];
 
-type genericKeys = {
-  [key: number]: { value: number, focus: boolean }
+const BUTTONVALUE: buttonValuesKeys = {
+  1: { value: 0 },
+  2: { value: 0 },
+  3: { value: 0 },
+  4: { value: 0 },
+  5: { value: 0 },
+  6: { value: 0 },
+  7: { value: 0 },
 }
 
-const BUTTONGROUP: genericKeys = {
-  1: { value: 0, focus: false },
-  2: { value: 0, focus: false },
-  3: { value: 0, focus: false },
-  4: { value: 0, focus: false },
-  5: { value: 0, focus: false },
-  6: { value: 0, focus: false },
-  7: { value: 0, focus: false },
+const BUTTONFOCUS: buttonFocusKeys = {
+  1: { focus: false },
+  2: { focus: false },
+  3: { focus: false },
+  4: { focus: false },
+  5: { focus: false },
+  6: { focus: false },
+  7: { focus: false },
 }
 
 export default function AddPatient () {
   const navigate = useNavigate();
   const [input, setInput] = useState('');
-  const [buttons, setButtons] = useState<genericKeys>(BUTTONGROUP);
+  const [buttonsValue, setButtonsValue] = useState<buttonValuesKeys>(BUTTONVALUE);
+  const [buttonsFocus, setButtonsFocus] = useState<buttonFocusKeys>(BUTTONFOCUS);
 
-  const handleInputChange = (e: any) => setInput(e.target.value);
+  const handleInputChange = (e: BaseSyntheticEvent) => setInput(e.target.value);
 
   const handleDayClick = (e: BaseSyntheticEvent, index: number) => {
-    if (!buttons[index].focus) {
-      setButtons((prevFocus) => ({
-        ...buttons,
-          [index]: {
-            value: +e.target.value as number,
-            focus: !prevFocus[index].focus as boolean },
-          }))
+    if (!buttonsFocus[index].focus) {
+      setButtonsFocus({ ...buttonsFocus, [index]: { focus: true } });
+      setButtonsValue({ ...buttonsValue, [index]: { value: +e.target.value as number } });
     } else {
-      setButtons((prevFocus) => ({
-        ...buttons,
-          [index]: {
-            value: 0 as number,
-            focus: !prevFocus[index].focus as boolean },
-          }))
+      setButtonsFocus({ ...buttonsFocus, [index]: { focus: false } });
+      setButtonsValue({ ...buttonsValue, [index]: { value: 0 } });
     }
   }
-
 
   return (
     <Flex flexDirection={'column'}>
@@ -140,8 +139,8 @@ export default function AddPatient () {
                   fontSize={'11px'} fontWeight={'bold'}
                   width={'35px'}
                   height={'30px'}
-                  bg={ buttons[index + 1].focus ? 'wine.7' : 'green.1' }
-                  color={ buttons[index + 1].focus ? 'green.1' : 'wine.7' }
+                  bg={ buttonsFocus[index + 1].focus ? 'wine.7' : 'green.1' }
+                  color={ buttonsFocus[index + 1].focus ? 'green.1' : 'wine.7' }
                 >
                   { day }
                 </Button>
