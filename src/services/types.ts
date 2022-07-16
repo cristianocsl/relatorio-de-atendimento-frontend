@@ -75,3 +75,20 @@ export type extractDataType = {
 export type buttonFocusKeys = {
   [key: number]: { focus: boolean }
 }
+
+export type bodyDataPatient = {
+  patient: string,
+  neighborhood: string,
+  healthInsurance: string,
+  days: number[],
+  serviceGoal: {
+    weekly: number,
+    monthly: number,
+  },
+  servicePerformed: {
+    weekly: number,
+    monthly: number,
+  },
+  unitPrice: number,
+  evolution: string,
+}
