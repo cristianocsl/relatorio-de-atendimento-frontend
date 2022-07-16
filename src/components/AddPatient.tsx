@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import {
   FormControl,
   FormLabel,
-  Button, Text, Input, Flex, Grid, GridItem,
+  Button, Text, Input, Flex, Grid, GridItem, Box, Checkbox
 } from '@chakra-ui/react'
 import { buttonFocusKeys, bodyDataPatient } from '../services/types';
 
@@ -162,6 +162,27 @@ export default function AddPatient () {
             )
           }
         </Flex>
+        <Box
+          p={'4px'}
+          height={'30px'}
+          bg={'green.1'}
+          borderRadius={'4px'}
+          textAlign={'start'}
+          m={'20px 0 0 0'}
+        >
+          <Checkbox
+            p={'0'}
+            m={'0'}
+            iconColor={'wine.7'}
+            colorScheme={'white'}
+            borderColor={'wine.7'}
+            justifyContent={'start'}
+          >
+            <Text fontSize={'12px'} fontWeight={'bold'}>
+              Marque, se a quantidade de atendimentos mensais é fixa.
+            </Text>
+          </Checkbox>
+        </Box>
       </FormControl>
 
 
