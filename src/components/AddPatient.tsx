@@ -39,11 +39,13 @@ const DATA_PATIENT: bodyDataPatient = {
 
 export default function AddPatient () {
   const navigate = useNavigate();
-  const [input, setInput] = useState('');
   const [buttonsFocus, setButtonsFocus] = useState<buttonFocusKeys>(BUTTONFOCUS);
   const [dataForm, setDataForm] = useState<bodyDataPatient>(DATA_PATIENT);
 
-  const handleInputChange = (e: BaseSyntheticEvent) => setInput(e.target.value);
+  const handleInputChange = (e: BaseSyntheticEvent) => {
+    const { name, value } = e.target as HTMLInputElement;
+    setDataForm({ ...dataForm, [name]: value });
+  };
 
   const handleDayClick = (e: BaseSyntheticEvent, index: number) => {
     if (!buttonsFocus[index].focus) {
@@ -70,7 +72,7 @@ export default function AddPatient () {
 
       <FormControl color={'wine.7'} borderWidth={0} p={'0 20px 0 20px'}>
         <FormLabel
-          htmlFor='patient-name'
+          htmlFor='patient'
           fontWeight={'bold'}
           fontSize={'14px'}
           m={'10px 0 0 0'}
@@ -78,9 +80,10 @@ export default function AddPatient () {
           Paciente:
         </FormLabel>
         <Input
-          id='patient-name'
+          id='patient'
+          name='patient'
           type='text'
-          value={input}
+          value={dataForm.patient}
           bg={'green.1'}
           onChange={handleInputChange}
           p={'0'}
@@ -89,7 +92,7 @@ export default function AddPatient () {
         <Grid templateColumns='repeat(2, 1fr)' gap={4}>
           <GridItem>
             <FormLabel
-              htmlFor='bairro'
+              htmlFor='neighborhood'
               fontWeight={'bold'}
               fontSize={'14px'}
               m={'10px 0 0 0'}
@@ -97,9 +100,10 @@ export default function AddPatient () {
               Bairro:
             </FormLabel>
             <Input
-              id='bairro'
+              id='neighborhood'
+              name='neighborhood'
               type='text'
-              value={input}
+              value={dataForm.neighborhood}
               bg={'green.1'}
               onChange={handleInputChange}
               width={'100%'}
@@ -108,7 +112,7 @@ export default function AddPatient () {
 
           <GridItem>
             <FormLabel
-              htmlFor='empresa'
+              htmlFor='healthInsurance'
               fontWeight={'bold'}
               fontSize={'14px'}
               m={'10px 0 0 0'}
@@ -116,9 +120,10 @@ export default function AddPatient () {
               Empresa:
             </FormLabel>
             <Input
-              id='empresa'
+              id='healthInsurance'
+              name='healthInsurance'
               type='text'
-              value={input}
+              value={dataForm.healthInsurance}
               bg={'green.1'}
               onChange={handleInputChange}
               width={'100%'}
