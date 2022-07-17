@@ -90,6 +90,9 @@ const PatientsTable = () => {
                     <Text fontSize={'16px'} fontWeight={'bold'}>
                       { item.weekDay }
                     </Text>
+                    <Text fontSize={'9px'} fontWeight={'bold'}>
+                      { item.month }
+                    </Text>
                   </Tab>
               )
             }
