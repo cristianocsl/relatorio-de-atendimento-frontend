@@ -97,10 +97,10 @@ const PatientsTable = () => {
         </TabList>
         <TabPanels>
           {
-            dataCalendar.map((_info, index: number) => {
+            dataCalendar.map((info) => {
               return (
-                <TabPanel key={index} width={'100%'} p={'0 15px'}>
-                  <PatientsListCards filterPatientsByDay={ filterPatientsByDay } day={index + 2}/>
+                <TabPanel key={info.reference} width={'100%'} p={'0 15px'}>
+                  <PatientsListCards filterPatientsByDay={ filterPatientsByDay } day={info.reference}/>
                 </TabPanel>
               )
             })
