@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import {
   FormControl,
   FormLabel,
-  Button, Text, Input, Flex, Grid, GridItem, Box, Checkbox
+  Button, Text, Input, Flex, Grid, GridItem, Box, Checkbox,
 } from '@chakra-ui/react'
 import { buttonFocusKeys, bodyDataPatient } from '../services/types';
 
@@ -26,14 +26,14 @@ const DATA_PATIENT: bodyDataPatient = {
   healthInsurance: '',
   days: [],
   serviceGoal: {
-    weekly: 0,
-    monthly: 0,
+    weekly: '',
+    monthly: '',
   },
   servicePerformed: {
-    weekly: 0,
-    monthly: 0,
+    weekly: '',
+    monthly: '',
   },
-  unitPrice: 0,
+  unitPrice: '',
   evolution: '',
 }
 
@@ -43,24 +43,44 @@ export default function AddPatient () {
   const [dataForm, setDataForm] = useState<bodyDataPatient>(DATA_PATIENT);
   const [fixedQuantity, setFixedQuantity] = useState<boolean>(false);
 
+  
   const handleInputChange = (e: BaseSyntheticEvent) => {
     const { name, value } = e.target as HTMLInputElement;
-    setDataForm({ ...dataForm, [name]: value });
+    const newState = Object.assign({}, dataForm);
 
-    if (name === 'fixedQuantity') {
-      value === 'false' ? setFixedQuantity(true) : setFixedQuantity(false);
+    if (name === 'serviceGoal.monthly') {
+      newState.serviceGoal.monthly = value;
+      setDataForm(newState);
     }
+    else if (name === 'servicePerformed.monthly') {
+      newState.servicePerformed.monthly = value;
+      setDataForm(newState);
+    }
+    else if (name === 'servicePerformed.weekly') {
+      newState.servicePerformed.weekly = value;
+      setDataForm(newState);
+    }
+    else if (name === 'fixedQuantity') {
+      value === 'false' ? setFixedQuantity(true) : setFixedQuantity(false);
+    } else {
+      setDataForm({ ...dataForm, [name]: value });
+    }
+
   };
 
   const handleDayClick = (e: BaseSyntheticEvent, index: number) => {
+    const newState = Object.assign({}, dataForm);
+
     if (!buttonsFocus[index].focus) {
       setButtonsFocus({ ...buttonsFocus, [index]: { focus: true } });
       dataForm.days.push(index);
+      newState.serviceGoal.weekly = dataForm.days.length.toString();
     } else {
       setButtonsFocus({ ...buttonsFocus, [index]: { focus: false } });
       const copyDays = [...dataForm.days];
       copyDays.splice(dataForm.days.indexOf(index), 1);
       setDataForm({ ...dataForm, days: copyDays });
+      newState.serviceGoal.weekly = copyDays.length.toString();
     }
   }
 
@@ -191,6 +211,48 @@ export default function AddPatient () {
             </Text>
           </Checkbox>
         </Box>
+
+        <Grid templateColumns='repeat(2, 1fr)' gap={4}>
+          <GridItem>
+            <FormLabel
+              htmlFor='serviceGoal.monthly'
+              fontWeight={'bold'}
+              fontSize={'14px'}
+              m={'10px 0 0 0'}
+            >
+              Qtd de atendim. mensais:
+            </FormLabel>
+            <Input
+              id='serviceGoal.monthly'
+              name='serviceGoal.monthly'
+              type='text'
+              value={dataForm.serviceGoal.monthly}
+              bg={'green.1'}
+              onChange={handleInputChange}
+              width={'100%'}
+            />
+          </GridItem>
+
+          <GridItem>
+            <FormLabel
+              htmlFor='healthInsurance'
+              fontWeight={'bold'}
+              fontSize={'14px'}
+              m={'10px 0 0 0'}
+            >
+              Valor do atendimento (R$):
+            </FormLabel>
+            <Input
+              id='unitPrice'
+              name='unitPrice'
+              borderRadius={'4px'}
+              value={dataForm.unitPrice}
+              bg={'green.1'}
+              onChange={handleInputChange}
+              width={'100%'}
+            />
+          </GridItem>
+        </Grid>
       </FormControl>
 
 
