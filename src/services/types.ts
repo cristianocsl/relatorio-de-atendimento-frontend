@@ -62,14 +62,24 @@ export type thisFinances = {
   createdAt: string,
 }
 
+type subObject = {
+  portugueseWeekDay: string,
+  reference: number,
+}
+
 export type genericKeys = {
-  [key: string]: string
+  [key: string]: subObject,
+}
+
+export type genericKeysMonths = {
+  [key: string]: string,
 }
 
 export type extractDataType = {
+  reference: number,
   weekDay: string,
   month: string,
-  day: string
+  day: string,
 }
 
 export type buttonFocusKeys = {
