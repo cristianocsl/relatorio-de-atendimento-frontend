@@ -230,6 +230,7 @@ export default function AddPatient () {
               bg={'green.1'}
               onChange={handleInputChange}
               width={'100%'}
+              disabled={fixedQuantity}
             />
           </GridItem>
 
