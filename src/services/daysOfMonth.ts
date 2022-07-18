@@ -31,4 +31,4 @@ const objectCounterWeekDays = {
   7: getDaysQuantity('Sat', arrayWeekDays),
 }
 
-export const dayTest = objectCounterWeekDays;
+export default objectCounterWeekDays;
