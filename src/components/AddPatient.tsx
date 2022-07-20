@@ -1,13 +1,14 @@
-import React, { BaseSyntheticEvent, useState } from "react";
+import React, { BaseSyntheticEvent, useState } from 'react';
 import UndoRoundedIcon from '@mui/icons-material/UndoRounded';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import {
   FormControl,
-  FormLabel,
+  FormLabel, Textarea, useToast,
   Button, Text, Input, Flex, Grid, GridItem, Box, Checkbox,
 } from '@chakra-ui/react'
 import { buttonFocusKeys, bodyDataPatient } from '../services/types';
-import objectCounterWeekDays from "../services/daysOfMonth";
+import objectCounterWeekDays from '../services/daysOfMonth';
+import axiosServices from '../services/index';
 
 const DAYS = ['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SÁB'];
 
@@ -38,14 +39,20 @@ const DATA_PATIENT: bodyDataPatient = {
   evolution: '',
 }
 
+const MSG_RESPONSE = {
+  message: '',
+  status: '',
+}
+
 export default function AddPatient () {
   const navigate = useNavigate();
+  const toast = useToast();
   const [buttonsFocus, setButtonsFocus] = useState<buttonFocusKeys>(BUTTONFOCUS);
   const [dataForm, setDataForm] = useState<bodyDataPatient>(DATA_PATIENT);
   const [chooseQuantity, setChooseQuantity] = useState<boolean>(false);
   const [performed, setPerformed] = useState<boolean>(false);
+  const [responseMessage, setResponseMessage] = useState(MSG_RESPONSE);
 
-  
   const handleInputChange = (e: BaseSyntheticEvent) => {
     const { name, value } = e.target as HTMLInputElement;
     const newState = Object.assign({}, dataForm);
@@ -112,6 +119,22 @@ export default function AddPatient () {
       return value;
     }
   }
+
+  const callToast = (statusValue: any, message: string) => toast({
+    title: message,
+    status: statusValue,
+    duration: 4000,
+    isClosable: true,
+  });
+
+  const handleSubmit = async (e: BaseSyntheticEvent) => {
+    e.preventDefault();
+    const response = await axiosServices.create(dataForm);
+
+    response.patient
+    ? callToast('success', response.message)
+    : callToast('error', response);
+  };
 
   return (
     <Flex flexDirection={'column'}>
@@ -366,6 +389,40 @@ export default function AddPatient () {
             />
           </GridItem>
         </Grid>
+
+        <FormLabel
+          htmlFor='evolution'
+          fontWeight={'bold'}
+          fontSize={'14px'}
+          m={'10px 0 0 0'}
+        >
+          Evolução:
+        </FormLabel>
+        <Textarea
+          id='evolution'
+          name='evolution'
+          value={dataForm.evolution}
+          bg={'green.1'}
+          onChange={handleInputChange}
+          p={'0'}
+          fontSize={'12px'}
+          placeholder='Descreva a evolução do atendimento (Campo opcional)'
+          />
+
+        <Button
+          fontFamily={'heading'}
+          mt={8}
+          w={[ '160px', 'full']}
+          bg="wine.8"
+          color={'wine.1'}
+          onClick={ handleSubmit }
+          _hover={{
+            bg: 'green.3',
+            color: 'wine.8',
+            boxShadow: 'xl',
+          }}>
+          Salvar
+        </Button>
         
       </FormControl>
 
