@@ -63,7 +63,6 @@ export default function AddPatient () {
     }
     else if (name === 'chooseQuantity') {
       value === 'false' ? setChooseQuantity(true) : setChooseQuantity(false);
-      newState.serviceGoal.monthly = '';
     } else {
       setDataForm({ ...dataForm, [name]: value });
     }
@@ -74,21 +73,28 @@ export default function AddPatient () {
     const newState = Object.assign({}, dataForm);
 
     let monthly = +newState.serviceGoal.monthly;
+    
+    if (!chooseQuantity && !buttonsFocus[index].focus) {
+      monthly += objectCounterWeekDays[index];
+      newState.serviceGoal.monthly = monthly.toString();
+    }
+
+    if (!chooseQuantity && buttonsFocus[index].focus) {
+      monthly -= objectCounterWeekDays[index];
+      monthly = monthly < 0 ? 0 : monthly;
+      newState.serviceGoal.monthly = monthly.toString();
+    }
 
     if (!buttonsFocus[index].focus) {
       setButtonsFocus({ ...buttonsFocus, [index]: { focus: true } });
       dataForm.days.push(index);
       newState.serviceGoal.weekly = dataForm.days.length.toString();
-      monthly += objectCounterWeekDays[index];
-      newState.serviceGoal.monthly = monthly.toString();
     } else {
       setButtonsFocus({ ...buttonsFocus, [index]: { focus: false } });
       const copyDays = [...dataForm.days];
       copyDays.splice(dataForm.days.indexOf(index), 1);
       setDataForm({ ...dataForm, days: copyDays });
       newState.serviceGoal.weekly = copyDays.length.toString();
-      monthly -= objectCounterWeekDays[index];
-      newState.serviceGoal.monthly = monthly.toString();
     }
   }
 
@@ -100,7 +106,6 @@ export default function AddPatient () {
     else {
       return value;
     }
-      // newState.serviceGoal.monthly = value;
   }
 
   return (
