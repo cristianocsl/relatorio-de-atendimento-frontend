@@ -43,6 +43,7 @@ export default function AddPatient () {
   const [buttonsFocus, setButtonsFocus] = useState<buttonFocusKeys>(BUTTONFOCUS);
   const [dataForm, setDataForm] = useState<bodyDataPatient>(DATA_PATIENT);
   const [chooseQuantity, setChooseQuantity] = useState<boolean>(false);
+  const [performed, setPerformed] = useState<boolean>(false);
 
   
   const handleInputChange = (e: BaseSyntheticEvent) => {
@@ -63,7 +64,11 @@ export default function AddPatient () {
     }
     else if (name === 'chooseQuantity') {
       value === 'false' ? setChooseQuantity(true) : setChooseQuantity(false);
-    } else {
+    }
+    else if (name === 'performed') {
+      value === 'false' ? setPerformed(true) : setPerformed(false);
+    }
+    else {
       setDataForm({ ...dataForm, [name]: value });
     }
 
@@ -211,6 +216,7 @@ export default function AddPatient () {
             )
           }
         </Flex>
+        
         <Box
           p={'4px'}
           height={'30px'}
@@ -255,6 +261,7 @@ export default function AddPatient () {
               onChange={handleInputChange}
               width={'100%'}
               disabled={!chooseQuantity}
+              textAlign={'center'}
             />
           </GridItem>
 
@@ -275,9 +282,35 @@ export default function AddPatient () {
               bg={'green.1'}
               onChange={handleInputChange}
               width={'100%'}
+              textAlign={'center'}
             />
           </GridItem>
         </Grid>
+
+        <Box
+          p={'4px'}
+          height={'30px'}
+          bg={'green.1'}
+          borderRadius={'4px'}
+          textAlign={'start'}
+          m={'20px 0 0 0'}
+        >
+          <Checkbox
+            p={'0'}
+            m={'0'}
+            iconColor={'wine.7'}
+            colorScheme={'white'}
+            borderColor={'wine.7'}
+            justifyContent={'start'}
+            name='performed'
+            value={performed.toString()}
+            onChange={handleInputChange}
+          >
+            <Text fontSize={{ base: '10.5px', sm: '12px' }} fontWeight={'bold'}>
+              Já realizou algum atendimento neste mês?
+            </Text>
+          </Checkbox>
+        </Box>
 
         <Grid
           templateColumns='repeat(2, 1fr)'
@@ -286,6 +319,8 @@ export default function AddPatient () {
           borderRadius={'6px'}
           m={'20px 0 0 0'}
           p={' 0 10px 10px 10px'}
+          hidden={!performed}
+          alignItems={'end'}
         >
           <GridItem>
             <FormLabel
@@ -304,6 +339,7 @@ export default function AddPatient () {
               value={dataForm.servicePerformed.monthly}
               bg={'green.1'}
               onChange={handleInputChange}
+              textAlign={'center'}
               width={'100%'}
             />
           </GridItem>
@@ -325,6 +361,7 @@ export default function AddPatient () {
               value={dataForm.servicePerformed.weekly}
               bg={'green.1'}
               onChange={handleInputChange}
+              textAlign={'center'}
               width={'100%'}
             />
           </GridItem>
