@@ -42,7 +42,7 @@ export default function AddPatient () {
   const navigate = useNavigate();
   const [buttonsFocus, setButtonsFocus] = useState<buttonFocusKeys>(BUTTONFOCUS);
   const [dataForm, setDataForm] = useState<bodyDataPatient>(DATA_PATIENT);
-  const [fixedQuantity, setFixedQuantity] = useState<boolean>(false);
+  const [chooseQuantity, setChooseQuantity] = useState<boolean>(false);
 
   
   const handleInputChange = (e: BaseSyntheticEvent) => {
@@ -61,8 +61,9 @@ export default function AddPatient () {
       newState.servicePerformed.weekly = value;
       setDataForm(newState);
     }
-    else if (name === 'fixedQuantity') {
-      value === 'false' ? setFixedQuantity(true) : setFixedQuantity(false);
+    else if (name === 'chooseQuantity') {
+      value === 'false' ? setChooseQuantity(true) : setChooseQuantity(false);
+      newState.serviceGoal.monthly = '';
     } else {
       setDataForm({ ...dataForm, [name]: value });
     }
@@ -92,12 +93,14 @@ export default function AddPatient () {
   }
 
   const isFixedQuantity = (value: string) => {
-    if (fixedQuantity) {
-      const quantityServices = dataForm.days.length * 4;
-      return quantityServices.toString();
-    } else {
+    const newState = Object.assign({}, dataForm);
+    if (chooseQuantity) {
+      return newState.serviceGoal.monthly;
+    }
+    else {
       return value;
     }
+      // newState.serviceGoal.monthly = value;
   }
 
   return (
@@ -218,12 +221,12 @@ export default function AddPatient () {
             colorScheme={'white'}
             borderColor={'wine.7'}
             justifyContent={'start'}
-            name='fixedQuantity'
-            value={fixedQuantity.toString()}
+            name='chooseQuantity'
+            value={chooseQuantity.toString()}
             onChange={handleInputChange}
           >
             <Text fontSize={'12px'} fontWeight={'bold'}>
-              Marque, se a quantidade de atendimentos mensais é fixa.
+              Quero escolher a quantidade de atendimentos mensais.
             </Text>
           </Checkbox>
         </Box>
@@ -246,7 +249,7 @@ export default function AddPatient () {
               bg={'green.1'}
               onChange={handleInputChange}
               width={'100%'}
-              disabled={fixedQuantity}
+              disabled={!chooseQuantity}
             />
           </GridItem>
 
