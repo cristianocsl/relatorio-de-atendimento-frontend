@@ -230,7 +230,7 @@ export default function AddPatient () {
             value={chooseQuantity.toString()}
             onChange={handleInputChange}
           >
-            <Text fontSize={'12px'} fontWeight={'bold'}>
+            <Text fontSize={{ base: '10.5px', sm: '12px' }} fontWeight={'bold'}>
               Quero escolher a quantidade de atendimentos mensais.
             </Text>
           </Checkbox>
@@ -241,7 +241,7 @@ export default function AddPatient () {
             <FormLabel
               htmlFor='serviceGoal.monthly'
               fontWeight={'bold'}
-              fontSize={'14px'}
+              fontSize={'11px'}
               m={'10px 0 0 0'}
             >
               Qtd de atendim. mensais:
@@ -262,7 +262,7 @@ export default function AddPatient () {
             <FormLabel
               htmlFor='healthInsurance'
               fontWeight={'bold'}
-              fontSize={'14px'}
+              fontSize={'11px'}
               m={'10px 0 0 0'}
             >
               Valor do atendimento (R$):
