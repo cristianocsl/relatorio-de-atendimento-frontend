@@ -20,7 +20,7 @@ import { extractDataType } from '../services/types';
 
 const PatientsTable = () => {
   const {
-    filterPatientsByDay, isLoading, dataCalendar,
+    filterPatientsByDay, isLoading, dataCalendar, remainingPatients,
     patientsToday, patientsPending, greetingMessage } = useContext(MyContext);
 
   const navigate = useNavigate();
@@ -62,10 +62,20 @@ const PatientsTable = () => {
         fontWeight={'bold'}
         fontSize={'11px'}
         ml={'20px'}
+        display={'flex'}
+      >
+        Pacientes restantes para o dia de hoje: <Text color={'wine.8'} ml={'5px'} mr={'5px'}>{ remainingPatients } paciente(s)</Text>
+      </Box>
+
+      <Box
+        color={'green.8'}
+        fontWeight={'bold'}
+        fontSize={'11px'}
+        ml={'20px'}
         mb={'14px'}
         display={'flex'}        
       >
-        Você tem <Text color={'#9D0400'} ml={'5px'} mr={'5px'}>{ patientsPending } pacientes</Text> não atendidos!
+        Você tem <Text color={'#9D0400'} ml={'5px'} mr={'5px'}>{ patientsPending } pacientes</Text> não atendidos neste mês!
       </Box>
 
       <Tabs variant='soft-rounded' margin={'0 auto'} defaultIndex={3}>
