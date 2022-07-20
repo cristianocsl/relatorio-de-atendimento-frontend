@@ -69,6 +69,7 @@ const Provider = ({ children }: Props) => {
   }
   
   const patientsToday = counter.patientsToday(patients);
+  const remainingPatients = counter.remainingPatients(patients);
   const patientsPending = counter.patientsPending(patients);
   
   const context = {
@@ -79,6 +80,7 @@ const Provider = ({ children }: Props) => {
     dataCalendar,
     patientsToday,
     patientsPending,
+    remainingPatients,
     greetingMessage,
     filterPatientsByDay,
     setIsLoggedIn,
