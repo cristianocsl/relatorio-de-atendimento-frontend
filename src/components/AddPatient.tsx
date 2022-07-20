@@ -7,6 +7,7 @@ import {
   Button, Text, Input, Flex, Grid, GridItem, Box, Checkbox,
 } from '@chakra-ui/react'
 import { buttonFocusKeys, bodyDataPatient } from '../services/types';
+import objectCounterWeekDays from "../services/daysOfMonth";
 
 const DAYS = ['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SÁB'];
 
@@ -71,16 +72,29 @@ export default function AddPatient () {
   const handleDayClick = (e: BaseSyntheticEvent, index: number) => {
     const newState = Object.assign({}, dataForm);
 
+    let monthly = +newState.serviceGoal.monthly;
+
     if (!buttonsFocus[index].focus) {
       setButtonsFocus({ ...buttonsFocus, [index]: { focus: true } });
       dataForm.days.push(index);
       newState.serviceGoal.weekly = dataForm.days.length.toString();
+      monthly += objectCounterWeekDays[index];
+      newState.serviceGoal.monthly = (monthly).toString();
     } else {
       setButtonsFocus({ ...buttonsFocus, [index]: { focus: false } });
       const copyDays = [...dataForm.days];
       copyDays.splice(dataForm.days.indexOf(index), 1);
       setDataForm({ ...dataForm, days: copyDays });
       newState.serviceGoal.weekly = copyDays.length.toString();
+    }
+  }
+
+  const isFixedQuantity = (value: string) => {
+    if (fixedQuantity) {
+      const quantityServices = dataForm.days.length * 4;
+      return quantityServices.toString();
+    } else {
+      return value;
     }
   }
 
@@ -226,7 +240,7 @@ export default function AddPatient () {
               id='serviceGoal.monthly'
               name='serviceGoal.monthly'
               type='text'
-              value={dataForm.serviceGoal.monthly}
+              value={isFixedQuantity(dataForm.serviceGoal.monthly)}
               bg={'green.1'}
               onChange={handleInputChange}
               width={'100%'}
