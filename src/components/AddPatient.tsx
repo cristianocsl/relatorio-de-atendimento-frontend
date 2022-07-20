@@ -278,6 +278,58 @@ export default function AddPatient () {
             />
           </GridItem>
         </Grid>
+
+        <Grid
+          templateColumns='repeat(2, 1fr)'
+          gap={4} borderColor={'green.1'}
+          borderWidth={'1px'}
+          borderRadius={'6px'}
+          m={'20px 0 0 0'}
+          p={' 0 10px 10px 10px'}
+        >
+          <GridItem>
+            <FormLabel
+              htmlFor='serviceGoal.monthly'
+              fontWeight={'bold'}
+              fontSize={'11px'}
+              textAlign={'center'}
+              m={'10px 0 0 0'}
+            >
+              Qtd de atendimentos realizados neste mês:
+            </FormLabel>
+            <Input
+              id='servicePerformed.monthly'
+              name='servicePerformed.monthly'
+              type='text'
+              value={dataForm.servicePerformed.monthly}
+              bg={'green.1'}
+              onChange={handleInputChange}
+              width={'100%'}
+            />
+          </GridItem>
+
+          <GridItem>
+            <FormLabel
+              htmlFor='healthInsurance'
+              fontWeight={'bold'}
+              fontSize={'11px'}
+              m={'10px 0 0 0'}
+              textAlign={'center'}
+            >
+              Qtd de atendimentos realizados nesta semana:
+            </FormLabel>
+            <Input
+              id='servicePerformed.weekly'
+              name='servicePerformed.weekly'
+              borderRadius={'4px'}
+              value={dataForm.servicePerformed.weekly}
+              bg={'green.1'}
+              onChange={handleInputChange}
+              width={'100%'}
+            />
+          </GridItem>
+        </Grid>
+        
       </FormControl>
 
 
