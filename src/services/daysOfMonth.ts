@@ -21,7 +21,10 @@ const getDaysQuantity = (day: string, arrayDays: string[]): number => arrayDays.
 
 const arrayWeekDays = arrayData.map((data: Date) => extractWeekDay(data));
 
-const objectCounterWeekDays = {
+export type buttonFocusKeys = {
+  [key: number]: number
+}
+const objectCounterWeekDays: buttonFocusKeys = {
   1: getDaysQuantity('Sun', arrayWeekDays),
   2: getDaysQuantity('Mon', arrayWeekDays),
   3: getDaysQuantity('Tue', arrayWeekDays),
