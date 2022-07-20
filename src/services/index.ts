@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { thisLogin, thisName, thisPatient } from './types';
+import { thisLogin, thisName, thisPatient, bodyDataPatient } from './types';
 
 const axiosInstance = axios.create({
   baseURL: 'https://minhaagendahomecare.herokuapp.com',
@@ -49,7 +49,7 @@ const login = async (userData: thisLogin) => {
   }
 };
 
-const create = async (dataPatient: thisPatient) => {
+const create = async (dataPatient: bodyDataPatient) => {
   try {
     const { data } = await axiosInstance.post('/registerPatient', dataPatient);
     return data;
