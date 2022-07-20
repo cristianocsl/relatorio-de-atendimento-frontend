@@ -79,13 +79,15 @@ export default function AddPatient () {
       dataForm.days.push(index);
       newState.serviceGoal.weekly = dataForm.days.length.toString();
       monthly += objectCounterWeekDays[index];
-      newState.serviceGoal.monthly = (monthly).toString();
+      newState.serviceGoal.monthly = monthly.toString();
     } else {
       setButtonsFocus({ ...buttonsFocus, [index]: { focus: false } });
       const copyDays = [...dataForm.days];
       copyDays.splice(dataForm.days.indexOf(index), 1);
       setDataForm({ ...dataForm, days: copyDays });
       newState.serviceGoal.weekly = copyDays.length.toString();
+      monthly -= objectCounterWeekDays[index];
+      newState.serviceGoal.monthly = monthly.toString();
     }
   }
 
