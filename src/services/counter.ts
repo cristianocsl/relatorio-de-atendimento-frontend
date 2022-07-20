@@ -2,6 +2,12 @@ import { patientArray } from './types';
 
 function patientsToday(patients: patientArray): number {
   const today = new Date().getDay();
+  const count = patients.filter((patient) => patient.days.includes(today + 1)).length;
+  return count;
+}
+
+function remainingPatients(patients: patientArray): number {
+  const today = new Date().getDay();
   const count = patients.filter((patient) => (patient.days.includes(today + 1) && patient.status === 'OK')).length;
   return count;
 }
@@ -14,6 +20,7 @@ function patientsPending(patients: patientArray): number {
 const counter = {
   patientsToday,
   patientsPending,
+  remainingPatients,
 }
 
 export default counter;
