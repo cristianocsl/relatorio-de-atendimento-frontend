@@ -8,7 +8,7 @@ function patientsToday(patients: patientArray): number {
 
 function remainingPatients(patients: patientArray): number {
   const today = new Date().getDay();
-  const count = patients.filter((patient) => (patient.days.includes(today + 1) && patient.status === 'OK')).length;
+  const count = patients.filter((patient) => (patient.days.includes(today + 1) && patient.status === '!!!')).length;
   return count;
 }
 
