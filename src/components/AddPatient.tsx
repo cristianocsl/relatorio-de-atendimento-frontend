@@ -1,4 +1,4 @@
-import React, { BaseSyntheticEvent, useState } from 'react';
+import React, { BaseSyntheticEvent, useContext, useState } from 'react';
 import UndoRoundedIcon from '@mui/icons-material/UndoRounded';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -9,6 +9,7 @@ import {
 import { buttonFocusKeys, bodyDataPatient } from '../services/types';
 import objectCounterWeekDays from '../services/daysOfMonth';
 import axiosServices from '../services/index';
+import MyContext from '../context/MyContext';
 
 const DAYS = ['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SÁB'];
 
@@ -28,21 +29,17 @@ const DATA_PATIENT: bodyDataPatient = {
   healthInsurance: '',
   days: [],
   serviceGoal: {
-    weekly: '',
-    monthly: '',
+    weekly: 0,
+    monthly: 0,
   },
   servicePerformed: {
-    weekly: '',
-    monthly: '',
+    weekly: 0,
+    monthly: 0,
   },
-  unitPrice: '',
+  unitPrice: 0,
   evolution: '',
 }
-
-const MSG_RESPONSE = {
-  message: '',
-  status: '',
-}
+const { setNewRequestIfItChanged, newRequestIfItChanged } = useContext(MyContext);
 
 export default function AddPatient () {
   const navigate = useNavigate();
@@ -51,22 +48,21 @@ export default function AddPatient () {
   const [dataForm, setDataForm] = useState<bodyDataPatient>(DATA_PATIENT);
   const [chooseQuantity, setChooseQuantity] = useState<boolean>(false);
   const [performed, setPerformed] = useState<boolean>(false);
-  const [responseMessage, setResponseMessage] = useState(MSG_RESPONSE);
 
   const handleInputChange = (e: BaseSyntheticEvent) => {
     const { name, value } = e.target as HTMLInputElement;
     const newState = Object.assign({}, dataForm);
 
     if (name === 'serviceGoal.monthly') {
-      newState.serviceGoal.monthly = value;
+      newState.serviceGoal.monthly = +value;
       setDataForm(newState);
     }
     else if (name === 'servicePerformed.monthly') {
-      newState.servicePerformed.monthly = value;
+      newState.servicePerformed.monthly = +value;
       setDataForm(newState);
     }
     else if (name === 'servicePerformed.weekly') {
-      newState.servicePerformed.weekly = value;
+      newState.servicePerformed.weekly = +value;
       setDataForm(newState);
     }
     else if (name === 'chooseQuantity') {
@@ -75,10 +71,13 @@ export default function AddPatient () {
     else if (name === 'performed') {
       value === 'false' ? setPerformed(true) : setPerformed(false);
     }
+    else if (name === 'unitPrice') {
+      newState.unitPrice = +value;
+      setDataForm(newState);
+    }
     else {
       setDataForm({ ...dataForm, [name]: value });
     }
-
   };
 
   const handleDayClick = (e: BaseSyntheticEvent, index: number) => {
@@ -88,25 +87,25 @@ export default function AddPatient () {
     
     if (!chooseQuantity && !buttonsFocus[index].focus) {
       monthly += objectCounterWeekDays[index];
-      newState.serviceGoal.monthly = monthly.toString();
+      newState.serviceGoal.monthly = monthly;
     }
 
     if (!chooseQuantity && buttonsFocus[index].focus) {
       monthly -= objectCounterWeekDays[index];
       monthly = monthly < 0 ? 0 : monthly;
-      newState.serviceGoal.monthly = monthly.toString();
+      newState.serviceGoal.monthly = monthly;
     }
 
     if (!buttonsFocus[index].focus) {
       setButtonsFocus({ ...buttonsFocus, [index]: { focus: true } });
       dataForm.days.push(index);
-      newState.serviceGoal.weekly = dataForm.days.length.toString();
+      newState.serviceGoal.weekly = dataForm.days.length;
     } else {
       setButtonsFocus({ ...buttonsFocus, [index]: { focus: false } });
       const copyDays = [...dataForm.days];
       copyDays.splice(dataForm.days.indexOf(index), 1);
       setDataForm({ ...dataForm, days: copyDays });
-      newState.serviceGoal.weekly = copyDays.length.toString();
+      newState.serviceGoal.weekly = copyDays.length;
     }
   }
 
@@ -123,7 +122,7 @@ export default function AddPatient () {
   const callToast = (statusValue: any, message: string) => toast({
     title: message,
     status: statusValue,
-    duration: 4000,
+    duration: 6000,
     isClosable: true,
   });
 
@@ -131,8 +130,10 @@ export default function AddPatient () {
     e.preventDefault();
     const response = await axiosServices.create(dataForm);
 
+    console.log(response);
+
     response.patient
-    ? callToast('success', response.message)
+    ? (callToast('success', response.message), setNewRequestIfItChanged(!newRequestIfItChanged))
     : callToast('error', response);
   };
 
@@ -279,7 +280,7 @@ export default function AddPatient () {
               id='serviceGoal.monthly'
               name='serviceGoal.monthly'
               type='text'
-              value={isFixedQuantity(dataForm.serviceGoal.monthly)}
+              value={isFixedQuantity(dataForm.serviceGoal.monthly.toString())}
               bg={'green.1'}
               onChange={handleInputChange}
               width={'100%'}
@@ -301,7 +302,8 @@ export default function AddPatient () {
               id='unitPrice'
               name='unitPrice'
               borderRadius={'4px'}
-              value={dataForm.unitPrice}
+              type='number'
+              value={dataForm.unitPrice?.toString()}
               bg={'green.1'}
               onChange={handleInputChange}
               width={'100%'}
@@ -412,7 +414,7 @@ export default function AddPatient () {
         <Button
           fontFamily={'heading'}
           mt={8}
-          w={[ '160px', 'full']}
+          w={[ '160px', '160px']}
           bg="wine.8"
           color={'wine.1'}
           onClick={ handleSubmit }
