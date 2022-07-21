@@ -1,14 +1,14 @@
-import React, { BaseSyntheticEvent, useState } from 'react';
+import React, { BaseSyntheticEvent, useContext, useState } from 'react';
 import UndoRoundedIcon from '@mui/icons-material/UndoRounded';
 import { useNavigate } from 'react-router-dom';
 import {
-  FormControl,
-  FormLabel, Textarea, useToast,
+  FormControl, FormLabel, Textarea, useToast,
   Button, Text, Input, Flex, Grid, GridItem, Box, Checkbox,
 } from '@chakra-ui/react'
 import { buttonFocusKeys, bodyDataPatient } from '../services/types';
 import objectCounterWeekDays from '../services/daysOfMonth';
 import axiosServices from '../services/index';
+import MyContext from '../context/MyContext';
 
 const DAYS = ['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SÁB'];
 
@@ -39,6 +39,7 @@ const DATA_PATIENT: bodyDataPatient = {
   evolution: '',
 }
 export default function AddPatient () {
+  const { setNewRequestIfItChanged, newRequestIfItChanged } = useContext(MyContext)
   const navigate = useNavigate();
   const toast = useToast();
   const [buttonsFocus, setButtonsFocus] = useState<buttonFocusKeys>(BUTTONFOCUS);
@@ -128,7 +129,7 @@ export default function AddPatient () {
     const response = await axiosServices.create(dataForm);
 
     response.patient
-    ? callToast('success', response.message)
+    ? (callToast('success', response.message), setNewRequestIfItChanged(!newRequestIfItChanged))
     : callToast('error', response);
   };
 
