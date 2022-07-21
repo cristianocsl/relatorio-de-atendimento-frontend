@@ -86,7 +86,7 @@ export type buttonFocusKeys = {
   [key: number]: { focus: boolean }
 }
 
-export type weekMonthT = { monthly: string, weekly: string };
+export type weekMonthT = { monthly: number, weekly: number };
 
 export type bodyDataPatient = {
   patient: string,
@@ -95,7 +95,7 @@ export type bodyDataPatient = {
   days: number[],
   serviceGoal: weekMonthT,
   servicePerformed: weekMonthT,
-  unitPrice: string,
+  unitPrice: number,
   evolution: string,
 }
 
