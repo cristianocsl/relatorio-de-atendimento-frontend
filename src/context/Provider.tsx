@@ -21,6 +21,7 @@ const Provider = ({ children }: Props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [greetingMessage, setGreetingMessage] = useState('');
   const [observerMessage, setObserverMessage] = useState(true);
+  const [newRequestIfItChanged, setNewRequestIfItChanged] = useState(false);
   
   setInterval(() =>{
     const today = new Date().getDay();
@@ -48,7 +49,6 @@ const Provider = ({ children }: Props) => {
     setIsLoading(false);
   }, []);
   
-  
   useEffect(() => {
     const TOKEN = localStorage.getItem('token');
     
@@ -62,7 +62,7 @@ const Provider = ({ children }: Props) => {
     };
 
     getPatients();
-  }, [isLoggedIn]);
+  }, [isLoggedIn, newRequestIfItChanged]);
 
   const filterPatientsByDay = (day: number): Array<thisPatient & idPatient> => {
     return patients.filter((patient: thisPatient & idPatient) => patient.days.includes(day));
@@ -82,9 +82,11 @@ const Provider = ({ children }: Props) => {
     patientsPending,
     remainingPatients,
     greetingMessage,
+    newRequestIfItChanged,
     filterPatientsByDay,
     setIsLoggedIn,
     setIsLoading,
+    setNewRequestIfItChanged,
   };
 
   return (
