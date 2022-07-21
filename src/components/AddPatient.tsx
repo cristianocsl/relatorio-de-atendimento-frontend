@@ -1,4 +1,4 @@
-import React, { BaseSyntheticEvent, useContext, useState } from 'react';
+import React, { BaseSyntheticEvent, useState } from 'react';
 import UndoRoundedIcon from '@mui/icons-material/UndoRounded';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -9,7 +9,6 @@ import {
 import { buttonFocusKeys, bodyDataPatient } from '../services/types';
 import objectCounterWeekDays from '../services/daysOfMonth';
 import axiosServices from '../services/index';
-import MyContext from '../context/MyContext';
 
 const DAYS = ['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SÁB'];
 
@@ -39,8 +38,6 @@ const DATA_PATIENT: bodyDataPatient = {
   unitPrice: 0,
   evolution: '',
 }
-const { setNewRequestIfItChanged, newRequestIfItChanged } = useContext(MyContext);
-
 export default function AddPatient () {
   const navigate = useNavigate();
   const toast = useToast();
@@ -130,10 +127,8 @@ export default function AddPatient () {
     e.preventDefault();
     const response = await axiosServices.create(dataForm);
 
-    console.log(response);
-
     response.patient
-    ? (callToast('success', response.message), setNewRequestIfItChanged(!newRequestIfItChanged))
+    ? callToast('success', response.message)
     : callToast('error', response);
   };
 
