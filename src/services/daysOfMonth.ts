@@ -21,6 +21,18 @@ const getDaysQuantity = (day: string, arrayDays: string[]): number => arrayDays.
 
 const arrayWeekDays = arrayData.map((data: Date) => extractWeekDay(data));
 
+type daysOfMonth = {
+  [key: number]: string;
+};
+
+const resultRed = arrayData.reduce((objetoStatus: any, data: any) => {
+  let obj: daysOfMonth = {};
+  const day = +extract(data);
+  obj = {...objetoStatus, [day]: { status: '!!!' }};
+  
+  return obj;
+}, {});
+
 export type buttonFocusKeys = {
   [key: number]: number
 }
