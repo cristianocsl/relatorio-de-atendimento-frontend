@@ -67,6 +67,15 @@ const get = async () => {
   }
 };
 
+const update = async (id: number, dataPatient: bodyDataPatient) => {
+  try {
+    const { data } = await axiosInstance.put(`/patient/${id}`, dataPatient);
+    return data;
+  } catch (err: any) {
+    return err.response.data.message;
+  }
+};
+
 axiosInstance.interceptors.response.use((config) => {
     try {
       const TOKEN = localStorage.getItem('token');
@@ -88,6 +97,7 @@ const axiosServices = {
   login,
   create,
   get,
+  update,
   setTokenInAxiosInstance,
 };
 

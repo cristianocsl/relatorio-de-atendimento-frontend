@@ -64,6 +64,18 @@ const Provider = ({ children }: Props) => {
     getPatients();
   }, [isLoggedIn, newRequestIfItChanged]);
 
+  const handleChangeStatus = async (event: any, status: string) => {
+    const newState: (thisPatient & idPatient)[] = Object.assign([], patients);
+    const index = newState.findIndex((patient: thisPatient & idPatient) => patient._id === event.target.value);
+    if (status === '!!!') {
+      newState[index].status = 'OK';
+      setPatients(newState);
+    } else {
+      newState[index].status = '!!!';
+      setPatients(newState);
+    }
+  }
+
   const filterPatientsByDay = (day: number): Array<thisPatient & idPatient> => {
     return patients.filter((patient: thisPatient & idPatient) => patient.days.includes(day));
   }
@@ -87,6 +99,8 @@ const Provider = ({ children }: Props) => {
     setIsLoggedIn,
     setIsLoading,
     setNewRequestIfItChanged,
+    setPatients,
+    handleChangeStatus,
   };
 
   return (

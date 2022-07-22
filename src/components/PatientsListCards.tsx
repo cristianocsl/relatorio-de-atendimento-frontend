@@ -1,16 +1,12 @@
 import React from 'react';
-import {
-  Checkbox,
-  Box,
-  Text,
-  Flex,
-} from '@chakra-ui/react';
+import { Checkbox, Box, Text, Flex } from '@chakra-ui/react';
 import { Props } from 'framer-motion/types/types';
 import { thisPatient, idPatient } from '../services/types';
+import CheckboxStatus from './CheckBoxStatus';
 
 const PatientsList = (props: Props) => {
   const { filterPatientsByDay, day } = props;
-
+  
   const patientsByDay = filterPatientsByDay(day);
 
   return (
@@ -34,7 +30,7 @@ const PatientsList = (props: Props) => {
           w={{ base: '92px', smm: '130px', md: '160px' }}
           wordBreak={'break-word'}
           color="wine.7"
-        >
+          >
           Atend. Sem.
         </Box>
         <Box
@@ -60,7 +56,7 @@ const PatientsList = (props: Props) => {
         <Box
           w={{ base: '50px', smm: '100px' }}
           color="wine.7"
-        >
+          >
           Status
         </Box>
       </Flex>
@@ -82,17 +78,7 @@ const PatientsList = (props: Props) => {
                 w='60%'
                 color="wine.7"
                 textAlign={'start'}>
-                <Checkbox
-                  marginRight={5}
-                  iconColor={'wine.7'}
-                  colorScheme={'white'}
-                  borderColor={'wine.7'}
-                  justifyContent={'start'}
-                >
-                  <Text fontSize={'12px'}>
-                    { info.patient }
-                  </Text>
-                </Checkbox>
+                <CheckboxStatus info={info} />
               </Box>
               <Box
                 w={{ base: '92px', smm: '130px', md: '160px' }}

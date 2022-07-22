@@ -18,8 +18,10 @@ const inicialValue = {
   newRequestIfItChanged: false as boolean,
   setIsLoggedIn: (bool: boolean) => {},
   setIsLoading: (bool: boolean) => {},
+  setPatients: (patient: patientArray[]) => {},
   filterPatientsByDay: (day: number) => [] as patientArray[],
   setNewRequestIfItChanged: (bool: boolean) => {},
+  handleChangeStatus: (event: any, status: string) => {},
 };
 
 const MyContext = createContext(inicialValue);
