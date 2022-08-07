@@ -2,9 +2,9 @@ import { addDays, subDays, eachDayOfInterval, lastDayOfMonth } from 'date-fns/fp
 
 const today = new Date();
 
-const extract = (today: Date) => today.toString().split(' ').slice(2, 3)[0]
-const todayInTheMonth: string = extract(today);
-const lastDayInThisMonth:string = extract(lastDayOfMonth(today));
+const extractMonthDay = (today: Date) => today.toString().split(' ').slice(2, 3)[0]
+const todayInTheMonth: string = extractMonthDay(today);
+const lastDayInThisMonth:string = extractMonthDay(lastDayOfMonth(today));
 const quantityDayToTheEnd = +lastDayInThisMonth - +todayInTheMonth;
 
 const firstDay = subDays(+todayInTheMonth - 1, today);
@@ -25,10 +25,11 @@ type daysOfMonth = {
   [key: number]: string;
 };
 
-const resultRed = arrayData.reduce((objetoStatus: any, data: any) => {
+export const resultRed = arrayData.reduce((objetoStatus: any, data: any) => {
   let obj: daysOfMonth = {};
-  const day = +extract(data);
-  obj = {...objetoStatus, [day]: { status: '!!!' }};
+  console.log('data ->', data);
+  const monthDay = +extractMonthDay(data);
+  obj = {...objetoStatus, [monthDay]: { status: '!!!' }};
   
   return obj;
 }, {});
