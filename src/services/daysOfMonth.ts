@@ -27,7 +27,21 @@ type statusObject = {
   weekDay: string;
 }
 
-export const resultRed = arrayData.reduce((arrayStatus: Array<statusObject>, data: Date): Array<statusObject> => {
+type TweekDayRefObject = {
+  [key: number]: string;
+}
+
+const weekDayRef: TweekDayRefObject = {
+  1: 'Sun',
+  2: 'Mon',
+  3: 'Tue',
+  4: 'Wed',
+  5: 'Thu',
+  6: 'Fri',
+  7: 'Sat',
+};
+
+export const arraySourceStatus = arrayData.reduce((arrayStatus: Array<statusObject>, data: Date): Array<statusObject> => {
   const weekDay = extractWeekDay(data);
   const monthDay = +extractMonthDay(data);
   const innerObject = { status: '!!!', monthDay, weekDay };
@@ -35,6 +49,12 @@ export const resultRed = arrayData.reduce((arrayStatus: Array<statusObject>, dat
   
   return array;
 }, []);
+
+export const getSchedule = (weekDayNumbber: number): Array<statusObject> => {
+  const weekDayString = weekDayRef[weekDayNumbber];
+  const array = arraySourceStatus.filter((status: statusObject) => status.weekDay === weekDayString);
+  return array;
+}
 
 export type buttonFocusKeys = {
   [key: number]: number
