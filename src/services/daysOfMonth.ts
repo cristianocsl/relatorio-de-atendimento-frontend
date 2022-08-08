@@ -1,4 +1,5 @@
 import { addDays, subDays, eachDayOfInterval, lastDayOfMonth } from 'date-fns/fp';
+import { TweekDayRefObject, statusObject } from './types';
 
 const today = new Date();
 
@@ -21,16 +22,6 @@ const getDaysQuantity = (day: string, arrayDays: string[]): number => arrayDays.
 
 const arrayWeekDays = arrayData.map((data: Date) => extractWeekDay(data));
 
-type statusObject = {
-  status: string;
-  monthDay: number;
-  weekDay: string;
-}
-
-type TweekDayRefObject = {
-  [key: number]: string;
-}
-
 const weekDayRef: TweekDayRefObject = {
   1: 'Sun',
   2: 'Mon',
@@ -50,9 +41,15 @@ export const arraySourceStatus = arrayData.reduce((arrayStatus: Array<statusObje
   return array;
 }, []);
 
-export const getSchedule = (weekDayNumbber: number): Array<statusObject> => {
+export const addToSchedule = (weekDayNumbber: number): Array<statusObject> => {
   const weekDayString = weekDayRef[weekDayNumbber];
   const array = arraySourceStatus.filter((status: statusObject) => status.weekDay === weekDayString);
+  return array;
+}
+
+export const removeFromSchedule = (weekDayNumbber: number, arrayStatus: Array<statusObject>): Array<statusObject> => {
+  const weekDayString = weekDayRef[weekDayNumbber];
+  const array = arrayStatus.filter((status: statusObject) => status.weekDay !== weekDayString);
   return array;
 }
 
