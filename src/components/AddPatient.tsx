@@ -5,8 +5,8 @@ import {
   FormControl, FormLabel, Textarea, useToast,
   Button, Text, Input, Flex, Grid, GridItem, Box, Checkbox,
 } from '@chakra-ui/react'
-import { buttonFocusKeys, bodyDataPatient } from '../services/types';
-import objectCounterWeekDays from '../services/daysOfMonth';
+import { buttonFocusKeys, bodyDataPatient, statusObject } from '../services/types';
+import objectCounterWeekDays, { addToSchedule, removeFromSchedule, weekDayRef } from '../services/daysOfMonth';
 import axiosServices from '../services/index';
 import MyContext from '../context/MyContext';
 
@@ -37,7 +37,9 @@ const DATA_PATIENT: bodyDataPatient = {
   },
   unitPrice: 0,
   evolution: '',
+  status: []
 }
+
 export default function AddPatient () {
   const { setNewRequestIfItChanged, newRequestIfItChanged } = useContext(MyContext)
   const navigate = useNavigate();
@@ -78,7 +80,28 @@ export default function AddPatient () {
     }
   };
 
+  const includeExcludeSchedule = (index: number) => {  
+    const newState = Object.assign({}, dataForm);
+
+    if (dataForm.days.includes(index) === false) {
+      const schedule = addToSchedule(index);
+      const newArray = [ ...newState.status, ...schedule ];
+      setDataForm({...newState, status: newArray });
+    }
+    if (dataForm.days.includes(index) === true) {
+      const copyArrayStatus = [...newState.status];
+      const newArray = removeFromSchedule(index, copyArrayStatus);
+      const copy = dataForm;
+      copy.status = newArray;
+      setDataForm(copy);
+    }
+  }
+
+  console.log('dataForm.status', dataForm.status);
+
   const handleDayClick = (e: BaseSyntheticEvent, index: number) => {
+    includeExcludeSchedule(index);
+
     const newState = Object.assign({}, dataForm);
 
     let monthly = +newState.serviceGoal.monthly;
