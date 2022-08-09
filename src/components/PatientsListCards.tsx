@@ -1,13 +1,14 @@
-import React, { BaseSyntheticEvent, useContext } from 'react';
-import { Checkbox, Box, Text, Flex } from '@chakra-ui/react';
+import React, { useContext } from 'react';
+import {  Box,  Flex } from '@chakra-ui/react';
 import { Props } from 'framer-motion/types/types';
-import { thisPatient, idPatient } from '../services/types';
+import { thisPatient, idPatient, statusObject } from '../services/types';
 import { CheckBox } from '@mui/icons-material';
 import MyContext from '../context/MyContext';
+import Status from './Status';
 
 const PatientsList = (props: Props) => {
-  const { filterPatientsByDay, day } = props;
-  const { handleChangeStatus } = useContext(MyContext);
+  const { filterPatientsByDay, day, monthDay } = props;
+  const { handleChangeStatus, dataCalendar } = useContext(MyContext);
   
   const patientsByDay = filterPatientsByDay(day);
 
@@ -108,7 +109,16 @@ const PatientsList = (props: Props) => {
                 w={{ base: '50px', smm: '100px' }}
                 color="wine.7"
               >
-                {/* { info.status } */}
+                {info.status.map((daySchedule: statusObject) => {
+                  if (+daySchedule.monthDay === +monthDay) {
+                    return (
+                      <Status
+                        key={daySchedule.monthDay}
+                        daySchedule={daySchedule}
+                      />
+                    )
+                  }
+                  })}
               </Box>
             </Flex>
           )
