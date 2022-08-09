@@ -22,7 +22,7 @@ const getDaysQuantity = (day: string, arrayDays: string[]): number => arrayDays.
 
 const arrayWeekDays = arrayData.map((data: Date) => extractWeekDay(data));
 
-const weekDayRef: TweekDayRefObject = {
+export const weekDayRef: TweekDayRefObject = {
   1: 'Sun',
   2: 'Mon',
   3: 'Tue',
