@@ -85,7 +85,7 @@ export type extractDataType = {
   reference: number,
   weekDay: string,
   month: string,
-  day: string,
+  monthDay: string,
 }
 
 export type buttonFocusKeys = {
