@@ -20,8 +20,8 @@ import { extractDataType } from '../services/types';
 
 const PatientsTable = () => {
   const {
-    filterPatientsByDay, isLoading, dataCalendar, remainingPatients,
-    patientsToday, patientsPending, greetingMessage } = useContext(MyContext);
+    filterPatientsByDay, isLoading, dataCalendar, /* remainingPatients, */
+    patientsToday, /* patientsPending, */ greetingMessage } = useContext(MyContext);
 
   const navigate = useNavigate();
 
@@ -64,7 +64,7 @@ const PatientsTable = () => {
         ml={'20px'}
         display={'flex'}
       >
-        Pacientes restantes para o dia de hoje: <Text color={'wine.8'} ml={'5px'} mr={'5px'}>{ remainingPatients } paciente(s)</Text>
+        {/* Pacientes restantes para o dia de hoje: <Text color={'wine.8'} ml={'5px'} mr={'5px'}>{ remainingPatients } paciente(s)</Text> */}
       </Box>
 
       <Box
@@ -75,7 +75,7 @@ const PatientsTable = () => {
         mb={'14px'}
         display={'flex'}        
       >
-        Você tem <Text color={'#9D0400'} ml={'5px'} mr={'5px'}>{ patientsPending } pacientes</Text> não atendidos neste mês!
+        {/* Você tem <Text color={'#9D0400'} ml={'5px'} mr={'5px'}>{ patientsPending } pacientes</Text> não atendidos neste mês! */}
       </Box>
 
       <Tabs variant='soft-rounded' margin={'0 auto'} defaultIndex={3}>
@@ -95,7 +95,7 @@ const PatientsTable = () => {
                   boxShadow="4px 15px 20px #216177"
                   >
                     <Text fontSize={'12px'} fontWeight={'regular'}>
-                      { item.day }
+                      { item.monthDay }
                     </Text>
                     <Text fontSize={'16px'} fontWeight={'bold'}>
                       { item.weekDay }
@@ -113,7 +113,11 @@ const PatientsTable = () => {
             dataCalendar.map((info) => {
               return (
                 <TabPanel key={info.reference} width={'100%'} p={'0 15px'}>
-                  <PatientsListCards filterPatientsByDay={ filterPatientsByDay } day={info.reference}/>
+                  <PatientsListCards
+                    filterPatientsByDay={ filterPatientsByDay }
+                    monthDay={ info.monthDay }
+                    day={info.reference}
+                  />
                 </TabPanel>
               )
             })
