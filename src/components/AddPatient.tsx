@@ -81,23 +81,20 @@ export default function AddPatient () {
   };
 
   const includeExcludeSchedule = (index: number) => {  
-    const newState = Object.assign({}, dataForm);
-
     if (dataForm.days.includes(index) === false) {
       const schedule = addToSchedule(index);
-      const newArray = [ ...newState.status, ...schedule ];
-      setDataForm({...newState, status: newArray });
+      const newArray = [ ...dataForm.status, ...schedule ];
+      setDataForm({...dataForm, status: newArray });
     }
     if (dataForm.days.includes(index) === true) {
-      const copyArrayStatus = [...newState.status];
+      const copyArrayStatus = [...dataForm.status];
       const newArray = removeFromSchedule(index, copyArrayStatus);
-      const copy = dataForm;
-      copy.status = newArray;
-      setDataForm(copy);
+      const dataFormCopy = dataForm;
+      dataFormCopy.status = newArray;
+      setDataForm(dataFormCopy);
     }
   }
 
-  console.log('dataForm.status', dataForm.status);
 
   const handleDayClick = (e: BaseSyntheticEvent, index: number) => {
     includeExcludeSchedule(index);
