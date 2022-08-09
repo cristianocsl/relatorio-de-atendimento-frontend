@@ -80,11 +80,27 @@ export default function AddPatient () {
     }
   };
 
+  const checkIfCanSetSchedule = (arraySchedule: statusObject[], arrayStatusFromState: statusObject[]): void => {
+    const isRepeted = arraySchedule.some((statusSchedule) => {
+      return arrayStatusFromState.some((statusState) => {
+        statusSchedule.monthDay === statusState.monthDay
+      })
+    });
+    
+    if (isRepeted) {
+      setDataForm({ ...dataForm });
+    }
+    else {
+      const newArray = [ ...dataForm.status, ...arraySchedule ];
+      setDataForm({ ...dataForm, status: newArray });
+    }
+  }
+
   const includeExcludeSchedule = (index: number) => {  
     if (dataForm.days.includes(index) === false) {
       const schedule = addToSchedule(index);
-      const newArray = [ ...dataForm.status, ...schedule ];
-      setDataForm({...dataForm, status: newArray });
+      const arrayStatus = [...dataForm.status ];
+      checkIfCanSetSchedule(schedule, arrayStatus);
     }
     if (dataForm.days.includes(index) === true) {
       const copyArrayStatus = [...dataForm.status];
