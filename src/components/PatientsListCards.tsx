@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { BaseSyntheticEvent, useContext } from 'react';
 import { Checkbox, Box, Text, Flex } from '@chakra-ui/react';
 import { Props } from 'framer-motion/types/types';
 import { thisPatient, idPatient } from '../services/types';
-import CheckboxStatus from './CheckBoxStatus';
+import { CheckBox } from '@mui/icons-material';
+import MyContext from '../context/MyContext';
 
 const PatientsList = (props: Props) => {
   const { filterPatientsByDay, day } = props;
+  const { handleChangeStatus } = useContext(MyContext);
   
   const patientsByDay = filterPatientsByDay(day);
 
@@ -78,7 +80,11 @@ const PatientsList = (props: Props) => {
                 w='60%'
                 color="wine.7"
                 textAlign={'start'}>
-                <CheckboxStatus info={info} />
+                <CheckBox
+                  // onChange={/* (e: BaseSyntheticEvent) => handleChangeStatus(e, info.status) */}
+                >
+                  {/* { info.status } */}
+                </CheckBox>
               </Box>
               <Box
                 w={{ base: '92px', smm: '130px', md: '160px' }}
@@ -102,7 +108,7 @@ const PatientsList = (props: Props) => {
                 w={{ base: '50px', smm: '100px' }}
                 color="wine.7"
               >
-                { info.status }
+                {/* { info.status } */}
               </Box>
             </Flex>
           )

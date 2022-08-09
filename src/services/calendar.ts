@@ -1,7 +1,7 @@
 import { addDays, subDays } from 'date-fns/fp';
 import { genericKeys, extractDataType, genericKeysMonths } from './types';
 
-const weekDays: genericKeys = {
+export const weekDays: genericKeys = {
   Sun: { portugueseWeekDay: 'DOM', reference: 1 },
   Mon: { portugueseWeekDay: 'SEG', reference: 2 },
   Tue: { portugueseWeekDay: 'TER', reference: 3 },
@@ -26,7 +26,7 @@ const extractData = (data: any): extractDataType => {
     reference: weekDays[englishWeekDay].reference,
     weekDay: weekDays[englishWeekDay].portugueseWeekDay,
     month: months[englishMonth],
-    day,
+    monthDay: day,
   };
 };
 
