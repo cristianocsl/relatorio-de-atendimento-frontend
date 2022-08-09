@@ -25,10 +25,16 @@ export type thisRespRegister = {
   message: string,
 }
 
+export type statusObject = {
+  status: string;
+  monthDay: number;
+  weekDay: string;
+}
+
 export type thisPatient = {
   patient: string,
   neighborhood: string,
-  status: string,
+  status: Array<statusObject>,
   priority: string,
   days: number[],
   serviceGoal: {
@@ -97,21 +103,9 @@ export type bodyDataPatient = {
   servicePerformed: weekMonthT,
   unitPrice: number,
   evolution: string,
+  status: Array<statusObject>,
 }
 
-// export type bodyDataPatient = {
-//   patient: string,
-//   neighborhood: string,
-//   healthInsurance: string,
-//   days: number[],
-//   serviceGoal: {
-//     weekly: string,
-//     monthly: string,
-//   },
-//   servicePerformed: {
-//     weekly: string,
-//     monthly: string,
-//   },
-//   unitPrice: string,
-//   evolution: string,
-// }
+export type TweekDayRefObject = {
+  [key: number]: string;
+}
