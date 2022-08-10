@@ -64,15 +64,16 @@ const Provider = ({ children }: Props) => {
     getPatients();
   }, [isLoggedIn, newRequestIfItChanged]);
 
-  const handleChangeStatus = async (event: any, status: string) => {
-    const newState: (thisPatient & idPatient)[] = Object.assign([], patients);
-    const index = newState.findIndex((patient: thisPatient & idPatient) => patient._id === event.target.value);
+  const handleChangeStatus = async (event: any, patientId: string, monthDay: number) => {
+    const copyState = [...patients];
+    const index = copyState.find((patient: thisPatient & idPatient) => patient._id === patientId);
+    console.log(index);
     if (status === '!!!') {
-      newState[index].status = 'OK';
-      setPatients(newState);
+      // copyState[index].status = 'OK';
+      setPatients(copyState);
     } else {
-      newState[index].status = '!!!';
-      setPatients(newState);
+      // copyState[index].status = '!!!';
+      setPatients(copyState);
     }
   }
 
@@ -81,8 +82,8 @@ const Provider = ({ children }: Props) => {
   }
   
   const patientsToday = counter.patientsToday(patients);
-  const remainingPatients = counter.remainingPatients(patients);
-  const patientsPending = counter.patientsPending(patients);
+  // const remainingPatients = counter.remainingPatients(patients);
+  // const patientsPending = counter.patientsPending(patients);
   
   const context = {
     isLoading,
@@ -91,8 +92,8 @@ const Provider = ({ children }: Props) => {
     finances,
     dataCalendar,
     patientsToday,
-    patientsPending,
-    remainingPatients,
+    // patientsPending,
+    // remainingPatients,
     greetingMessage,
     newRequestIfItChanged,
     filterPatientsByDay,
