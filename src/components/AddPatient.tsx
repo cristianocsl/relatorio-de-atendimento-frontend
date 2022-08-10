@@ -37,7 +37,7 @@ const DATA_PATIENT: bodyDataPatient = {
   },
   unitPrice: 0,
   evolution: '',
-  status: []
+  schedule: []
 }
 
 export default function AddPatient () {
@@ -91,22 +91,22 @@ export default function AddPatient () {
       setDataForm({ ...dataForm });
     }
     else {
-      const newArray = [ ...dataForm.status, ...arraySchedule ];
-      setDataForm({ ...dataForm, status: newArray });
+      const newArray = [ ...dataForm.schedule, ...arraySchedule ];
+      setDataForm({ ...dataForm, schedule: newArray });
     }
   }
 
   const includeExcludeSchedule = (index: number) => {  
     if (dataForm.days.includes(index) === false) {
       const schedule = addToSchedule(index);
-      const arrayStatus = [...dataForm.status ];
+      const arrayStatus = [...dataForm.schedule ];
       checkIfCanSetSchedule(schedule, arrayStatus);
     }
     if (dataForm.days.includes(index) === true) {
-      const copyArrayStatus = [...dataForm.status];
+      const copyArrayStatus = [...dataForm.schedule];
       const newArray = removeFromSchedule(index, copyArrayStatus);
       const dataFormCopy = dataForm;
-      dataFormCopy.status = newArray;
+      dataFormCopy.schedule = newArray;
       setDataForm(dataFormCopy);
     }
   }

@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
+import React, { BaseSyntheticEvent, useContext } from 'react';
 import { Box,  Flex, Text, Checkbox } from '@chakra-ui/react';
-import { Props } from 'framer-motion/types/types';
+import { Props, Target } from 'framer-motion/types/types';
 import { thisPatient, idPatient, statusObject } from '../services/types';
 import MyContext from '../context/MyContext';
 import Status from './Status';
@@ -86,6 +86,7 @@ const PatientsList = (props: Props) => {
                   colorScheme={'white'}
                   borderColor={'wine.7'}
                   justifyContent={'start'}
+                  onChange={(e: BaseSyntheticEvent) => handleChangeStatus(e.target.checked, info._id, monthDay)}
                 >
                   <Text fontSize={'12px'}>
                     { info.patient }
@@ -114,7 +115,7 @@ const PatientsList = (props: Props) => {
                 w={{ base: '50px', smm: '100px' }}
                 color="wine.7"
               >
-                {info.status.map((daySchedule: statusObject) => {
+                {info.schedule.map((daySchedule: statusObject) => {
                   if (+daySchedule.monthDay === +monthDay) {
                     return (
                       <Status

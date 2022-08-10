@@ -34,7 +34,7 @@ export type statusObject = {
 export type thisPatient = {
   patient: string,
   neighborhood: string,
-  status: Array<statusObject>,
+  schedule: Array<statusObject>,
   priority: string,
   days: number[],
   serviceGoal: {
@@ -103,7 +103,7 @@ export type bodyDataPatient = {
   servicePerformed: weekMonthT,
   unitPrice: number,
   evolution: string,
-  status: Array<statusObject>,
+  schedule: Array<statusObject>,
 }
 
 export type TweekDayRefObject = {
