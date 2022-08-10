@@ -1,8 +1,7 @@
 import React, { useContext } from 'react';
-import {  Box,  Flex } from '@chakra-ui/react';
+import { Box,  Flex, Text, Checkbox } from '@chakra-ui/react';
 import { Props } from 'framer-motion/types/types';
 import { thisPatient, idPatient, statusObject } from '../services/types';
-import { CheckBox } from '@mui/icons-material';
 import MyContext from '../context/MyContext';
 import Status from './Status';
 
@@ -81,11 +80,17 @@ const PatientsList = (props: Props) => {
                 w='60%'
                 color="wine.7"
                 textAlign={'start'}>
-                <CheckBox
-                  // onChange={/* (e: BaseSyntheticEvent) => handleChangeStatus(e, info.status) */}
+                <Checkbox
+                  marginRight={5}
+                  iconColor={'wine.7'}
+                  colorScheme={'white'}
+                  borderColor={'wine.7'}
+                  justifyContent={'start'}
                 >
-                  {/* { info.status } */}
-                </CheckBox>
+                  <Text fontSize={'12px'}>
+                    { info.patient }
+                  </Text>
+                </Checkbox>
               </Box>
               <Box
                 w={{ base: '92px', smm: '130px', md: '160px' }}
