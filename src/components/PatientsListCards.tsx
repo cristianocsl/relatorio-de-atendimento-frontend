@@ -86,7 +86,7 @@ const PatientsList = (props: Props) => {
                   colorScheme={'white'}
                   borderColor={'wine.7'}
                   justifyContent={'start'}
-                  onChange={(e: BaseSyntheticEvent) => handleChangeStatus(e.target.checked, info._id, monthDay)}
+                  onChange={(e: BaseSyntheticEvent) => handleChangeStatus(e.target.checked, info._id, +monthDay)}
                 >
                   <Text fontSize={'12px'}>
                     { info.patient }
