@@ -87,16 +87,29 @@ const Provider = ({ children }: Props) => {
 
   type patientT = thisPatient & idPatient;
 
-  type infoPatientsListT = { copyState: patientT[], updatedSchedule: patientT, patientId: string };
+  type infoPatientsListT = { copyState: patientT[], updatedPatientInfo: patientT, patientId: string };
 
   const updatedListOfPatients = (arrayPatients: infoPatientsListT) => {
-    const { copyState, updatedSchedule, patientId } = arrayPatients;
+    const { copyState, updatedPatientInfo, patientId } = arrayPatients;
     return copyState.map((patient: thisPatient & idPatient) => {
       if (patient._id === patientId) {
-        return updatedSchedule;
+        return updatedPatientInfo;
       }
       return patient;
     })
+  }
+
+  const serviceCounter = (patientData: patientT, checked: boolean) => {
+    const { servicePerformed, ...otherInfos } = patientData;
+    if (checked) {
+      servicePerformed.weekly += 1;
+      servicePerformed.monthly += 1;
+      return { ...otherInfos, servicePerformed };
+    } else {
+      servicePerformed.weekly -= 1;
+      servicePerformed.monthly -= 1;
+      return { ...otherInfos, servicePerformed };
+    }
   }
 
   const handleChangeStatus = async (checked: boolean, patientId: string, monthDay: number) => {
@@ -110,14 +123,19 @@ const Provider = ({ children }: Props) => {
       const daySchedule = patientData?.schedule.find((daySchedule: statusObject) => daySchedule.monthDay === monthDay);
 
       const infoUpdate = { monthDay, daySchedule, patientData, status: 'OK' };
+
+      console.log(infoUpdate.patientData);
       
       if (checked) {
         const updatedSchedule = changeScheduleStatus(infoUpdate as infoT);
-        const updatedList = updatedListOfPatients({ copyState, updatedSchedule, patientId });
+        const updatedPatientInfo = serviceCounter(updatedSchedule, checked);
+
+        const updatedList = updatedListOfPatients({ copyState, updatedPatientInfo, patientId });
         setPatients(updatedList);
       } else {
         const updatedSchedule = changeScheduleStatus({...infoUpdate, status: '!!!'} as infoT);
-        const updatedList = updatedListOfPatients({ copyState, updatedSchedule, patientId });
+        const updatedPatientInfo = serviceCounter(updatedSchedule, checked);
+        const updatedList = updatedListOfPatients({ copyState, updatedPatientInfo, patientId });
         setPatients(updatedList);
       }
     }
