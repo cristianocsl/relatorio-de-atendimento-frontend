@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect, useState } from "react";
 import axiosServices from "../services";
-import { idPatient, thisFinances, thisPatient, extractDataType } from "../services/types";
+import { idPatient, thisFinances, thisPatient, statusObject, extractDataType } from "../services/types";
 import MyContext from "./MyContext";
 import calendar from "../services/calendar";
 import counter from "../services/counter";
@@ -64,16 +64,62 @@ const Provider = ({ children }: Props) => {
     getPatients();
   }, [isLoggedIn, newRequestIfItChanged]);
 
-  const handleChangeStatus = async (event: any, patientId: string, monthDay: number) => {
+  type infoT = { monthDay: number, daySchedule: statusObject, patientData: (thisPatient & idPatient), status: string };
+
+  const changeScheduleStatus = (info: infoT) => {
+    const { monthDay, daySchedule, patientData, status } = info;
+    const updatedStatus = {
+      ...daySchedule,
+      status,
+    };
+
+    const updatedSchedule = patientData?.schedule.map((daySchedule: statusObject) => {
+      if (daySchedule.monthDay === monthDay) {
+        return updatedStatus;
+      }
+      return daySchedule;
+    })
+
+    const updatedData = {...patientData, schedule: updatedSchedule};
+    
+    return updatedData;
+  }
+
+  type patientT = thisPatient & idPatient;
+
+  type infoPatientsListT = { copyState: patientT[], updatedSchedule: patientT, patientId: string };
+
+  const updatedListOfPatients = (arrayPatients: infoPatientsListT) => {
+    const { copyState, updatedSchedule, patientId } = arrayPatients;
+    return copyState.map((patient: thisPatient & idPatient) => {
+      if (patient._id === patientId) {
+        return updatedSchedule;
+      }
+      return patient;
+    })
+  }
+
+  const handleChangeStatus = async (checked: boolean, patientId: string, monthDay: number) => {
     const copyState = [...patients];
-    const index = copyState.find((patient: thisPatient & idPatient) => patient._id === patientId);
-    console.log(index);
-    if (status === '!!!') {
-      // copyState[index].status = 'OK';
-      setPatients(copyState);
-    } else {
-      // copyState[index].status = '!!!';
-      setPatients(copyState);
+    
+    const todayMonthDay = new Date().getDate();
+    
+    if (todayMonthDay === monthDay) {
+      const patientData = copyState.find((patient: thisPatient & idPatient) => patient._id === patientId);
+
+      const daySchedule = patientData?.schedule.find((daySchedule: statusObject) => daySchedule.monthDay === monthDay);
+
+      const infoUpdate = { monthDay, daySchedule, patientData, status: 'OK' };
+      
+      if (checked) {
+        const updatedSchedule = changeScheduleStatus(infoUpdate as infoT);
+        const updatedList = updatedListOfPatients({ copyState, updatedSchedule, patientId });
+        setPatients(updatedList);
+      } else {
+        const updatedSchedule = changeScheduleStatus({...infoUpdate, status: '!!!'} as infoT);
+        const updatedList = updatedListOfPatients({ copyState, updatedSchedule, patientId });
+        setPatients(updatedList);
+      }
     }
   }
 
