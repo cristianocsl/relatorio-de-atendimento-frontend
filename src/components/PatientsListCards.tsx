@@ -1,11 +1,10 @@
 import React, { BaseSyntheticEvent, useContext } from 'react';
 import { Box,  Flex, Text, Checkbox } from '@chakra-ui/react';
-import { Props, Target } from 'framer-motion/types/types';
 import { thisPatient, idPatient, statusObject } from '../services/types';
 import MyContext from '../context/MyContext';
 import Status from './Status';
 
-const PatientsList = (props: Props) => {
+const PatientsList = (props: { day: number, monthDay: string, filterPatientsByDay: any }) => {
   const { filterPatientsByDay, day, monthDay } = props;
   const { handleChangeStatus, dataCalendar } = useContext(MyContext);
   
