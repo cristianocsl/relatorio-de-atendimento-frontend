@@ -66,7 +66,7 @@ const Provider = ({ children }: Props) => {
 
   type infoT = { monthDay: number, daySchedule: statusObject, patientData: (thisPatient & idPatient), status: string };
 
-  const changeScheduleStatus = (info: infoT) => {
+  const changeScheduleStatus = (info: infoT): patientT => {
     const { monthDay, daySchedule, patientData, status } = info;
     const updatedStatus = {
       ...daySchedule,
@@ -89,7 +89,7 @@ const Provider = ({ children }: Props) => {
 
   type infoPatientsListT = { copyState: patientT[], updatedPatientInfo: patientT, patientId: string };
 
-  const updatedListOfPatients = (arrayPatients: infoPatientsListT) => {
+  const updatedListOfPatients = (arrayPatients: infoPatientsListT): patientT[] => {
     const { copyState, updatedPatientInfo, patientId } = arrayPatients;
     return copyState.map((patient: thisPatient & idPatient) => {
       if (patient._id === patientId) {
@@ -99,16 +99,20 @@ const Provider = ({ children }: Props) => {
     })
   }
 
-  const serviceCounter = (patientData: patientT, checked: boolean) => {
-    const { servicePerformed, ...otherInfos } = patientData;
+  const serviceCounter = (patientData: patientT, checked: boolean): patientT => {
+    const { servicePerformed, serviceGoal } = patientData;
+    
     if (checked) {
       servicePerformed.weekly += 1;
+      servicePerformed.weekly = servicePerformed.weekly > serviceGoal.weekly ? serviceGoal.weekly : servicePerformed.weekly;
       servicePerformed.monthly += 1;
-      return { ...otherInfos, servicePerformed };
+      return { ...patientData, servicePerformed };
     } else {
       servicePerformed.weekly -= 1;
+      servicePerformed.weekly = servicePerformed.weekly < 0 ? 0 : servicePerformed.weekly;
       servicePerformed.monthly -= 1;
-      return { ...otherInfos, servicePerformed };
+      servicePerformed.monthly = servicePerformed.monthly < 0 ? 0 : servicePerformed.monthly;
+      return { ...patientData, servicePerformed };
     }
   }
 
@@ -124,12 +128,9 @@ const Provider = ({ children }: Props) => {
 
       const infoUpdate = { monthDay, daySchedule, patientData, status: 'OK' };
 
-      console.log(infoUpdate.patientData);
-      
       if (checked) {
         const updatedSchedule = changeScheduleStatus(infoUpdate as infoT);
         const updatedPatientInfo = serviceCounter(updatedSchedule, checked);
-
         const updatedList = updatedListOfPatients({ copyState, updatedPatientInfo, patientId });
         setPatients(updatedList);
       } else {
