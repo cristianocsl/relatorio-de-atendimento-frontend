@@ -7,7 +7,6 @@ const Status = (props: Props) => {
   return (
     <Text>
       { daySchedule.status }
-      { daySchedule.monthDay }
     </Text>
   )
 };
