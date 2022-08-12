@@ -54,7 +54,7 @@ const Provider = ({ children }: Props) => {
     
     const getPatients = async () => {
       if (isLoggedIn || TOKEN) {
-        const { patients, finances} = await axiosServices.get();
+        const { patients, finances } = await axiosServices.get();
         setPatients(patients);
         setFinances(finances);
         setIsLoading(false);
@@ -131,11 +131,15 @@ const Provider = ({ children }: Props) => {
       if (checked) {
         const updatedSchedule = changeScheduleStatus(infoUpdate as infoT);
         const updatedPatientInfo = serviceCounter(updatedSchedule, checked);
+        const { _id: patientId, ...updatedPatientInfoWithoutId } = updatedPatientInfo;
+        await axiosServices.update(patientId, updatedPatientInfoWithoutId);
         const updatedList = updatedListOfPatients({ copyState, updatedPatientInfo, patientId });
         setPatients(updatedList);
       } else {
         const updatedSchedule = changeScheduleStatus({...infoUpdate, status: '!!!'} as infoT);
         const updatedPatientInfo = serviceCounter(updatedSchedule, checked);
+        const { _id: patientId, ...updatedPatientInfoWithoutId } = updatedPatientInfo;
+        await axiosServices.update(patientId, updatedPatientInfoWithoutId);
         const updatedList = updatedListOfPatients({ copyState, updatedPatientInfo, patientId });
         setPatients(updatedList);
       }
