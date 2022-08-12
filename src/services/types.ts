@@ -52,7 +52,11 @@ export type thisPatient = {
   healthInsurance: string,
   unitPrice: number,
   totalPrice: number,
+  doneTotalPrice?: number,
+  prevTotalPrice?: number,
   evolution: string,
+  createdAt?: string,
+  activeService?: string,
 };
 
 export type patientArray = (thisPatient & idPatient)[];
