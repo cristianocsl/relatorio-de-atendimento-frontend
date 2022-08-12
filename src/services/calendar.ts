@@ -21,7 +21,7 @@ const extractData = (data: Date): extractDataType => {
   const sliced = data.toString().split(' ').slice(0, 3);
   const englishWeekDay = sliced[0] as string;
   const englishMonth = sliced[1] as string;
-  const day = sliced[2] as string;
+  const day = +sliced[2] as number;
   return {
     reference: weekDays[englishWeekDay].reference,
     weekDay: weekDays[englishWeekDay].portugueseWeekDay,

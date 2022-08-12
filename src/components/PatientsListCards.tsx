@@ -4,7 +4,7 @@ import { thisPatient, idPatient, statusObject } from '../services/types';
 import MyContext from '../context/MyContext';
 import Status from './Status';
 
-const PatientsList = (props: { day: number, monthDay: string, filterPatientsByDay: any }) => {
+const PatientsList = (props: { day: number, monthDay: number, filterPatientsByDay: any }) => {
   const { filterPatientsByDay, day, monthDay } = props;
   const { handleChangeStatus } = useContext(MyContext);
   
@@ -85,13 +85,13 @@ const PatientsList = (props: { day: number, monthDay: string, filterPatientsByDa
                 color="wine.7"
                 textAlign={'start'}>
                 <Checkbox
-                  isChecked={isChecked(info.schedule, +monthDay)}
+                  isChecked={isChecked(info.schedule, monthDay)}
                   marginRight={5}
                   iconColor={'wine.7'}
                   colorScheme={'white'}
                   borderColor={'wine.7'}
                   justifyContent={'start'}
-                  onChange={(e: BaseSyntheticEvent) => handleChangeStatus(e.target.checked, info._id, +monthDay)}
+                  onChange={(e: BaseSyntheticEvent) => handleChangeStatus(e.target.checked, info._id, monthDay)}
                 >
                   <Text fontSize={'12px'}>
                     { info.patient }
@@ -121,7 +121,7 @@ const PatientsList = (props: { day: number, monthDay: string, filterPatientsByDa
                 color="wine.7"
               >
                 {info.schedule.map((daySchedule: statusObject) => {
-                  if (+daySchedule.monthDay === +monthDay) {
+                  if (daySchedule.monthDay === monthDay) {
                     return (
                       <Status
                         key={daySchedule.monthDay}
