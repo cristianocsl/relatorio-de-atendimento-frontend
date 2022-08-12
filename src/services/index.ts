@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { thisLogin, thisName, thisPatient, bodyDataPatient } from './types';
+import { thisLogin, thisName, bodyDataPatient, thisPatient } from './types';
 
 const axiosInstance = axios.create({
   baseURL: 'https://minhaagendahomecare.herokuapp.com',
@@ -67,7 +67,7 @@ const get = async () => {
   }
 };
 
-const update = async (id: number, dataPatient: bodyDataPatient) => {
+const update = async (id: string, dataPatient: thisPatient) => {
   try {
     const { data } = await axiosInstance.put(`/patient/${id}`, dataPatient);
     return data;
