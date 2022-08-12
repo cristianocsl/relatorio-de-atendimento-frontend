@@ -6,9 +6,14 @@ import Status from './Status';
 
 const PatientsList = (props: { day: number, monthDay: string, filterPatientsByDay: any }) => {
   const { filterPatientsByDay, day, monthDay } = props;
-  const { handleChangeStatus, dataCalendar } = useContext(MyContext);
+  const { handleChangeStatus } = useContext(MyContext);
   
   const patientsByDay = filterPatientsByDay(day);
+
+  const isChecked = (arraySchedule: Array<statusObject>, monthDay: number): boolean => {
+    const daySchedule = arraySchedule.find((daySchedule: statusObject) => daySchedule.monthDay === monthDay && daySchedule.status === 'OK');
+    return daySchedule ? true : false;
+  }
 
   return (
     <Box>
@@ -80,6 +85,7 @@ const PatientsList = (props: { day: number, monthDay: string, filterPatientsByDa
                 color="wine.7"
                 textAlign={'start'}>
                 <Checkbox
+                  isChecked={isChecked(info.schedule, +monthDay)}
                   marginRight={5}
                   iconColor={'wine.7'}
                   colorScheme={'white'}
