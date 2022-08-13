@@ -87,13 +87,13 @@ const Provider = ({ children }: Props) => {
 
   type patientT = thisPatient & idPatient;
 
-  type infoPatientsListT = { copyState: patientT[], updatedPatientInfo: patientT, patientId: string };
+  type infoPatientsListT = { copyState: patientT[], updatedPatientInfoResponse: patientT, patientId: string };
 
   const updatedListOfPatients = (arrayPatients: infoPatientsListT): patientT[] => {
-    const { copyState, updatedPatientInfo, patientId } = arrayPatients;
+    const { copyState, updatedPatientInfoResponse, patientId } = arrayPatients;
     return copyState.map((patient: thisPatient & idPatient) => {
       if (patient._id === patientId) {
-        return updatedPatientInfo;
+        return updatedPatientInfoResponse;
       }
       return patient;
     })
@@ -132,15 +132,15 @@ const Provider = ({ children }: Props) => {
         const updatedSchedule = changeScheduleStatus(infoUpdate as infoT);
         const updatedPatientInfo = serviceCounter(updatedSchedule, checked);
         const { _id: patientId, ...updatedPatientInfoWithoutId } = updatedPatientInfo;
-        await axiosServices.update(patientId, updatedPatientInfoWithoutId);
-        const updatedList = updatedListOfPatients({ copyState, updatedPatientInfo, patientId });
+        const updatedPatientInfoResponse: patientT = await axiosServices.update(patientId, updatedPatientInfoWithoutId);
+        const updatedList = updatedListOfPatients({ copyState, updatedPatientInfoResponse, patientId });
         setPatients(updatedList);
       } else {
         const updatedSchedule = changeScheduleStatus({...infoUpdate, status: '!!!'} as infoT);
         const updatedPatientInfo = serviceCounter(updatedSchedule, checked);
         const { _id: patientId, ...updatedPatientInfoWithoutId } = updatedPatientInfo;
-        await axiosServices.update(patientId, updatedPatientInfoWithoutId);
-        const updatedList = updatedListOfPatients({ copyState, updatedPatientInfo, patientId });
+        const updatedPatientInfoResponse: patientT = await axiosServices.update(patientId, updatedPatientInfoWithoutId);
+        const updatedList = updatedListOfPatients({ copyState, updatedPatientInfoResponse, patientId });
         setPatients(updatedList);
       }
     }
