@@ -106,6 +106,7 @@ const Provider = ({ children }: Props) => {
       servicePerformed.weekly += 1;
       servicePerformed.weekly = servicePerformed.weekly > serviceGoal.weekly ? serviceGoal.weekly : servicePerformed.weekly;
       servicePerformed.monthly += 1;
+      servicePerformed.monthly = servicePerformed.monthly > serviceGoal.monthly ? serviceGoal.monthly : servicePerformed.monthly;
       return { ...patientData, servicePerformed };
     } else {
       servicePerformed.weekly -= 1;
