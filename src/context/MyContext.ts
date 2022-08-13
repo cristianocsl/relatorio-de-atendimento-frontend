@@ -12,8 +12,7 @@ const inicialValue = {
   isLoggedIn: false,
   dataCalendar: [] as extractDataType[],
   patientsToday: 0 as number,
-  // patientsPending: 0 as number,
-  // remainingPatients: 0 as number,
+  remainingPatients: 0 as number,
   greetingMessage: '' as string,
   newRequestIfItChanged: false as boolean,
   setIsLoggedIn: (bool: boolean) => {},
@@ -21,7 +20,7 @@ const inicialValue = {
   setPatients: (patient: patientArray[]) => {},
   filterPatientsByDay: (day: number) => [] as patientArray[],
   setNewRequestIfItChanged: (bool: boolean) => {},
-  handleChangeStatus: (event: any, patientId: string, monthDay: number) => {},
+  handleChangeStatus: (event: boolean, patientId: string, monthDay: number) => {},
 };
 
 const MyContext = createContext(inicialValue);
