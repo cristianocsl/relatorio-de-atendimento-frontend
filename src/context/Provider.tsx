@@ -152,8 +152,7 @@ const Provider = ({ children }: Props) => {
   }
   
   const patientsToday = counter.patientsToday(patients);
-  // const remainingPatients = counter.remainingPatients(patients);
-  // const patientsPending = counter.patientsPending(patients);
+  const remainingPatients = counter.remainingPatients(patients);
   
   const context = {
     isLoading,
@@ -162,8 +161,7 @@ const Provider = ({ children }: Props) => {
     finances,
     dataCalendar,
     patientsToday,
-    // patientsPending,
-    // remainingPatients,
+    remainingPatients,
     greetingMessage,
     newRequestIfItChanged,
     filterPatientsByDay,
