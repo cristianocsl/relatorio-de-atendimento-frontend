@@ -63,7 +63,7 @@ const PatientsList = (props: { day: number, monthDay: number, filterPatientsByDa
           w={{ base: '50px', smm: '100px' }}
           color="wine.7"
           >
-          Status
+          Atend. Hoje
         </Box>
       </Flex>
       {
