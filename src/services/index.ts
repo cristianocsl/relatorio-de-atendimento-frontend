@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { thisLogin, thisName, bodyDataPatient, thisPatient } from './types';
+import { thisLogin, thisName, bodyDataPatient, thisPatient, idPatient } from './types';
 
 const axiosInstance = axios.create({
   baseURL: 'https://minhaagendahomecare.herokuapp.com',
