@@ -7,13 +7,14 @@ import counter from "../services/counter";
 import sendGreetingsMessage from "../services/greetingsMessage";
 
 type Props = { children: ReactElement | ReactElement[] };
+type patientT = thisPatient & idPatient;
 
 const TODAY = new Date().getDay();
 const TIME = 3600000;
 const TIME2 = 1800000;
 
 const Provider = ({ children }: Props) => {
-  const [patients, setPatients] = useState<Array<thisPatient & idPatient>>([]);
+  const [patients, setPatients] = useState<Array<patientT>>([]);
   const [finances, setFinances] = useState<Array<thisFinances>>([]);
   const [dataCalendar, setDataCalendar] = useState<Array<extractDataType>>([]);
   const [currentDay, setCurrentDay] = useState<number>(TODAY);
@@ -85,13 +86,12 @@ const Provider = ({ children }: Props) => {
     return updatedData;
   }
 
-  type patientT = thisPatient & idPatient;
 
   type infoPatientsListT = { copyState: patientT[], updatedPatientInfoResponse: patientT, patientId: string };
 
   const updatedListOfPatients = (arrayPatients: infoPatientsListT): patientT[] => {
     const { copyState, updatedPatientInfoResponse, patientId } = arrayPatients;
-    return copyState.map((patient: thisPatient & idPatient) => {
+    return copyState.map((patient: patientT) => {
       if (patient._id === patientId) {
         return updatedPatientInfoResponse;
       }
