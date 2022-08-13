@@ -64,7 +64,7 @@ const Provider = ({ children }: Props) => {
     getPatients();
   }, [isLoggedIn, newRequestIfItChanged]);
 
-  type infoT = { monthDay: number, daySchedule: statusObject, patientData: (thisPatient & idPatient), status: string };
+  type infoT = { monthDay: number, daySchedule: statusObject, patientData: patientT, status: string };
 
   const changeScheduleStatus = (info: infoT): patientT => {
     const { monthDay, daySchedule, patientData, status } = info;
@@ -122,7 +122,7 @@ const Provider = ({ children }: Props) => {
     const todayMonthDay = new Date().getDate();
     
     if (todayMonthDay === monthDay) {
-      const patientData = copyState.find((patient: thisPatient & idPatient) => patient._id === patientId);
+      const patientData = copyState.find((patient: patientT) => patient._id === patientId);
 
       const daySchedule = patientData?.schedule.find((daySchedule: statusObject) => daySchedule.monthDay === monthDay);
 
@@ -146,8 +146,8 @@ const Provider = ({ children }: Props) => {
     }
   }
 
-  const filterPatientsByDay = (day: number): Array<thisPatient & idPatient> => {
-    return patients.filter((patient: thisPatient & idPatient) => patient.days.includes(day));
+  const filterPatientsByDay = (day: number): Array<patientT> => {
+    return patients.filter((patient: patientT) => patient.days.includes(day));
   }
   
   const patientsToday = counter.patientsToday(patients);
