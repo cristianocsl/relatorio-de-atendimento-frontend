@@ -4,6 +4,8 @@ import { thisPatient, idPatient, statusObject } from '../services/types';
 import MyContext from '../context/MyContext';
 import Status from './Status';
 
+type patientT = thisPatient & idPatient;
+
 const PatientsList = (props: { day: number, monthDay: number, filterPatientsByDay: any }) => {
   const { filterPatientsByDay, day, monthDay } = props;
   const { handleChangeStatus, resetServices } = useContext(MyContext);
@@ -15,11 +17,18 @@ const PatientsList = (props: { day: number, monthDay: number, filterPatientsByDa
     return daySchedule ? true : false;
   }
 
-  const auxiliarToReset = (info: (thisPatient & idPatient)) => {
+  const auxiliarToReset = (info: patientT) => {
     if (info.servicePerformed.weekly === info.serviceGoal.weekly) {
       resetServices(info);
     }
   }
+
+  const changeColor = (performed: number, goal: number): string => {
+    if (performed === goal) {
+      return 'red';
+    }
+    return 'wine.7';
+  };
 
   return (
     <Box>
@@ -104,31 +113,29 @@ const PatientsList = (props: { day: number, monthDay: number, filterPatientsByDa
                   </Text>
                 </Checkbox>
               </Box>
+
               <Box
                 onClick={ () => auxiliarToReset(info) }
                 w={{ base: '92px', smm: '130px', md: '160px' }}
-                color="wine.7"
+                color={ changeColor(info.servicePerformed.weekly, info.serviceGoal.weekly) }
               >
                 { info.servicePerformed.weekly + '/' + info.serviceGoal.weekly }
               </Box>
+
               <Box
                 w={{ base: '90px', smm: '130px', md: '160px' }}
-                color="wine.7"
+                color={ changeColor(info.servicePerformed.monthly, info.serviceGoal.monthly) }
               >
                 { info.servicePerformed.monthly + '/' + info.serviceGoal.monthly }
               </Box>
-              <Box
-                hidden={ info.servicePerformed.monthly !== info.serviceGoal.monthly }
-                onClick={ () => resetServices(info) }
-              >
-                *
-              </Box>
+
               <Box
                 w={{ base: '40%', smm: '50%' }}
                 color="wine.7"
               >
                 { info.healthInsurance }
               </Box>
+
               <Box
                 w={{ base: '50px', smm: '100px' }}
                 color="wine.7"
