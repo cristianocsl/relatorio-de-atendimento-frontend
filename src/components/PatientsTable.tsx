@@ -9,12 +9,13 @@ import {
   Flex,
   Text,
   Box,
+  Button,
 } from '@chakra-ui/react'
 import PatientsListCards from './PatientsListCards';
 import MyContext from '../context/MyContext';
 import { useNavigate } from 'react-router-dom';
 import IsLoading from './IsLoading';
-import { AddBoxRounded, EditRounded } from '@mui/icons-material';
+import { AddBoxRounded, EditRounded, Logout as LogoutIcon } from '@mui/icons-material';
 
 import { extractDataType } from '../services/types';
 
@@ -46,6 +47,22 @@ const PatientsTable = () => {
       >
         { greetingMessage }
       </Text>
+
+      <Button
+        position={'absolute'}
+        zIndex={1}
+        alignSelf={'flex-end'}
+        variant="text"
+        size="large"
+        type="submit"
+        top={'0px'}
+        right={'20px'}
+      >
+        <LogoutIcon
+          sx={{ fontSize: 25, color: '#4B1A21' }}
+          // onClick={ () => navigate('/login') & localStorage.clear() }
+        />
+      </Button>
 
       <Box
         color={'green.8'}
