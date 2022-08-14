@@ -23,7 +23,7 @@ const Provider = ({ children }: Props) => {
   const [currentDay, setCurrentDay] = useState<number>(TODAY);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [greetingMessage, setGreetingMessage] = useState('');
+  const [greetingMessage, setGreetingMessage] = useState<string | undefined>('');
   const [observerMessage, setObserverMessage] = useState(true);
   const [newRequestIfItChanged, setNewRequestIfItChanged] = useState(false);
   

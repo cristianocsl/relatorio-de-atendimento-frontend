@@ -13,7 +13,7 @@ const inicialValue = {
   dataCalendar: [] as extractDataType[],
   patientsToday: 0 as number,
   remainingPatients: 0 as number,
-  greetingMessage: '' as string,
+  greetingMessage: '' as string | undefined,
   newRequestIfItChanged: false as boolean,
   resetServices: (patient: patientT) => {},
   setIsLoggedIn: (bool: boolean) => {},
