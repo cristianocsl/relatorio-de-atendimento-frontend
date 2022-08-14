@@ -1,10 +1,13 @@
 import React, { BaseSyntheticEvent, useContext } from 'react';
-import { Box,  Flex, Text, Checkbox } from '@chakra-ui/react';
+import { Box,  Flex, Text, Checkbox, useToast } from '@chakra-ui/react';
 import { thisPatient, idPatient, statusObject } from '../services/types';
 import MyContext from '../context/MyContext';
 import Status from './Status';
 
+type patientT = thisPatient & idPatient;
+
 const PatientsList = (props: { day: number, monthDay: number, filterPatientsByDay: any }) => {
+  const toast = useToast();
   const { filterPatientsByDay, day, monthDay } = props;
   const { handleChangeStatus, resetServices } = useContext(MyContext);
   
@@ -13,6 +16,34 @@ const PatientsList = (props: { day: number, monthDay: number, filterPatientsByDa
   const isChecked = (arraySchedule: Array<statusObject>, monthDay: number): boolean => {
     const daySchedule = arraySchedule.find((daySchedule: statusObject) => daySchedule.monthDay === monthDay && daySchedule.status === 'OK');
     return daySchedule ? true : false;
+  }
+
+  const auxiliarToReset = (info: patientT) => {
+    if (info.servicePerformed.weekly === info.serviceGoal.weekly) {
+      resetServices(info);
+    }
+  }
+
+  const changeColor = (performed: number, goal: number): string => {
+    if (performed === goal) {
+      return 'red';
+    }
+    return 'wine.7';
+  };
+
+  const callToast = () => toast({
+    title: 'Para reiniciar a contagem dos atendimentos, clique sobre a numeração em vermelho!',
+    status: 'success',
+    duration: 8000,
+    isClosable: true,
+  });
+
+  const isEqual = (info: patientT) => {
+    const condition1 = info.servicePerformed.weekly === info.serviceGoal.weekly;
+    const condition2 = info.servicePerformed.monthly === info.serviceGoal.monthly;
+    if (condition1 || condition2) {
+      return callToast();
+    }
   }
 
   return (
@@ -91,43 +122,36 @@ const PatientsList = (props: { day: number, monthDay: number, filterPatientsByDa
                   colorScheme={'white'}
                   borderColor={'wine.7'}
                   justifyContent={'start'}
-                  onChange={(e: BaseSyntheticEvent) => handleChangeStatus(e.target.checked, info._id, monthDay)}
+                  onChange={ (e: BaseSyntheticEvent) => { handleChangeStatus(e.target.checked, info._id, monthDay), isEqual(info)} }
                 >
                   <Text fontSize={'12px'}>
                     { info.patient }
                   </Text>
                 </Checkbox>
               </Box>
+
               <Box
-                hidden={ info.servicePerformed.weekly !== info.serviceGoal.weekly }
-                onClick={ () => resetServices(info) }
-              >
-                *
-              </Box>
-              <Box
+                onClick={ () => auxiliarToReset(info) }
                 w={{ base: '92px', smm: '130px', md: '160px' }}
-                color="wine.7"
+                color={ changeColor(info.servicePerformed.weekly, info.serviceGoal.weekly) }
               >
                 { info.servicePerformed.weekly + '/' + info.serviceGoal.weekly }
               </Box>
+
               <Box
                 w={{ base: '90px', smm: '130px', md: '160px' }}
-                color="wine.7"
+                color={ changeColor(info.servicePerformed.monthly, info.serviceGoal.monthly) }
               >
                 { info.servicePerformed.monthly + '/' + info.serviceGoal.monthly }
               </Box>
-              <Box
-                hidden={ info.servicePerformed.monthly !== info.serviceGoal.monthly }
-                onClick={ () => resetServices(info) }
-              >
-                *
-              </Box>
+
               <Box
                 w={{ base: '40%', smm: '50%' }}
                 color="wine.7"
               >
                 { info.healthInsurance }
               </Box>
+
               <Box
                 w={{ base: '50px', smm: '100px' }}
                 color="wine.7"

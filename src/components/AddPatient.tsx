@@ -6,7 +6,7 @@ import {
   Button, Text, Input, Flex, Grid, GridItem, Box, Checkbox,
 } from '@chakra-ui/react'
 import { buttonFocusKeys, bodyDataPatient, statusObject } from '../services/types';
-import objectCounterWeekDays, { addToSchedule, removeFromSchedule, weekDayRef } from '../services/daysOfMonth';
+import objectCounterWeekDays, { addToSchedule, removeFromSchedule } from '../services/daysOfMonth';
 import axiosServices from '../services/index';
 import MyContext from '../context/MyContext';
 
