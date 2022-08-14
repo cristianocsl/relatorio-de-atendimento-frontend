@@ -15,6 +15,12 @@ const PatientsList = (props: { day: number, monthDay: number, filterPatientsByDa
     return daySchedule ? true : false;
   }
 
+  const auxiliarToReset = (info: (thisPatient & idPatient)) => {
+    if (info.servicePerformed.weekly === info.serviceGoal.weekly) {
+      resetServices(info);
+    }
+  }
+
   return (
     <Box>
       <Flex
@@ -99,12 +105,7 @@ const PatientsList = (props: { day: number, monthDay: number, filterPatientsByDa
                 </Checkbox>
               </Box>
               <Box
-                hidden={ info.servicePerformed.weekly !== info.serviceGoal.weekly }
-                onClick={ () => resetServices(info) }
-              >
-                *
-              </Box>
-              <Box
+                onClick={ () => auxiliarToReset(info) }
                 w={{ base: '92px', smm: '130px', md: '160px' }}
                 color="wine.7"
               >
