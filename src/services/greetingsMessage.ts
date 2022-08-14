@@ -1,7 +1,7 @@
 export default function sendGreetingsMessage(): string {
   const hoursNow = new Date().getHours();
 
-  const userName = JSON.parse(localStorage.getItem('userName') || '') || 'Usuário(a)';
+  const userName = localStorage.getItem('userName') || '' || 'Usuário(a)';
 
   if (hoursNow >= 0 && hoursNow < 12) {
     return `Bom dia, ${userName}!`
