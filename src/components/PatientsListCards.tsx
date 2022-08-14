@@ -6,10 +6,10 @@ import Status from './Status';
 
 const PatientsList = (props: { day: number, monthDay: number, filterPatientsByDay: any }) => {
   const { filterPatientsByDay, day, monthDay } = props;
-  const { handleChangeStatus } = useContext(MyContext);
+  const { handleChangeStatus, resetServices } = useContext(MyContext);
   
   const patientsByDay = filterPatientsByDay(day);
-
+  
   const isChecked = (arraySchedule: Array<statusObject>, monthDay: number): boolean => {
     const daySchedule = arraySchedule.find((daySchedule: statusObject) => daySchedule.monthDay === monthDay && daySchedule.status === 'OK');
     return daySchedule ? true : false;
@@ -97,6 +97,12 @@ const PatientsList = (props: { day: number, monthDay: number, filterPatientsByDa
                     { info.patient }
                   </Text>
                 </Checkbox>
+              </Box>
+              <Box
+                hidden={ info.servicePerformed.weekly !== info.serviceGoal.weekly }
+                onClick={ () => resetServices(info) }
+              >
+                *
               </Box>
               <Box
                 w={{ base: '92px', smm: '130px', md: '160px' }}
