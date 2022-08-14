@@ -114,7 +114,7 @@ const PatientsTable = () => {
             }
           </Wrap>
         </TabList>
-        <TabPanels>
+        <TabPanels mb={'100px'}>
           {
             dataCalendar.map((info) => {
               return (
