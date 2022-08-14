@@ -1,5 +1,5 @@
 import React, { BaseSyntheticEvent, useContext } from 'react';
-import { Box,  Flex, Text, Checkbox } from '@chakra-ui/react';
+import { Box,  Flex, Text, Checkbox, useToast } from '@chakra-ui/react';
 import { thisPatient, idPatient, statusObject } from '../services/types';
 import MyContext from '../context/MyContext';
 import Status from './Status';
@@ -7,6 +7,7 @@ import Status from './Status';
 type patientT = thisPatient & idPatient;
 
 const PatientsList = (props: { day: number, monthDay: number, filterPatientsByDay: any }) => {
+  const toast = useToast();
   const { filterPatientsByDay, day, monthDay } = props;
   const { handleChangeStatus, resetServices } = useContext(MyContext);
   
@@ -29,6 +30,21 @@ const PatientsList = (props: { day: number, monthDay: number, filterPatientsByDa
     }
     return 'wine.7';
   };
+
+  const callToast = () => toast({
+    title: 'Para reiniciar a contagem dos atendimentos, clique sobre a numeração em vermelho!',
+    status: 'success',
+    duration: 8000,
+    isClosable: true,
+  });
+
+  const isEqual = (info: patientT) => {
+    const condition1 = info.servicePerformed.weekly === info.serviceGoal.weekly;
+    const condition2 = info.servicePerformed.monthly === info.serviceGoal.monthly;
+    if (condition1 || condition2) {
+      return callToast();
+    }
+  }
 
   return (
     <Box>
@@ -106,7 +122,7 @@ const PatientsList = (props: { day: number, monthDay: number, filterPatientsByDa
                   colorScheme={'white'}
                   borderColor={'wine.7'}
                   justifyContent={'start'}
-                  onChange={(e: BaseSyntheticEvent) => handleChangeStatus(e.target.checked, info._id, monthDay)}
+                  onChange={ (e: BaseSyntheticEvent) => { handleChangeStatus(e.target.checked, info._id, monthDay), isEqual(info)} }
                 >
                   <Text fontSize={'12px'}>
                     { info.patient }
