@@ -70,7 +70,12 @@ const Provider = ({ children }: Props) => {
   const resetServices = async (patient: patientT) => {
     const copyState = [...patients];
     const { _id: patientId, servicePerformed, ...otherInfos } = patient;
-    servicePerformed.weekly = 0;
+    if (servicePerformed.weekly === otherInfos.serviceGoal.weekly) {
+      servicePerformed.weekly = 0;
+    }
+    if (servicePerformed.monthly === otherInfos.serviceGoal.monthly) {
+      servicePerformed.monthly = 0;
+    }
     const updatedPatientInfoResponse = await axiosServices.update(patientId, { ...otherInfos, servicePerformed });
     const updatedList = updatedListOfPatients({ copyState, updatedPatientInfoResponse, patientId });
     setPatients(updatedList);
