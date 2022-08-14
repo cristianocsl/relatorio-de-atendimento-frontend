@@ -1,6 +1,6 @@
 import React, { FormEvent, useContext, useEffect, useState } from 'react';
 import { thisLogin, thisName, thisProps, thisResponseLogin, thisRespRegister } from '../services/types';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axiosService from '../services';
 
 import {
@@ -84,6 +84,23 @@ export default function BaseComponent(props: thisProps) {
       response.name && (await axiosService.login({ email, password }), navigate('/patients'));
     }
   };
+
+  const redirect = () => {
+    if (props.title === 'Login') {
+      return (
+        <Text color={'wine.8'}>
+          Novo por aqui?  <Link to="/register">Registre-se</Link>
+        </Text>
+      );
+    }
+    if (props.title === 'Cadastro') {
+      return (
+        <Text color={'wine.8'}>
+          <Link to="/login">Ir para a tela de Login</Link>
+        </Text>
+      );
+    }
+  }
 
   return (
     <Box position={'relative'} height={'100vh'}>
@@ -192,6 +209,7 @@ export default function BaseComponent(props: thisProps) {
             <AlertIcon color={'warning'} />
             { responseMessage }
           </Alert>
+        { redirect() }
         </Stack>
       </Container>
       
