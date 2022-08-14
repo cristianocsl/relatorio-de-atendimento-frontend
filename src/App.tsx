@@ -1,24 +1,22 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import AddPatient from './components/AddPatient';
+import PatientsTable from './components/PatientsTable';
+import BasePage from './pages/BaseLoginRegister';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <BrowserRouter>
+        <Routes>
+        <Route path="/" element={ <Navigate replace to="/login" /> } />
+          <Route path="/register" element={<BasePage title="Cadastro" textButtom="Enviar" hidden={false}/>} />
+          <Route path="/login" element={<BasePage title="Login" textButtom="Entrar" hidden={true}/>} />
+          <Route path="/patients" element={ <PatientsTable /> } />
+          <Route path="/addPatient" element={ <AddPatient /> } />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
