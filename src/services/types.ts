@@ -56,6 +56,7 @@ export type thisPatient = {
   prevTotalPrice?: number,
   evolution: string,
   createdAt?: string,
+  updatedAt?: string,
   activeService?: string,
 };
 
