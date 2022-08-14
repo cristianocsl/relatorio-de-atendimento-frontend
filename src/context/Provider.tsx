@@ -61,31 +61,35 @@ const Provider = ({ children }: Props) => {
         setIsLoading(false);
       }
     };
-
+    
     getPatients();
   }, [isLoggedIn, newRequestIfItChanged]);
 
   type infoT = { monthDay: number, daySchedule: statusObject, patientData: patientT, status: string };
 
+  const resetServices = async (patient: patientT) => {
+    const copyState = [...patients];
+    const { _id: patientId, servicePerformed, ...otherInfos } = patient;
+    servicePerformed.weekly = 0;
+    const updatedPatientInfoResponse = await axiosServices.update(patientId, { ...otherInfos, servicePerformed });
+    const updatedList = updatedListOfPatients({ copyState, updatedPatientInfoResponse, patientId });
+    setPatients(updatedList);
+  }
+
   const changeScheduleStatus = (info: infoT): patientT => {
     const { monthDay, daySchedule, patientData, status } = info;
-    const updatedStatus = {
-      ...daySchedule,
-      status,
-    };
+    const updatedStatus = { ...daySchedule, status };
 
     const updatedSchedule = patientData?.schedule.map((daySchedule: statusObject) => {
       if (daySchedule.monthDay === monthDay) {
         return updatedStatus;
       }
       return daySchedule;
-    })
-
+    });
     const updatedData = {...patientData, schedule: updatedSchedule};
     
     return updatedData;
   }
-
 
   type infoPatientsListT = { copyState: patientT[], updatedPatientInfoResponse: patientT, patientId: string };
 
@@ -117,13 +121,15 @@ const Provider = ({ children }: Props) => {
     }
   }
 
+  const findPatient = (patients: patientT[], patientId: string) => patients.find((patient: patientT) => patient._id === patientId);
+
   const handleChangeStatus = async (checked: boolean, patientId: string, monthDay: number) => {
     const copyState = [...patients];
     
     const todayMonthDay = new Date().getDate();
     
     if (todayMonthDay === monthDay) {
-      const patientData = copyState.find((patient: patientT) => patient._id === patientId);
+      const patientData = findPatient(copyState, patientId);
 
       const daySchedule = patientData?.schedule.find((daySchedule: statusObject) => daySchedule.monthDay === monthDay);
 
@@ -170,6 +176,7 @@ const Provider = ({ children }: Props) => {
     setNewRequestIfItChanged,
     setPatients,
     handleChangeStatus,
+    resetServices,
   };
 
   return (
