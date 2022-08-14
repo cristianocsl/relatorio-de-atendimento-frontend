@@ -117,6 +117,12 @@ const PatientsList = (props: { day: number, monthDay: number, filterPatientsByDa
                 { info.servicePerformed.monthly + '/' + info.serviceGoal.monthly }
               </Box>
               <Box
+                hidden={ info.servicePerformed.monthly !== info.serviceGoal.monthly }
+                onClick={ () => resetServices(info) }
+              >
+                *
+              </Box>
+              <Box
                 w={{ base: '40%', smm: '50%' }}
                 color="wine.7"
               >
