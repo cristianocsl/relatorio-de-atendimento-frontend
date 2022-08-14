@@ -273,7 +273,7 @@ export default function AddPatient () {
           }
         </Flex>
         
-        <Box
+        {/* <Box
           p={'4px'}
           height={'30px'}
           bg={'green.1'}
@@ -296,7 +296,7 @@ export default function AddPatient () {
               Quero escolher a quantidade de atendimentos mensais.
             </Text>
           </Checkbox>
-        </Box>
+        </Box> */}
 
         <Grid templateColumns='repeat(2, 1fr)' gap={4}>
           <GridItem>
