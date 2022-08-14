@@ -9,19 +9,13 @@ type patientT = thisPatient & idPatient;
 const PatientsList = (props: { day: number, monthDay: number, filterPatientsByDay: any }) => {
   const toast = useToast();
   const { filterPatientsByDay, day, monthDay } = props;
-  const { handleChangeStatus, resetServices } = useContext(MyContext);
+  const { handleChangeStatus, resetWeeklyServices, resetMonthlyServices } = useContext(MyContext);
   
   const patientsByDay = filterPatientsByDay(day);
   
   const isChecked = (arraySchedule: Array<statusObject>, monthDay: number): boolean => {
     const daySchedule = arraySchedule.find((daySchedule: statusObject) => daySchedule.monthDay === monthDay && daySchedule.status === 'OK');
     return daySchedule ? true : false;
-  }
-
-  const auxiliarToReset = (info: patientT) => {
-    if (info.servicePerformed.weekly === info.serviceGoal.weekly) {
-      resetServices(info);
-    }
   }
 
   const changeColor = (performed: number, goal: number): string => {
@@ -131,7 +125,7 @@ const PatientsList = (props: { day: number, monthDay: number, filterPatientsByDa
               </Box>
 
               <Box
-                onClick={ () => auxiliarToReset(info) }
+                onClick={ () => resetWeeklyServices(info) }
                 w={{ base: '92px', smm: '130px', md: '160px' }}
                 color={ changeColor(info.servicePerformed.weekly, info.serviceGoal.weekly) }
               >
@@ -140,6 +134,7 @@ const PatientsList = (props: { day: number, monthDay: number, filterPatientsByDa
 
               <Box
                 w={{ base: '90px', smm: '130px', md: '160px' }}
+                onClick={ () => resetMonthlyServices(info) }
                 color={ changeColor(info.servicePerformed.monthly, info.serviceGoal.monthly) }
               >
                 { info.servicePerformed.monthly + '/' + info.serviceGoal.monthly }

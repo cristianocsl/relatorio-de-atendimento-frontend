@@ -77,14 +77,26 @@ const Provider = ({ children }: Props) => {
     isClosable: true,
   });
 
-  const resetServices = async (patient: patientT) => {
+  const resetMonthlyServices = async (patient: patientT) => {
+    const copyState = [...patients];
+    const { _id: patientId, servicePerformed, ...otherInfos } = patient;
+    if (servicePerformed.monthly === otherInfos.serviceGoal.monthly) {
+      servicePerformed.monthly = 0;
+    }
+    const updatedPatientInfoResponse = await axiosServices.update(patientId, { ...otherInfos, servicePerformed });
+    const updatedList = updatedListOfPatients({ copyState, updatedPatientInfoResponse, patientId });
+    setPatients(updatedList);
+
+    if (updatedPatientInfoResponse) {
+      return callToast();
+    }
+  };
+
+  const resetWeeklyServices = async (patient: patientT) => {
     const copyState = [...patients];
     const { _id: patientId, servicePerformed, ...otherInfos } = patient;
     if (servicePerformed.weekly === otherInfos.serviceGoal.weekly) {
       servicePerformed.weekly = 0;
-    }
-    if (servicePerformed.monthly === otherInfos.serviceGoal.monthly) {
-      servicePerformed.monthly = 0;
     }
     const updatedPatientInfoResponse = await axiosServices.update(patientId, { ...otherInfos, servicePerformed });
     const updatedList = updatedListOfPatients({ copyState, updatedPatientInfoResponse, patientId });
@@ -195,7 +207,8 @@ const Provider = ({ children }: Props) => {
     setNewRequestIfItChanged,
     setPatients,
     handleChangeStatus,
-    resetServices,
+    resetWeeklyServices,
+    resetMonthlyServices,
   };
 
   return (
