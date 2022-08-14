@@ -5,6 +5,7 @@ import MyContext from "./MyContext";
 import calendar from "../services/calendar";
 import counter from "../services/counter";
 import sendGreetingsMessage from "../services/greetingsMessage";
+import { useToast } from '@chakra-ui/react'
 
 type Props = { children: ReactElement | ReactElement[] };
 type patientT = thisPatient & idPatient;
@@ -14,6 +15,8 @@ const TIME = 3600000;
 const TIME2 = 1800000;
 
 const Provider = ({ children }: Props) => {
+  const toast = useToast();
+
   const [patients, setPatients] = useState<Array<patientT>>([]);
   const [finances, setFinances] = useState<Array<thisFinances>>([]);
   const [dataCalendar, setDataCalendar] = useState<Array<extractDataType>>([]);
@@ -67,6 +70,13 @@ const Provider = ({ children }: Props) => {
 
   type infoT = { monthDay: number, daySchedule: statusObject, patientData: patientT, status: string };
 
+  const callToast = () => toast({
+    title: 'Contagem reiniciada!',
+    status: 'success',
+    duration: 4000,
+    isClosable: true,
+  });
+
   const resetServices = async (patient: patientT) => {
     const copyState = [...patients];
     const { _id: patientId, servicePerformed, ...otherInfos } = patient;
@@ -79,6 +89,10 @@ const Provider = ({ children }: Props) => {
     const updatedPatientInfoResponse = await axiosServices.update(patientId, { ...otherInfos, servicePerformed });
     const updatedList = updatedListOfPatients({ copyState, updatedPatientInfoResponse, patientId });
     setPatients(updatedList);
+
+    if (updatedPatientInfoResponse) {
+      return callToast();
+    }
   }
 
   const changeScheduleStatus = (info: infoT): patientT => {
