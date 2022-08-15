@@ -32,13 +32,6 @@ const PatientsList = (props: { day: number, monthDay: number, filterPatientsByDa
     isClosable: true,
   });
 
-  const successfullyResetMsg = () => toast({
-    title: 'Contagem reiniciada!',
-    status: 'success',
-    duration: 4000,
-    isClosable: true,
-  });
-
   const isEqual = (info: patientT) => {
     const condition1 = info.servicePerformed.weekly === info.serviceGoal.weekly;
     const condition2 = info.servicePerformed.monthly === info.serviceGoal.monthly;
@@ -132,7 +125,7 @@ const PatientsList = (props: { day: number, monthDay: number, filterPatientsByDa
               </Box>
 
               <Box
-                onClick={ () => { resetWeeklyServices(info); successfullyResetMsg() } }
+                onClick={ () => { resetWeeklyServices(info) } }
                 w={{ base: '92px', smm: '130px', md: '160px' }}
                 color={ changeColor(info.servicePerformed.weekly, info.serviceGoal.weekly) }
               >
@@ -141,7 +134,7 @@ const PatientsList = (props: { day: number, monthDay: number, filterPatientsByDa
 
               <Box
                 w={{ base: '90px', smm: '130px', md: '160px' }}
-                onClick={ () => { resetMonthlyServices(info); successfullyResetMsg() } }
+                onClick={ () => { resetMonthlyServices(info) } }
                 color={ changeColor(info.servicePerformed.monthly, info.serviceGoal.monthly) }
               >
                 { info.servicePerformed.monthly + '/' + info.serviceGoal.monthly }
