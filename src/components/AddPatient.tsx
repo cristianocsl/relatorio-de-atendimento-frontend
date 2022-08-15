@@ -35,7 +35,7 @@ const DATA_PATIENT: bodyDataPatient = {
     weekly: 0,
     monthly: 0,
   },
-  unitPrice: 0,
+  unitPrice: '',
   evolution: '',
   schedule: []
 }
@@ -48,6 +48,15 @@ export default function AddPatient () {
   const [dataForm, setDataForm] = useState<bodyDataPatient>(DATA_PATIENT);
   const [chooseQuantity, setChooseQuantity] = useState<boolean>(false);
   const [performed, setPerformed] = useState<boolean>(false);
+
+  const handleChangeUnitPrice = (e: BaseSyntheticEvent) => {
+    e.preventDefault();
+    const copyDataForm = { ...dataForm };
+    const { value } = e.target as HTMLInputElement;
+    const number = value;
+    copyDataForm.unitPrice = number.replace(',', '.');
+    setDataForm(copyDataForm);
+  }
 
   const handleInputChange = (e: BaseSyntheticEvent) => {
     const { name, value } = e.target as HTMLInputElement;
@@ -71,11 +80,11 @@ export default function AddPatient () {
     else if (name === 'performed') {
       value === 'false' ? setPerformed(true) : setPerformed(false);
     }
-    else if (name === 'unitPrice') {
-      newState.unitPrice = +value;
-      setDataForm(newState);
-    }
-    else {
+    // else if (name === 'unitPrice') {
+    //   newState.unitPrice = +value;
+    //   setDataForm(newState);
+    // }
+    else if (name !== 'unitPrice')  {
       setDataForm({ ...dataForm, [name]: value });
     }
   };
@@ -346,10 +355,10 @@ export default function AddPatient () {
               name='unitPrice'
               borderRadius={'4px'}
               pattern="[0-9]+([,\.][0-9]+)?"
-              type='number'
-              value={ dataForm.unitPrice.toString() }
+              type='text'
+              value={ dataForm.unitPrice.replace('.', ',') }
               bg={'green.1'}
-              onChange={ handleInputChange }
+              onChange={ handleChangeUnitPrice }
               width={'100%'}
               textAlign={'center'}
             />

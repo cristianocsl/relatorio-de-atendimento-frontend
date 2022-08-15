@@ -106,7 +106,7 @@ export type bodyDataPatient = {
   days: number[],
   serviceGoal: weekMonthT,
   servicePerformed: weekMonthT,
-  unitPrice: number,
+  unitPrice: string,
   evolution: string,
   schedule: Array<statusObject>,
 }
