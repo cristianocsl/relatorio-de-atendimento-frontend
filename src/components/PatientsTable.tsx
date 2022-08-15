@@ -60,7 +60,7 @@ const PatientsTable = () => {
       >
         <LogoutIcon
           sx={{ fontSize: 25, color: '#4B1A21' }}
-          onClick={ () => { navigate('/login'); localStorage.clear() } }
+          onClick={ () => { navigate('/login'); localStorage.clear(); location.reload() } }
         />
       </Button>
 
