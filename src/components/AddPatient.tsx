@@ -326,7 +326,7 @@ export default function AddPatient () {
               fontSize={'11px'}
               m={'10px 0 0 0'}
             >
-              Qtd de atendim. mensais:
+              Meta de atendim. mensais:
             </FormLabel>
             <Input
               id='serviceGoal.monthly'
@@ -408,7 +408,7 @@ export default function AddPatient () {
               textAlign={'center'}
               m={'10px 0 0 0'}
             >
-              Qtd de atendimentos realizados neste mês:
+              Atendimentos realizados neste mês:
             </FormLabel>
             <Input
               id='servicePerformed.monthly'
