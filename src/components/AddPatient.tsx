@@ -185,7 +185,7 @@ export default function AddPatient () {
     const response = await axiosServices.create(dataForm);
 
     response.patient
-    ? (callToast('success', response.message), setNewRequestIfItChanged(!newRequestIfItChanged))
+    ? (callToast('success', response.message), setNewRequestIfItChanged(!newRequestIfItChanged), setDataForm(DATA_PATIENT), setTimeout(() => { window.location.reload() }, 2000))
     : callToast('error', response);
   };
 
