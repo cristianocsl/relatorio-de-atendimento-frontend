@@ -160,8 +160,19 @@ export default function AddPatient () {
     isClosable: true,
   });
 
+  const callToastEmptyDays = () => toast({
+    title: 'Escolha os dias de atendimento!',
+    status: 'error',
+    duration: 4000,
+    isClosable: true,
+  });
+
   const handleSubmit = async (e: BaseSyntheticEvent) => {
     e.preventDefault();
+    const copyWeekdaysArray = [...dataForm.days];
+    if (!copyWeekdaysArray.length) {
+      return callToastEmptyDays();
+    }
     const response = await axiosServices.create(dataForm);
 
     response.patient
