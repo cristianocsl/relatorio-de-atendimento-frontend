@@ -1,5 +1,6 @@
 import React, { BaseSyntheticEvent, useContext } from 'react';
-import { Box,  Flex, Text, Checkbox, useToast } from '@chakra-ui/react';
+import { Box,  Flex, Text, Checkbox, useToast, Button } from '@chakra-ui/react';
+import { EditIcon } from '@chakra-ui/icons';
 import { thisPatient, idPatient, statusObject } from '../services/types';
 import MyContext from '../context/MyContext';
 import Status from './Status';
@@ -106,7 +107,7 @@ const PatientsList = (props: { day: number, monthDay: number, filterPatientsByDa
               height={{ base: '50px', smm: '40px' }}
               m={'0 0 16px 0'}>
               <Box
-                w='60%'
+                w='48%'
                 color="wine.7"
                 textAlign={'start'}>
                 <Checkbox
@@ -123,6 +124,16 @@ const PatientsList = (props: { day: number, monthDay: number, filterPatientsByDa
                   </Text>
                 </Checkbox>
               </Box>
+
+              <Button
+                variant="text"
+                size="large"
+                type="submit"
+                width={'12%'}
+                color='wine.7'
+              >
+                <EditIcon/>
+              </Button>
 
               <Box
                 onClick={ () => { resetWeeklyServices(info) } }
