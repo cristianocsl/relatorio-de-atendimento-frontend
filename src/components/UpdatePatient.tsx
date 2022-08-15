@@ -1,6 +1,6 @@
 import React, { BaseSyntheticEvent, useContext, useState } from 'react';
 import UndoRoundedIcon from '@mui/icons-material/UndoRounded';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Params, useParams } from 'react-router-dom';
 import {
   FormControl, FormLabel, Textarea, useToast,
   Button, Text, Input, Flex, Grid, GridItem, Box, Checkbox,
@@ -43,6 +43,7 @@ const DATA_PATIENT: bodyDataPatient = {
 export default function UpdatePatient () {
   const { setNewRequestIfItChanged, newRequestIfItChanged } = useContext(MyContext)
   const navigate = useNavigate();
+  const { patientId } = useParams<Params>();
   const toast = useToast();
   const [buttonsFocus, setButtonsFocus] = useState<buttonFocusKeys>(BUTTONFOCUS);
   const [dataForm, setDataForm] = useState<bodyDataPatient>(DATA_PATIENT);
