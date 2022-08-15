@@ -345,10 +345,11 @@ export default function AddPatient () {
               id='unitPrice'
               name='unitPrice'
               borderRadius={'4px'}
+              pattern="[0-9]+([,\.][0-9]+)?"
               type='number'
-              value={dataForm.unitPrice?.toString()}
+              value={ dataForm.unitPrice.toString() }
               bg={'green.1'}
-              onChange={handleInputChange}
+              onChange={ handleInputChange }
               width={'100%'}
               textAlign={'center'}
             />
