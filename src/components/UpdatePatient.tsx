@@ -204,7 +204,10 @@ export default function UpdatePatient () {
     const response = await axiosServices.update(_id as string, copyDataForm);
 
     response.patient
-    ? (callToast('success', response.message), setNewRequestIfItChanged(!newRequestIfItChanged), setDataForm(DATA_PATIENT), setTimeout(() => { window.location.reload() }, 2000))
+    ? (callToast('success', response.message),
+    setNewRequestIfItChanged(!newRequestIfItChanged),
+    setDataForm(DATA_PATIENT), 
+    navigate('/patients'))
     : callToast('error', response);
   };
 
