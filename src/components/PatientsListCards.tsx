@@ -1,13 +1,16 @@
 import React, { BaseSyntheticEvent, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Box,  Flex, Text, Checkbox, useToast, Button } from '@chakra-ui/react';
 import { EditIcon } from '@chakra-ui/icons';
 import { thisPatient, idPatient, statusObject } from '../services/types';
 import MyContext from '../context/MyContext';
 import Status from './Status';
+import UpdatePatient from './UpdatePatient';
 
 type patientT = thisPatient & idPatient;
 
 const PatientsList = (props: { day: number, monthDay: number, filterPatientsByDay: any }) => {
+  const navigate = useNavigate();
   const toast = useToast();
   const { filterPatientsByDay, day, monthDay } = props;
   const { handleChangeStatus, resetWeeklyServices, resetMonthlyServices } = useContext(MyContext);
@@ -131,6 +134,7 @@ const PatientsList = (props: { day: number, monthDay: number, filterPatientsByDa
                 type="submit"
                 width={'12%'}
                 color='wine.7'
+                onClick={() => navigate(`/updatePatient/${info._id}`) }
               >
                 <EditIcon/>
               </Button>
