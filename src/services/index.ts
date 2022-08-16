@@ -72,6 +72,7 @@ const update = async (id: string, dataPatient: thisPatient) => {
     const { data } = await axiosInstance.put(`/patient/${id}`, dataPatient);
     return data;
   } catch (err: any) {
+    console.log(err)
     return err.response.data.message;
   }
 };

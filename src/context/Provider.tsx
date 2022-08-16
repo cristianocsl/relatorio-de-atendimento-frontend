@@ -195,8 +195,9 @@ const Provider = ({ children }: Props) => {
     return patients.filter((patient: patientT) => patient.days.includes(day));
   }
 
-  const getPatientInfoById = (patientId: string): patientT | undefined => {
-    return patients.find((patient: patientT) => patient._id === patientId);
+  const getPatientInfoById = (patientId: string | undefined): patientT | undefined => {
+    const patient = patients.filter((patient: patientT) => patient._id === patientId)[0];
+    return patient;
   }
   
   const patientsToday = counter.patientsToday(patients);

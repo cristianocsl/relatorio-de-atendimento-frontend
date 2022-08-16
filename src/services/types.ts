@@ -60,6 +60,35 @@ export type thisPatient = {
   activeService?: string,
 };
 
+export type updatePatientT = {
+  patient: string,
+  neighborhood: string,
+  schedule: Array<statusObject>,
+  priority: string,
+  days: number[],
+  serviceGoal: {
+    weekly: number,
+    monthly: number,
+  },
+  servicePerformed: {
+    weekly: number,
+    monthly: number,
+  },
+  servicePending: {
+    weekly: number,
+    monthly: number,
+  },
+  healthInsurance: string,
+  unitPrice: string,
+  totalPrice: number,
+  doneTotalPrice?: number,
+  prevTotalPrice?: number,
+  evolution: string,
+  createdAt?: string,
+  updatedAt?: string,
+  activeService?: string,
+};
+
 export type patientArray = (thisPatient & idPatient)[];
 
 export type idPatient = { _id: string };

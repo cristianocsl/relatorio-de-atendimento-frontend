@@ -1,11 +1,11 @@
-import React, { BaseSyntheticEvent, useContext, useState } from 'react';
+import React, { BaseSyntheticEvent, useContext, useEffect, useState } from 'react';
 import UndoRoundedIcon from '@mui/icons-material/UndoRounded';
 import { useNavigate, Params, useParams } from 'react-router-dom';
 import {
   FormControl, FormLabel, Textarea, useToast,
   Button, Text, Input, Flex, Grid, GridItem, Box, Checkbox,
 } from '@chakra-ui/react'
-import { buttonFocusKeys, bodyDataPatient, statusObject } from '../services/types';
+import { buttonFocusKeys, bodyDataPatient, statusObject, thisPatient, idPatient } from '../services/types';
 import objectCounterWeekDays, { addToSchedule, removeFromSchedule } from '../services/daysOfMonth';
 import axiosServices from '../services/index';
 import MyContext from '../context/MyContext';
@@ -21,6 +21,7 @@ const BUTTONFOCUS: buttonFocusKeys = {
   6: { focus: false },
   7: { focus: false },
 }
+
 
 const DATA_PATIENT: bodyDataPatient = {
   patient: '',
@@ -41,7 +42,7 @@ const DATA_PATIENT: bodyDataPatient = {
 }
 
 export default function UpdatePatient () {
-  const { setNewRequestIfItChanged, newRequestIfItChanged } = useContext(MyContext)
+  const { setNewRequestIfItChanged, newRequestIfItChanged, getPatientInfoById } = useContext(MyContext)
   const navigate = useNavigate();
   const { patientId } = useParams<Params>();
   const toast = useToast();
@@ -49,6 +50,25 @@ export default function UpdatePatient () {
   const [dataForm, setDataForm] = useState<bodyDataPatient>(DATA_PATIENT);
   const [chooseQuantity, setChooseQuantity] = useState<boolean>(false);
   const [performed, setPerformed] = useState<boolean>(false);
+
+  type patientT = thisPatient & idPatient;
+  type userIdT = { userId: string };
+  type updateT = patientT & userIdT;
+
+  useEffect(() => {
+    const patient = getPatientInfoById(patientId) as unknown;
+    const update = patient as bodyDataPatient;
+    if (update) {
+      setDataForm(update);
+      
+      const objButtonFocus = update.days.reduce((object: buttonFocusKeys, weekDay: number) => {
+        object[weekDay] = { focus: true };
+        return object;
+      }, {})
+      
+      setButtonsFocus({ ...buttonsFocus, ...objButtonFocus });
+    }
+  }, []);
 
   const handleChangeUnitPrice = (e: BaseSyntheticEvent) => {
     e.preventDefault();
@@ -81,10 +101,6 @@ export default function UpdatePatient () {
     else if (name === 'performed') {
       value === 'false' ? setPerformed(true) : setPerformed(false);
     }
-    // else if (name === 'unitPrice') {
-    //   newState.unitPrice = +value;
-    //   setDataForm(newState);
-    // }
     else if (name !== 'unitPrice')  {
       setDataForm({ ...dataForm, [name]: value });
     }
@@ -183,7 +199,9 @@ export default function UpdatePatient () {
     if (!copyWeekdaysArray.length) {
       return callToastEmptyDays();
     }
-    const response = await axiosServices.create(dataForm);
+
+    const { _id, ...copyDataForm} = dataForm as unknown as updateT;
+    const response = await axiosServices.update(_id as string, copyDataForm);
 
     response.patient
     ? (callToast('success', response.message), setNewRequestIfItChanged(!newRequestIfItChanged), setDataForm(DATA_PATIENT), setTimeout(() => { window.location.reload() }, 2000))
@@ -293,31 +311,6 @@ export default function UpdatePatient () {
             )
           }
         </Flex>
-        
-        {/* <Box
-          p={'4px'}
-          height={'30px'}
-          bg={'green.1'}
-          borderRadius={'4px'}
-          textAlign={'start'}
-          m={'20px 0 0 0'}
-        >
-          <Checkbox
-            p={'0'}
-            m={'0'}
-            iconColor={'wine.7'}
-            colorScheme={'white'}
-            borderColor={'wine.7'}
-            justifyContent={'start'}
-            name='chooseQuantity'
-            value={chooseQuantity.toString()}
-            onChange={handleInputChange}
-          >
-            <Text fontSize={{ base: '10.5px', sm: '12px' }} fontWeight={'bold'}>
-              Quero escolher a quantidade de atendimentos mensais.
-            </Text>
-          </Checkbox>
-        </Box> */}
 
         <Grid templateColumns='repeat(2, 1fr)' gap={4}>
           <GridItem>

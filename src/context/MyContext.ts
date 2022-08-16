@@ -1,9 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { createContext } from 'react';
+import PatientsList from '../components/PatientsListCards';
+import PatientsTable from '../components/PatientsTable';
 import { thisPatient, idPatient, thisFinances, extractDataType } from '../services/types';
 
 type patientT = thisPatient & idPatient;
+type userIdT = { userId: string };
+type updateT = patientT & userIdT;
 
 const inicialValue = {
   patients: [] as patientT[],
@@ -23,6 +27,7 @@ const inicialValue = {
   filterPatientsByDay: (day: number) => [] as patientT[],
   setNewRequestIfItChanged: (bool: boolean) => {},
   handleChangeStatus: (event: boolean, patientId: string, monthDay: number) => {},
+  getPatientInfoById: (patientId: string | undefined) => {},
 };
 
 const MyContext = createContext(inicialValue);
