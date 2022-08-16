@@ -194,6 +194,10 @@ const Provider = ({ children }: Props) => {
   const filterPatientsByDay = (day: number): Array<patientT> => {
     return patients.filter((patient: patientT) => patient.days.includes(day));
   }
+
+  const getPatientInfoById = (patientId: string): patientT | undefined => {
+    return patients.find((patient: patientT) => patient._id === patientId);
+  }
   
   const patientsToday = counter.patientsToday(patients);
   const remainingPatients = counter.remainingPatients(patients);
@@ -216,6 +220,7 @@ const Provider = ({ children }: Props) => {
     handleChangeStatus,
     resetWeeklyServices,
     resetMonthlyServices,
+    getPatientInfoById,
   };
 
   return (
