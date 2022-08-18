@@ -219,7 +219,7 @@ export default function UpdatePatient () {
         color={'green.7'}
         mt={'40px'}
       >
-        Adicione um novo paciente
+        Atualize os dados do(a) paciente {dataForm.patient}
       </Text>
 
       <FormControl color={'wine.7'} borderWidth={0} p={'0 20px 0 20px'}>
