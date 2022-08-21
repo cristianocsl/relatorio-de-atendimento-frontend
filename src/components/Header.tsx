@@ -4,7 +4,6 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   Button,
-  BreadcrumbSeparator,
 } from '@chakra-ui/react';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { Link, useNavigate } from 'react-router-dom';
@@ -30,16 +29,16 @@ const Header = () => {
         </BreadcrumbItem>
       </Breadcrumb>
       <Button
-          className="content-field"
-          variant="text"
-          size="large"
-          type="submit"
-        >
-          <LogoutIcon
-            sx={{ fontSize: 25, color: 'gray' }}
-            onClick={ () => { navigate('/login'), localStorage.clear(); } }
-          />
-        </Button>
+        className="content-field"
+        variant="text"
+        size="large"
+        type="submit"
+      >
+        <LogoutIcon
+          sx={{ fontSize: 25, color: 'gray' }}
+          onClick={ () => { navigate('/login'), localStorage.clear(); } }
+        />
+      </Button>
     </div>
   )
 }
