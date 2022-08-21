@@ -180,6 +180,7 @@ const PatientsTable = () => {
             transform={'translate(128%, 33%)'}
             fontSize={'30px'}
             boxShadow="4px 15px 20px #032029"
+            onClick={ () => navigate('/finances') }
           >
             $
           </Box>
