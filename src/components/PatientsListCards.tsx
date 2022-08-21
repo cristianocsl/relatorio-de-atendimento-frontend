@@ -5,7 +5,6 @@ import { EditIcon } from '@chakra-ui/icons';
 import { thisPatient, idPatient, statusObject } from '../services/types';
 import MyContext from '../context/MyContext';
 import Status from './Status';
-import UpdatePatient from './UpdatePatient';
 
 type patientT = thisPatient & idPatient;
 
