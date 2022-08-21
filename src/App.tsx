@@ -4,6 +4,7 @@ import AddPatient from './components/AddPatient';
 import UpdatePatient from './components/UpdatePatient';
 import PatientsTable from './components/PatientsTable';
 import BasePage from './pages/BaseLoginRegister';
+import Finances from './components/Finances';
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
           <Route path="/login" element={<BasePage title="Login" textButtom="Entrar" hidden={true}/>} />
           <Route path="/patients" element={ <PatientsTable /> } />
           <Route path="/addPatient" element={ <AddPatient /> } />
+          <Route path="/finances" element={ <Finances /> } />
           <Route path="/updatePatient/:patientId" element={ <UpdatePatient /> } />
         </Routes>
       </BrowserRouter>
