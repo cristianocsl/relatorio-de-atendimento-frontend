@@ -362,50 +362,20 @@ export default function UpdatePatient () {
           </GridItem>
         </Grid>
 
-        <Box
-          p={'4px'}
-          height={'30px'}
-          bg={'green.1'}
-          borderRadius={'4px'}
-          textAlign={'start'}
-          m={'20px 0 0 0'}
-        >
-          <Checkbox
-            p={'0'}
-            m={'0'}
-            iconColor={'wine.7'}
-            colorScheme={'white'}
-            borderColor={'wine.7'}
-            justifyContent={'start'}
-            name='performed'
-            value={performed.toString()}
-            onChange={handleInputChange}
-          >
-            <Text fontSize={{ base: '10.5px', sm: '12px' }} fontWeight={'bold'}>
-              Já realizou algum atendimento neste mês?
-            </Text>
-          </Checkbox>
-        </Box>
-
         <Grid
           templateColumns='repeat(2, 1fr)'
-          gap={4} borderColor={'green.1'}
-          borderWidth={'1px'}
-          borderRadius={'6px'}
-          m={'20px 0 0 0'}
-          p={' 0 10px 10px 10px'}
-          hidden={!performed}
+          gap={4}
           alignItems={'end'}
         >
           <GridItem>
             <FormLabel
+              fontSize={{ base: '10.5px', sm: '12px' }}
               htmlFor='serviceGoal.monthly'
               fontWeight={'bold'}
-              fontSize={'11px'}
               textAlign={'center'}
               m={'10px 0 0 0'}
             >
-              Atendimentos realizados neste mês:
+              Quantos atendimentos você realizou até hoje neste mês?
             </FormLabel>
             <Input
               id='servicePerformed.monthly'
@@ -416,18 +386,18 @@ export default function UpdatePatient () {
               onChange={handleInputChange}
               textAlign={'center'}
               width={'100%'}
-            />
+              />
           </GridItem>
 
           <GridItem>
             <FormLabel
+              fontSize={{ base: '10.5px', sm: '12px' }}
               htmlFor='healthInsurance'
               fontWeight={'bold'}
-              fontSize={'11px'}
               m={'10px 0 0 0'}
               textAlign={'center'}
             >
-              Qtd de atendimentos realizados nesta semana:
+              Quantos atendimentos você realizou até hoje nesta semana?
             </FormLabel>
             <Input
               id='servicePerformed.weekly'
