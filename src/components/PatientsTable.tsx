@@ -15,7 +15,7 @@ import PatientsListCards from './PatientsListCards';
 import MyContext from '../context/MyContext';
 import { useNavigate } from 'react-router-dom';
 import IsLoading from './IsLoading';
-import { AddBoxRounded, EditRounded, Logout as LogoutIcon } from '@mui/icons-material';
+import { AddBoxRounded, Groups, Logout as LogoutIcon } from '@mui/icons-material';
 
 import { extractDataType } from '../services/types';
 
@@ -150,7 +150,7 @@ const PatientsTable = () => {
             position={'absolute'}
             transform={'translate(-270%, 60%)'}
           >
-            <EditRounded color="primary" sx={{ fontSize: '30px', color: '#85BFD3' }}/>
+            <Groups color="primary" sx={{ fontSize: '30px', color: '#85BFD3' }}/>
           </Box>
 
           <Box
