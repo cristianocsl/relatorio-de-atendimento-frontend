@@ -8,7 +8,7 @@ export default function sendGreetingsMessage(): string | undefined {
 
   userNameJson && JSON.parse(userNameJson);
 
-  const userName = userNameJson ? JSON.parse(userNameJson) : '';
+  const userName = userNameJson ? JSON.parse(userNameJson) : 'apareça nome!!!';
 
   if (hoursNow >= 0 && hoursNow < 12) {
     return `Bom dia, ${userName}!`
