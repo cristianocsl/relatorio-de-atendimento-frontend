@@ -12,13 +12,15 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <ThemeProvider theme={themeMaterial}>
+  <React.StrictMode>
+    <ThemeProvider theme={themeMaterial}>
     <ChakraProvider theme={theme}>
       <Provider>
         <App />
       </Provider>
     </ChakraProvider>
-  </ThemeProvider>
+    </ThemeProvider>
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
