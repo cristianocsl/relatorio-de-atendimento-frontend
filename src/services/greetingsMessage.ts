@@ -1,6 +1,9 @@
 export default function sendGreetingsMessage(): string | undefined {
   const hoursNow = new Date().getHours();
 
+  // const userNameJson = localStorage.getItem('userName') || '';
+  // const userName = userNameJson.toString();
+
   const userNameJson = localStorage.getItem('userName');
 
   userNameJson ? JSON.parse(userNameJson) : '';
