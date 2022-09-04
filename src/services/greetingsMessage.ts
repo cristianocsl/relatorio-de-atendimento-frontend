@@ -1,4 +1,4 @@
-export default function sendGreetingsMessage(userNameProvider: string): string | undefined {
+export default function sendGreetingsMessage(): string | undefined {
   const hoursNow = new Date().getHours();
 
   // const userNameJson = localStorage.getItem('userName') || '';
@@ -6,7 +6,7 @@ export default function sendGreetingsMessage(userNameProvider: string): string |
 
   const userNameJson = localStorage.getItem('userName');
 
-  userNameJson ? JSON.parse(userNameJson) : userNameProvider;
+  userNameJson ? JSON.parse(userNameJson) : '';
 
   const userName = userNameJson ? JSON.parse(userNameJson) : '';
 

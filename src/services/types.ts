@@ -102,6 +102,15 @@ export type thisFinances = {
   createdAt: string,
 }
 
+export type Tfinances = {
+  prevTotalPrice: number,
+  doneTotalPrice: number,
+  healthInsurance: string,
+  userId: string,
+  createdAt: string,
+  patientId: string,
+}
+
 type subObject = {
   portugueseWeekDay: string,
   reference: number,

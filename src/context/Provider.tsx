@@ -40,7 +40,7 @@ const Provider = ({ children }: Props) => {
   }, TIME2);
   
   useEffect(() => {
-    const message = sendGreetingsMessage(userName);
+    const message = sendGreetingsMessage();
     setGreetingMessage(message);
   }, [observerMessage]);
 

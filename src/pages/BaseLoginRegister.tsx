@@ -37,7 +37,7 @@ export default function BaseComponent(props: thisProps) {
   const [hideAlert, setHideAlert] = useState<boolean>(true);
 
   const navigate = useNavigate();
-  const { setIsLoggedIn, setUserName } = useContext(MyContext);
+  const { setIsLoggedIn } = useContext(MyContext);
 
   useEffect(() => {
     const wakeUpHeroku = async () => axiosService.wakeUp();
@@ -74,7 +74,7 @@ export default function BaseComponent(props: thisProps) {
     if (props.title === 'Login') {
       const response = await axiosService.login(bodyLogin);
       workingWhitError(response);
-      response.name && (setUserName(response.name), navigate('/patients'));
+      response.name && navigate('/patients');
     }
     
     if (props.title === 'Cadastro') {
