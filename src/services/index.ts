@@ -8,14 +8,14 @@ const axiosInstance = axios.create({
   },
 });
 
-const wakeUp = async () => {
-  try {
-    const { data } = await axiosInstance.get('/wakeup');
-    return data;
-  } catch (err: unknown) {
-    return err;
-  }
-}
+// const wakeUp = async () => {
+//   try {
+//     const { data } = await axiosInstance.get('/wakeup');
+//     return data;
+//   } catch (err: unknown) {
+//     return err;
+//   }
+// }
 
 const register = async (userData: thisLogin | thisName) => {
   try {
@@ -93,7 +93,7 @@ axiosInstance.interceptors.response.use((config) => {
 
 const axiosServices = {
   axiosInstance,
-  wakeUp,
+  // wakeUp,
   register,
   login,
   create,

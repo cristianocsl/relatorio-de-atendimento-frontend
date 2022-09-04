@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect, useState } from "react";
 import axiosServices from "../services";
-import { idPatient, thisFinances, thisPatient, statusObject, extractDataType, Tfinances } from "../services/types";
+import { idPatient, thisFinances, thisPatient, statusObject, extractDataType } from "../services/types";
 import MyContext from "./MyContext";
 import calendar from "../services/calendar";
 import counter from "../services/counter";
