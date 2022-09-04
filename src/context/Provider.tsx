@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect, useState } from "react";
 import axiosServices from "../services";
-import { idPatient, thisFinances, thisPatient, statusObject, extractDataType } from "../services/types";
+import { idPatient, thisFinances, thisPatient, statusObject, extractDataType, Tfinances } from "../services/types";
 import MyContext from "./MyContext";
 import calendar from "../services/calendar";
 import counter from "../services/counter";
@@ -26,6 +26,7 @@ const Provider = ({ children }: Props) => {
   const [greetingMessage, setGreetingMessage] = useState<string | undefined>('');
   const [observerMessage, setObserverMessage] = useState(true);
   const [newRequestIfItChanged, setNewRequestIfItChanged] = useState(false);
+  const [userName, setUserName] = useState('');
   
   setInterval(() =>{
     const today = new Date().getDay();
@@ -202,6 +203,30 @@ const Provider = ({ children }: Props) => {
   
   const patientsToday = counter.patientsToday(patients);
   const remainingPatients = counter.remainingPatients(patients);
+
+  // const filteredFinances = finances.reduce((array: Array<thisFinances>, finance: thisFinances): any => {
+  //   const obj = {
+  //     healthInsurance: '',
+  //     prevTotalPrice: 0,
+  //     doneTotalPrice: 0,
+  //     patientId: '',
+  //     userId: '',
+  //     createdAt: '',
+  //   };
+  //   const newFinance = finance.healthInsurance;
+  //   obj.healthInsurance = newFinance;
+
+  //   if (obj.healthInsurance === finance.healthInsurance) {
+  //     obj.prevTotalPrice += finance.prevTotalPrice;
+  //     obj.doneTotalPrice += finance.doneTotalPrice;
+  //   }
+
+  //   array.push(obj);
+
+  //   return array;
+  // }, [])
+
+  // console.log('provider: ', filteredFinances);
   
   const context = {
     isLoading,
@@ -213,6 +238,7 @@ const Provider = ({ children }: Props) => {
     remainingPatients,
     greetingMessage,
     newRequestIfItChanged,
+    userName,
     filterPatientsByDay,
     setIsLoggedIn,
     setIsLoading,
@@ -222,6 +248,7 @@ const Provider = ({ children }: Props) => {
     resetWeeklyServices,
     resetMonthlyServices,
     getPatientInfoById,
+    setUserName,
   };
 
   return (

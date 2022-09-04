@@ -19,6 +19,8 @@ const inicialValue = {
   remainingPatients: 0 as number,
   greetingMessage: '' as string | undefined,
   newRequestIfItChanged: false as boolean,
+  userName: '' as string | undefined,
+  setUserName: (userName: string) => {},
   resetWeeklyServices: (patient: patientT) => {},
   resetMonthlyServices: (patient: patientT) => {},
   setIsLoggedIn: (bool: boolean) => {},
