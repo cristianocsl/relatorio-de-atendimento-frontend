@@ -9,6 +9,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { useNavigate } from 'react-router-dom';
 import UndoRoundedIcon from '@mui/icons-material/UndoRounded';
 import MyContext from '../context/MyContext';
+import { Tfinances } from '../services/types';
 
 
 const Finances = () => {
@@ -43,28 +44,80 @@ const Finances = () => {
         align={'center'}
         fontWeight={'bold'}
         fontSize={'12px'}
-        p={'0 4px 0 4px'}
+        p={'0 12px 0 12px'}
         justifyContent={'space-around'}>
         <Box
+          w='33.33%'
           color="wine.7"
           textAlign={'start'}
         >
           Empresa
         </Box>
         <Box
-          w={{ base: '92px', smm: '130px', md: '160px' }}
+          w='33.33%'
           wordBreak={'break-word'}
           color="wine.7"
-          >
+        >
           Renda prevista
         </Box>
         <Box
-          w={{ base: '90px', smm: '130px', md: '160px' }}
+          w='33.33%'
           color="wine.7"
         >
           Renda realizada
         </Box>
       </Flex>
+      {
+        finances.map((item: Tfinances) => {
+          return(
+            <Flex
+              key={item.userId +  Math.random() * (10000 - 1) + 1}
+              textAlign={'center'}
+              align={'center'}
+              fontWeight={'bold'}
+              fontSize={'12px'}
+              p={'0 12px 0 12px'}
+              justifyContent={'space-around'}>
+              <Box
+                w='20%'
+                color="wine.7"
+                textAlign={'start'}>
+                <Text fontSize={'12px'}>
+                  { item.createdAt }
+                </Text>
+              </Box>
+              <Box
+                w='20%'
+                color="wine.7"
+                textAlign={'start'}>
+                <Text fontSize={'12px'}>
+                  { item.patientId }
+                </Text>
+              </Box>
+              <Box
+                w='20%'
+                color="wine.7"
+                textAlign={'start'}>
+                <Text fontSize={'12px'}>
+                  { item.healthInsurance }
+                </Text>
+              </Box>
+
+              <Box
+                w='20%'
+              >
+                { item.prevTotalPrice }
+              </Box>
+
+              <Box
+                w='20%'
+              >
+                { item.doneTotalPrice }
+              </Box>
+            </Flex>
+          )
+        })
+      }
 
       <Button
         position={'fixed'}

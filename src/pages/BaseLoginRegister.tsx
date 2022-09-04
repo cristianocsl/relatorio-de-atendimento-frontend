@@ -1,4 +1,4 @@
-import React, { FormEvent, useContext, useState } from 'react';
+import React, { FormEvent, useContext, useEffect, useState } from 'react';
 import { thisLogin, thisName, thisProps, thisResponseLogin, thisRespRegister } from '../services/types';
 import { Link, useNavigate } from 'react-router-dom';
 import axiosService from '../services';
@@ -37,7 +37,7 @@ export default function BaseComponent(props: thisProps) {
   const [hideAlert, setHideAlert] = useState<boolean>(true);
 
   const navigate = useNavigate();
-  const { setIsLoggedIn, setUserName } = useContext(MyContext);
+  const { setIsLoggedIn } = useContext(MyContext);
 
   const handleChange = (event: FormEvent<HTMLInputElement>): void => {
     const { name, value } = (event.target as HTMLInputElement);
@@ -69,7 +69,7 @@ export default function BaseComponent(props: thisProps) {
     if (props.title === 'Login') {
       const response = await axiosService.login(bodyLogin);
       workingWhitError(response);
-      response.name && (setUserName(response.name), navigate('/patients'));
+      response.name && navigate('/patients');
     }
     
     if (props.title === 'Cadastro') {

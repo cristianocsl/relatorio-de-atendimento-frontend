@@ -26,7 +26,6 @@ const Provider = ({ children }: Props) => {
   const [greetingMessage, setGreetingMessage] = useState<string | undefined>('');
   const [observerMessage, setObserverMessage] = useState(true);
   const [newRequestIfItChanged, setNewRequestIfItChanged] = useState(false);
-  const [userName, setUserName] = useState('');
   
   setInterval(() =>{
     const today = new Date().getDay();
@@ -238,7 +237,6 @@ const Provider = ({ children }: Props) => {
     remainingPatients,
     greetingMessage,
     newRequestIfItChanged,
-    userName,
     filterPatientsByDay,
     setIsLoggedIn,
     setIsLoading,
@@ -248,7 +246,6 @@ const Provider = ({ children }: Props) => {
     resetWeeklyServices,
     resetMonthlyServices,
     getPatientInfoById,
-    setUserName,
   };
 
   return (
