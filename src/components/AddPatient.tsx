@@ -375,7 +375,7 @@ export default function AddPatient () {
               fontSize={{ base: '10.5px', sm: '12px' }}
               htmlFor='serviceGoal.monthly'
               fontWeight={'bold'}
-              textAlign={'center'}
+              textAlign={'start'}
               m={'10px 0 0 0'}
             >
               Quantos atendimentos você realizou até hoje neste mês?
@@ -398,7 +398,7 @@ export default function AddPatient () {
               htmlFor='healthInsurance'
               fontWeight={'bold'}
               m={'10px 0 0 0'}
-              textAlign={'center'}
+              textAlign={'start'}
             >
               Quantos atendimentos você realizou até hoje nesta semana?
             </FormLabel>

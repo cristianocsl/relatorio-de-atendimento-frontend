@@ -372,7 +372,7 @@ export default function UpdatePatient () {
               fontSize={{ base: '10.5px', sm: '12px' }}
               htmlFor='serviceGoal.monthly'
               fontWeight={'bold'}
-              textAlign={'center'}
+              textAlign={'start'}
               m={'10px 0 0 0'}
             >
               Quantos atendimentos você realizou até hoje neste mês?
@@ -406,7 +406,7 @@ export default function UpdatePatient () {
               value={dataForm.servicePerformed.weekly}
               bg={'green.1'}
               onChange={handleInputChange}
-              textAlign={'center'}
+              textAlign={'start'}
               width={'100%'}
             />
           </GridItem>
