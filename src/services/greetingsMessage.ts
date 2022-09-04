@@ -6,7 +6,7 @@ export default function sendGreetingsMessage(): string | undefined {
 
   const userNameJson = localStorage.getItem('userName');
 
-  userNameJson ? JSON.parse(userNameJson) : '';
+  userNameJson && JSON.parse(userNameJson);
 
   const userName = userNameJson ? JSON.parse(userNameJson) : '';
 
