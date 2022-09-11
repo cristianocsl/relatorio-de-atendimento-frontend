@@ -192,7 +192,7 @@ const Provider = ({ children }: Props) => {
   }
 
   const filterPatientsByDay = (day: number): Array<patientT> => {
-    return patients.filter((patient: patientT) => patient.days.includes(day));
+    return patients.filter((patient: patientT) => patient.days.includes(day) && patient.activeService === 'Sim');
   }
 
   const getPatientInfoById = (patientId: string | undefined): patientT | undefined => {
