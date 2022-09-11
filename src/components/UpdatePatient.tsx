@@ -3,7 +3,7 @@ import UndoRoundedIcon from '@mui/icons-material/UndoRounded';
 import { useNavigate, Params, useParams } from 'react-router-dom';
 import {
   FormControl, FormLabel, Textarea, useToast,
-  Button, Text, Input, Flex, Grid, GridItem, Radio, RadioGroup, Stack,
+  Button, Text, Input, Flex, Grid, GridItem, Radio, RadioGroup, Stack, Checkbox,
 } from '@chakra-ui/react'
 import { buttonFocusKeys, bodyDataPatient, statusObject, thisPatient, idPatient } from '../services/types';
 import objectCounterWeekDays, { addToSchedule, removeFromSchedule } from '../services/daysOfMonth';
@@ -50,6 +50,7 @@ export default function UpdatePatient () {
   const [buttonsFocus, setButtonsFocus] = useState<buttonFocusKeys>(BUTTONFOCUS);
   const [dataForm, setDataForm] = useState<bodyDataPatient>(DATA_PATIENT);
   const [chooseQuantity, setChooseQuantity] = useState<boolean>(false);
+  const [changeActiveService, setChangeActiveService] = useState<boolean>(true);
 
   type patientT = thisPatient & idPatient;
   type userIdT = { userId: string };
@@ -415,16 +416,25 @@ export default function UpdatePatient () {
           </GridItem>
         </Grid>
 
-        <Text
-          fontWeight={'bold'}
-          fontSize={'14px'}
+        <Checkbox
           m={'10px 0 0 0'}
+          iconColor={'wine.7'}
+          colorScheme={'white'}
+          borderColor={'wine.7'}
+          justifyContent={'start'}
+          fontWeight={'bold'}
+          isChecked={changeActiveService}
+          onChange={ (e: BaseSyntheticEvent) => setChangeActiveService(e.target.checked) }
         >
-          Deixar de acompanhar este paciente?
-        </Text>
+          <Text fontSize={'12px'}>
+            Continuar os atendimentos deste paciente?
+          </Text>
+        </Checkbox>
+
         <RadioGroup
           onChange={ handleRadioValue }
           value={dataForm.activeService}
+          isDisabled={changeActiveService}
         >
           <Stack direction='row' spacing={4} justifyContent={'center'}>
             <Radio value='Sim'>Sim</Radio>
