@@ -147,6 +147,7 @@ export type bodyDataPatient = {
   unitPrice: string,
   evolution: string,
   schedule: Array<statusObject>,
+  activeService: string,
 }
 
 export type TweekDayRefObject = {

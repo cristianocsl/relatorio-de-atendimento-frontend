@@ -3,7 +3,7 @@ import UndoRoundedIcon from '@mui/icons-material/UndoRounded';
 import { useNavigate, Params, useParams } from 'react-router-dom';
 import {
   FormControl, FormLabel, Textarea, useToast,
-  Button, Text, Input, Flex, Grid, GridItem, Box, Checkbox,
+  Button, Text, Input, Flex, Grid, GridItem, Radio, RadioGroup, Stack,
 } from '@chakra-ui/react'
 import { buttonFocusKeys, bodyDataPatient, statusObject, thisPatient, idPatient } from '../services/types';
 import objectCounterWeekDays, { addToSchedule, removeFromSchedule } from '../services/daysOfMonth';
@@ -38,7 +38,8 @@ const DATA_PATIENT: bodyDataPatient = {
   },
   unitPrice: '',
   evolution: '',
-  schedule: []
+  schedule: [],
+  activeService: '',
 }
 
 export default function UpdatePatient () {
@@ -49,7 +50,6 @@ export default function UpdatePatient () {
   const [buttonsFocus, setButtonsFocus] = useState<buttonFocusKeys>(BUTTONFOCUS);
   const [dataForm, setDataForm] = useState<bodyDataPatient>(DATA_PATIENT);
   const [chooseQuantity, setChooseQuantity] = useState<boolean>(false);
-  const [performed, setPerformed] = useState<boolean>(false);
 
   type patientT = thisPatient & idPatient;
   type userIdT = { userId: string };
@@ -98,12 +98,15 @@ export default function UpdatePatient () {
     else if (name === 'chooseQuantity') {
       value === 'false' ? setChooseQuantity(true) : setChooseQuantity(false);
     }
-    else if (name === 'performed') {
-      value === 'false' ? setPerformed(true) : setPerformed(false);
-    }
     else if (name !== 'unitPrice')  {
       setDataForm({ ...dataForm, [name]: value });
     }
+  };
+
+  const handleRadioValue = (value: string) => {
+    const copyState = Object.assign({}, dataForm);
+    copyState.activeService = value;
+    setDataForm(copyState);
   };
 
   const checkIfCanSetSchedule = (arraySchedule: statusObject[], arrayStatusFromState: statusObject[]): void => {
@@ -411,6 +414,23 @@ export default function UpdatePatient () {
             />
           </GridItem>
         </Grid>
+
+        <Text
+          fontWeight={'bold'}
+          fontSize={'14px'}
+          m={'10px 0 0 0'}
+        >
+          Deixar de acompanhar este paciente?
+        </Text>
+        <RadioGroup
+          onChange={ handleRadioValue }
+          value={dataForm.activeService}
+        >
+          <Stack direction='row' spacing={4} justifyContent={'center'}>
+            <Radio value='Sim'>Sim</Radio>
+            <Radio value='Não'>Não</Radio>
+          </Stack>
+        </RadioGroup>
 
         <FormLabel
           htmlFor='evolution'

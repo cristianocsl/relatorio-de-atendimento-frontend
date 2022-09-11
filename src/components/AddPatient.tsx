@@ -3,7 +3,7 @@ import UndoRoundedIcon from '@mui/icons-material/UndoRounded';
 import { useNavigate } from 'react-router-dom';
 import {
   FormControl, FormLabel, Textarea, useToast,
-  Button, Text, Input, Flex, Grid, GridItem, Box, Checkbox,
+  Button, Text, Input, Flex, Grid, GridItem,
 } from '@chakra-ui/react'
 import { buttonFocusKeys, bodyDataPatient, statusObject } from '../services/types';
 import objectCounterWeekDays, { addToSchedule, removeFromSchedule } from '../services/daysOfMonth';
@@ -37,7 +37,8 @@ const DATA_PATIENT: bodyDataPatient = {
   },
   unitPrice: '',
   evolution: '',
-  schedule: []
+  schedule: [],
+  activeService: '',
 }
 
 export default function AddPatient () {
