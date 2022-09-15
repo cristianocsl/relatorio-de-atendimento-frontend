@@ -1,37 +1,24 @@
 import React, {  useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Text, Flex, Box } from '@chakra-ui/react'
-import { bodyDataPatient, thisPatient, idPatient } from '../services/types';
+import { thisPatient, idPatient } from '../services/types';
 import MyContext from '../context/MyContext';
 
-const DATA_PATIENT: bodyDataPatient = {
-  patient: '',
-  neighborhood: '',
-  healthInsurance: '',
-  days: [],
-  serviceGoal: {
-    weekly: 0,
-    monthly: 0,
-  },
-  servicePerformed: {
-    weekly: 0,
-    monthly: 0,
-  },
-  unitPrice: '',
-  evolution: '',
-  schedule: [],
-  activeService: '',
-}
-
 export default function UpdatePatient () {
-  const { patients, finances } = useContext(MyContext)
-  const navigate = useNavigate();
-
+  const { patients } = useContext(MyContext)
   type patientT = thisPatient & idPatient;
 
 
   return (
     <Box>
+      <Text
+        fontWeight={'bold'}
+        fontSize={'20px'}
+        color={'green.7'}
+        mt={'40px'}
+      >
+        Lista de pacientes
+      </Text>
+
       <Flex
         textAlign={'center'}
         align={'center'}
@@ -65,7 +52,7 @@ export default function UpdatePatient () {
                 align={'center'}
                 fontWeight={'bold'}
                 fontSize={'12px'}
-                p={'0 4px 0 4px'}
+                p={'10px 4px 0 4px'}
                 justifyContent={'start'}
               >
                 <Box
