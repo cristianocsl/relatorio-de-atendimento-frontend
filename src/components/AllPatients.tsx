@@ -1,10 +1,13 @@
 import React, {  useContext } from 'react';
-import { Text, Flex, Box } from '@chakra-ui/react'
+import UndoRoundedIcon from '@mui/icons-material/UndoRounded';
+import { useNavigate } from 'react-router-dom';
+import { Text, Flex, Box, Button } from '@chakra-ui/react'
 import { thisPatient, idPatient } from '../services/types';
 import MyContext from '../context/MyContext';
 
 export default function UpdatePatient () {
-  const { patients } = useContext(MyContext)
+  const { patients } = useContext(MyContext);
+  const navigate = useNavigate();
   type patientT = thisPatient & idPatient;
 
 
@@ -86,6 +89,18 @@ export default function UpdatePatient () {
             }
           )
         }
+      <Button
+        position={'fixed'}
+        bottom={'60px'}
+        left={'40px'}
+        onClick={ () => navigate('/patients') }
+        bg={'wine.8'}
+        _hover={{ bg: 'wine.6' }}
+        color={'wine.2'}
+        alignSelf={'start'}
+      >
+        <UndoRoundedIcon/>
+      </Button>
     </Box>
   );
 }
