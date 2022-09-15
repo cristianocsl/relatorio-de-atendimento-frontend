@@ -12,7 +12,7 @@ export default function UpdatePatient () {
 
 
   return (
-    <Box>
+    <Box pb={'120px'}>
       <Text
         fontWeight={'bold'}
         fontSize={'20px'}
