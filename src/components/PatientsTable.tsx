@@ -149,6 +149,7 @@ const PatientsTable = () => {
           <Box
             position={'absolute'}
             transform={'translate(-270%, 60%)'}
+            onClick={ () => navigate('/allPatients') }
           >
             <Groups color="primary" sx={{ fontSize: '30px', color: '#85BFD3' }}/>
           </Box>
