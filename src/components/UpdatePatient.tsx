@@ -22,7 +22,6 @@ const BUTTONFOCUS: buttonFocusKeys = {
   7: { focus: false },
 }
 
-
 const DATA_PATIENT: bodyDataPatient = {
   patient: '',
   neighborhood: '',
@@ -140,7 +139,6 @@ export default function UpdatePatient () {
       setDataForm(dataFormCopy);
     }
   }
-
 
   const handleDayClick = (e: BaseSyntheticEvent, index: number) => {
     includeExcludeSchedule(index);
@@ -475,9 +473,7 @@ export default function UpdatePatient () {
           }}>
           Salvar
         </Button>
-        
       </FormControl>
-
 
       <Button
         position={'fixed'}
